@@ -1,0 +1,151 @@
+<?php
+/**
+ * Crystal DBAL
+ *
+ * An open source application for database manipulation
+ *
+ * @package		Crystal DBAL
+ * @author		Martin Rusev
+ * @link		http://crystal.martinrusev.net
+ * @since		Version 0.1
+ * @version     0.1
+ */
+
+// ------------------------------------------------------------------------
+
+class Crystal_Validator
+{
+
+    public $passed;
+    
+    public $errors = array();
+
+
+    private $valid_methods = array('alpha' => 'Alpha',
+                                   'alpha_numeric' => 'AlphaNumeric',
+                                   'between' => 'Between',
+                                   'boolean' => 'Boolean',
+                                   'comparsion' => 'Comparsion',
+                                   'valid_email' => 'Email',
+                                   'extension' => 'Extension',
+                                   'integer' => 'Integer',
+                                   'valid_ip' => 'Ip',
+                                   'matches' => 'Matches',
+                                   'max_length' => 'MaxLength',
+                                   'min_length' => 'MinLength',
+                                   'numeric' => 'Numeric',
+                                   'regexp' => 'Regexp',
+                                   'unique' => 'Unique',
+                                   'valid_url' => 'Url');
+								   
+	private $method_prefix = "Crystal_Validation_";							   
+
+    function __construct($rules ,$data)
+    {
+
+        $this->errors = array();
+        $this->passed = TRUE;
+
+
+        /**
+         *  CHECK EVERY RULE IN $rules array and checks the conditions
+         */
+        foreach($rules as $rule => $condition)
+        {	
+		
+			if(array_key_exists($rule, $data))
+			{
+				
+				
+
+				/* MULTIPLE RULES **/
+				$general_rules_type = array_keys($condition);
+				
+				
+				switch ($general_rules_type[0]) 
+				{
+				case 'rules':
+		
+				foreach($condition['rules'] as $rule_type => $params)
+				{
+                                    $method = $this->_validate_method($rule_type);
+                                    $method_name = $this->method_prefix . $method;
+
+                                   
+                                    $validation = new $method_name($data[$rule], $params);
+                                
+
+                                    /** SETS ERROR **/
+                                    if($validation->result != TRUE)
+                                    {
+                                        $this->errors[$rule][] = $this->_assign_error_message($method, $params['message']);
+
+
+
+                                        $this->passed = FALSE;
+                                    
+                                    }
+                                               
+						
+                                }
+				break;
+				
+				default:
+				/** TODO - rewrite exception message **/
+				throw new Crystal_Validation_Exception("Invalid rules");
+				break;
+				}
+
+
+			
+			}
+		
+
+            
+        }
+        
+           
+
+      
+        
+    }
+
+
+
+
+    private function _assign_error_message($method, $message = null)
+    {
+
+        if(isset($message))
+        {
+            return $message;
+        }
+        else
+        {
+           return Crystal_Error_Validation::get_validation_error($method);
+        }
+
+        
+    }
+
+    private function _validate_method($method)
+    {
+
+
+      if(array_key_exists($method, $this->valid_methods))
+      {
+	  return $this->valid_methods[$method];
+      }
+      else
+      {
+	  throw new Crystal_Validation_Exception("Cannot find requested validation method " . $method);
+      }
+	
+        
+    }
+
+
+
+
+    
+}

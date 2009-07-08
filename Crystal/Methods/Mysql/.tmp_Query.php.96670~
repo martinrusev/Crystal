@@ -1,0 +1,202 @@
+<?php
+/**
+ * Crystal DBAL
+ *
+ * An open source application for database manipulation
+ *
+ * @package		Crystal DBAL
+ * @author		Martin Rusev
+ * @link		http://crystal.martinrusev.net
+ * @since		Version 0.1
+ * @version     0.1
+ */
+
+// ------------------------------------------------------------------------
+class Crystal_Methods_Mysql_Query 
+{
+
+   private $query;
+   public $db;
+   private $print_query;
+
+
+    function  __construct()
+    {
+
+        $this->conn = new Crystal_Connection_Manager();
+
+    }
+
+
+	/** USED FOR GENERATING QUERY **/
+    function  __call($name,  $arguments)
+    {
+    	
+		$constant = "Crystal_Methods_Mysql_";
+        $method = $constant . ucfirst($name);
+		$rescue_method = spliti('_', $name);
+		//print_r($rescue_method);
+	//	print_r($constant . $rescue_method[1]);
+		//print_r($constant . ucfirst($rescue_method[1]) ."<br>");
+		//var_dump(class_exists($constant . ucfirst($rescue_method[1])));
+		//var_dump(class_exists($method));
+		
+		if(class_exists($method) && !isset($rescue_method[1]))
+		{
+			
+				/** CHECKS FOR ARRAY **/		
+				if(is_array($arguments[0]))
+				{
+					$filtered_arguments = $arguments[0];
+				}
+				else
+				{
+					
+					$filtered_arguments = $arguments;
+				}	
+					
+				
+				$this->sql  .= new $method($filtered_arguments);
+				
+				return $this;
+			
+		}
+        else
+        {
+        	
+			throw new Crystal_Methods_Mysql_Exception('Invalid or not existing method' . $name);	
+			
+        }
+								
+			/**  CRUCIAL FOR METHOD CHAIN **/
+			
+			return $this;
+     	
+        
+    }
+
+
+  
+
+    public function execute()
+	{
+		
+        $this->query = mysql_query($this->sql);
+
+
+	    if (!$this->query)
+		{
+	            throw new Crystal_Methods_Mysql_Exception("Mysql Error:" . mysql_error());
+	            return;
+		}
+		else
+		{
+			return $this->query;
+		}
+
+
+    }
+
+
+
+    function fetch_all()
+	{
+
+        $this->execute();
+
+	 	while($row = mysql_fetch_assoc($this->query))
+         {
+             $result[] = $row;
+         }
+
+
+         return $result;
+
+    }
+
+
+    function fetch_row()
+	{
+
+        $this->execute();
+
+        return mysql_fetch_assoc($this->query);
+    }
+
+
+    function fetch_element($element)
+	{
+
+		
+       $this->execute();
+	   
+	
+       if(is_string($element))
+       {
+		
+          $query = mysql_fetch_assoc($this->query);
+		 
+		  if(isset($query[$element]))
+		  {
+		  	return $query[$element];
+		  }	
+		  else
+		  {
+		  	throw new Crystal_Methods_Mysql_Exception("Element:" . $element . "can't be found");
+         
+		  }
+		  
+
+        }
+        else
+        {
+           throw new Crystal_Methods_Mysql_Exception("<b>fetch_element()</b> works only with strings as parameter");
+           
+        }
+
+
+    }
+	
+	
+	
+	function print_sql()
+    {
+
+        if($this->sql == FALSE)
+        {
+            
+            throw new Crystal_Methods_Mysql_Exception("No valid sql to print");
+        }
+        else
+        {
+             $this->print_query =  print_r('</br>'. $this->sql);
+
+             return $this->print_query;
+        }
+
+       
+
+
+    }
+    
+
+
+    function last_insert_id()
+	{
+
+     return mysql_insert_id();
+
+    }
+
+
+    function affected_rows()
+	{
+
+        return mysql_affected_rows();
+    }
+
+
+
+
+}
+

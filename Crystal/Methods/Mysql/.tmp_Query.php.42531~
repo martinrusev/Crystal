@@ -1,0 +1,355 @@
+<?php
+/**
+ * Crystal DBAL
+ *
+ * An open source application for database manipulation
+ *
+ * @package		Crystal DBAL
+ * @author		Martin Rusev
+ * @link		http://crystal.martinrusev.net
+ * @since		Version 0.1
+ * @version     0.1
+ */
+
+// ------------------------------------------------------------------------
+class Crystal_Methods_Mysql_Query 
+{
+   private $get;
+   private $where;
+   private $order;
+   private $limit;
+   private $columns;
+   private $query;
+   public $db;
+   private $print_query;
+
+
+    function  __construct()
+    {
+
+        $this->conn = new Crystal_Connection_Manager();
+
+    }
+
+
+	/** USED FOR GENERATING QUERY **/
+    function  __call($name,  $arguments)
+    {
+    	
+		
+        $method = "Crystal_Methods_Mysql_" . $name;
+		
+		if(!class_exists($method))
+		{
+			throw new Crystal_Methods_Mysql_Exception('Invalid method:' . $name);
+		}
+        else
+        {
+            
+		
+			/** MUST CHECK FOR COLUMNS METHOD AND REPLACE * IN QUERY WITH COLUMNS  **/
+			if($name == 'columns')
+			{
+
+				$columns = new $method($arguments[0]);
+				$sql_temp  = str_replace('*',$columns, $this->sql);
+				$this->sql = $sql_temp;
+			}
+			else
+			{
+				
+				/** CHECKS FOR ARRAY **/		
+				if(is_array($arguments[0]))
+				{
+					$filtered_arguments = $arguments[0];
+				}
+				else
+				{
+					
+					$filtered_arguments = $arguments;
+				}	
+			
+				
+				$this->sql  .= new $method($filtered_arguments);
+			}
+			
+        }
+			
+			/**  CHECKS FOR insert, update and delete methods **/
+			$methods_for_check = array('DELETE','INSERT','UPDATE');
+			
+			/** TODO - refactor the string search **/
+			foreach($methods_for_check as $value)
+			{
+				
+			}
+			//if(in_array($name, $methods_for_check)){ $this->$method; }
+			/**  CRUISAL FOR METHOD CHAIN **/
+			return $this;
+     	
+        
+    }
+
+
+   
+
+
+    function _execute_select_query()
+	{
+
+
+    $this->query = mysql_query($this->sql);
+
+	if (!$this->query)
+	{
+            throw new Crystal_Methods_Mysql_Exception("Mysql Error:" . mysql_error());
+            return;
+        }
+
+        if(mysql_num_rows($this->query) > 0)
+        {
+
+            return $this->query;
+
+		}
+		else
+		{
+	
+	       return FALSE;
+		}
+
+
+    }
+
+
+    function _execute_query()
+	{
+
+        $this->query = mysql_query($this->sql, $this->conn);
+
+
+	    if (!$this->query)
+		{
+	            throw new Crystal_Methods_Mysql_Exception("Mysql Error:" . mysql_error());
+	            return;
+		}
+
+
+    }
+
+
+
+    function fetch_array()
+	{
+
+        $this->_execute_select_query();
+
+	 	while($row = mysql_fetch_assoc($this->query))
+         {
+             $result[] = $row;
+         }
+
+
+         return $result;
+
+    }
+
+
+    function fetch_row(){
+
+        $this->_execute_select_query();
+
+        return mysql_fetch_assoc($this->query);
+    }
+
+
+    function fetch_element(){
+
+
+       $this->_execute_select_query();
+
+       /** CHECKS FOR MULTIPLE COLUMNS **/
+       $find_comma = strpos($this->columns, ',');
+
+
+       if($find_comma == FALSE)
+       {
+
+
+          $query = mysql_fetch_assoc($this->query);
+          $clear_column = trim(str_replace('`', '', $this->columns));
+
+          return $query[$clear_column];
+
+        }
+        else
+        {
+           throw new Crystal_Methods_Mysql_Exception("<b>fetch_element()</b> works only with one parameter in <b>columns()</b>");
+           exit;
+        }
+
+
+    }
+	
+	
+	
+	function print_query()
+    {
+
+        if($this->sql == FALSE)
+        {
+            
+            throw new Crystal_Methods_Mysql_Exception("No valid sql to print");
+        }
+        else
+        {
+             $this->print_query =  print_r('</br>'. $this->sql);
+
+            return $this->print_query;
+        }
+
+       
+
+
+    }
+
+
+
+	/*
+    function delete($table){
+
+        $this->sql = "DELETE FROM " . $table;
+
+        if(isset($this->where))
+        {
+
+            $this->sql .= $this->where;
+
+        }
+
+         $this->_execute_query();
+
+
+    }
+	*/
+
+    /** DELETE METHODS -- END **/
+
+
+
+
+    /** UPDATE METHODS -- BEGIN **/
+    function update($table, $data=null){
+
+        $this->sql = "UPDATE " . $table . " SET ";
+
+
+
+        if(isset($data))
+        {
+
+            $this->sql .= $this->escape_update_values($data);
+
+        }
+
+
+        if(isset($this->where))
+        {
+
+            $this->sql .= $this->where;
+
+        }
+
+
+          $this->_execute_query();
+
+
+    }
+
+
+    /** UPDATE METHODS -- END **/
+
+
+    /** INSERT METHODS -- BEGIN **/
+	function insert($table, $data){
+
+        $columns_temp = array_keys($data);
+	foreach($columns_temp as $value){$columns[] = $this->add_apostrophe($value);}
+
+
+        $values_temp = array_values($data);
+	foreach($values_temp as $value){$values[] = $this->add_single_quote($value);}
+
+
+
+        $this->sql = "INSERT INTO " . $table;
+        $this->sql .= '(' . implode(', ' , $columns) . ')';
+        $this->sql .= " VALUES ";
+        $this->sql .= '(' . implode(', ' , $values) . ')';
+
+
+	$this->_execute_query();
+
+
+	return $this;
+
+
+    }
+    /** INSERT METHODS - END ***/
+
+
+    
+
+
+    function count_all($table){
+
+        $this->sql = "SELECT COUNT(*) as total FROM" . $this->add_apostrophe($table);
+
+
+        $this->_execute_query();
+
+       $result = mysql_fetch_assoc($this->query);
+
+       return $result['total'];
+
+
+    }
+
+    function count($table){
+
+       $this->sql = "SELECT COUNT(*) as total FROM" . $this->add_apostrophe($table);
+       $this->sql .= $this->where;
+
+
+
+       $this->_execute_query();
+
+       $result = mysql_fetch_assoc($this->query);
+
+       return $result['total'];
+
+
+
+    }
+
+
+    
+
+
+    function last_insert_id(){
+
+     return mysql_insert_id();
+
+    }
+
+
+    function affected_rows(){
+
+        return mysql_affected_rows();
+    }
+
+
+
+
+}
+

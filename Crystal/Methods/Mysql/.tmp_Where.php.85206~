@@ -1,0 +1,49 @@
+<?php
+/**
+ * Crystal DBAL
+ *
+ * An open source application for database manipulation
+ *
+ * @package		Crystal DBAL
+ * @author		Martin Rusev
+ * @link		http://crystal.martinrusev.net
+ * @since		Version 0.1
+ * @version     0.1
+ */
+
+// ------------------------------------------------------------------------
+class Crystal_Methods_Mysql_Where extends Crystal_Methods_Common
+{
+
+    
+
+    function __construct($where)
+    {
+		
+		
+	    foreach($where as $key => $value)
+		{
+            $first_element = key($where);
+
+            if($key == $first_element)
+            {
+				$this->where .= " WHERE " . $key . " = "  . $value;
+            }
+            else
+            {
+				$this->where .= " AND " . $key . " = "  . $value;
+            }
+
+		}
+    	
+		
+      
+    }
+
+    public function __toString() 
+	{
+        return $this->where;
+    }
+    
+    
+}
