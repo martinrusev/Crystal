@@ -17,15 +17,21 @@ class Crystal_Methods_Mysql_Select
 
     
 
-    function __construct($method,  $columns)
+    function __construct($method=null,  $columns=null)
     {
 
+
+               
 		$this->select = "SELECT";
 		
-		
-		$last_column =  (end($columns));
-		foreach($columns as $value)
-		{
+
+
+                if(is_array($columns))
+                {
+
+                    $last_column =  (end($columns));
+                    foreach($columns as $value)
+                    {
 			if($value != $last_column)
 			{
 				$this->select .= Crystal_Methods_Mysql_Helper::add_apostrophe($value) . ", ";
@@ -34,15 +40,30 @@ class Crystal_Methods_Mysql_Select
 			{
 				$this->select .= Crystal_Methods_Mysql_Helper::add_apostrophe($value);
 			}
-			
-		}
+
+                    }
+
+
+
+                }
+                elseif(is_string($columns))
+                {
+                    
+                   $this->select .= Crystal_Methods_Mysql_Helper::add_apostrophe($columns);
+                }
+                else
+                {
+                    $this->select = FALSE;
+                }
+		
 		
       
     }
 
     public function __toString() 
-	{
+    {
         return $this->select;
+    
     }
     
     

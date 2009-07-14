@@ -18,7 +18,7 @@
  */
 
 /** LOADS EXCEPTION CLASS **/
- require_once(CRYSTAL_BASEPATH . CRYSTAL_DS . 'Config' . CRYSTAL_DS .  'Exception.php');
+// require_once(CRYSTAL_BASEPATH . CRYSTAL_DS . 'Config' . CRYSTAL_DS .  'Exception.php');
 
 /** TODO - REFACTORING **/
 class Crystal_Config_Reader

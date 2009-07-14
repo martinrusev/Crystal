@@ -21,13 +21,16 @@ class Crystal_Methods_Mysql_From
     {
     	
 		
-		$this->_from = "FROM" . Crystal_Methods_Mysql_Helper::add_apostrophe($table[0]);
+        $this->_from = "FROM" . Crystal_Methods_Mysql_Helper::add_apostrophe($table[0]);
       
     }
 
     public function __toString() 
-	{
+    {
+
         return $this->_from;
+    
+    
     }
     
     

@@ -1,0 +1,38 @@
+Copyrights
+----------
+
+Crystal
+--------
+
+Crystal is a database wrapper built from scratch with PHP5. It contains a few ports of other popular PHP classes/libraries.
+
+Url:        http://www.crystal.martinrusev.net
+Copyright:  2008-2009 Martin Rusev
+License:    MIT - see LICENSE file
+
+
+Spyc
+----
+
+Crystal contains a port of the Spyc software
+
+Url:       http://spyc.sourceforge.net/
+Copyright: 2005-2006 Chris Wanstrath
+License:   MIT - http://www.opensource.org/licenses/mit-license.php
+
+Zend Framework
+--------------
+
+Crystal has borrowed concepts and ideas from the Zend Framework project.
+
+Url:       http://framework.zend.com
+Copyright: Copyright © 2006-2007 by Zend Technologies, All rights reserved.
+
+Doctrine
+--------------
+
+Crystal has borrowed concepts and ideas from the Doctrine ORM project.
+
+Url:        http://www.phpdoctrine.net
+Copyright:  2005-2007 Konsta Vesterinen
+License:    LGPL - http://www.gnu.org/licenses/lgpl.html

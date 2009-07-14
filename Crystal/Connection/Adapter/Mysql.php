@@ -52,7 +52,9 @@ class Crystal_Connection_Adapter_Mysql
     private function _set_charset($charset)
     {
         try
-        {	/** TODO - replace with general database helper **/
+        {   /**
+            *  TODO - replace with general database helper
+            **/
              mysql_query("SET NAMES " . Crystal_Methods_Mysql_Helper::add_single_quote($charset));
         }
         catch (Exception $e)

@@ -24,7 +24,7 @@ class Crystal_Methods_Mysql_Groupby
 	if(isset($groupby))
 	{
 
-       $last_element = end($groupby);
+           $last_element = end($groupby);
 
 	    $this->groupby = " GROUP BY ";
 

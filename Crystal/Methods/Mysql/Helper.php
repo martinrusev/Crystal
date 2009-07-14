@@ -22,7 +22,7 @@ class Crystal_Methods_Mysql_Helper
 		
 		if(is_string($string))
 		{
-			return ' `' . mysql_real_escape_string($string) . '` ';
+			return ' `' . strtolower(filter_var($string, FILTER_SANITIZE_STRING)) . '` ';
 		}
 		else
 		{	
@@ -37,7 +37,7 @@ class Crystal_Methods_Mysql_Helper
 	{
 		if(is_string($string))
 		{
-			return " '" . mysql_real_escape_string($string) . "' ";
+			return " '" . strtolower(filter_var($string, FILTER_SANITIZE_STRING)) . "' ";
 		}
 		else
 		{	
@@ -49,7 +49,7 @@ class Crystal_Methods_Mysql_Helper
 	static function escape_update_values($cols)
 	{
 
-		foreach($cols as $key => $value)
+	foreach($cols as $key => $value)
         {
 
             $updated_cols[] = self::add_apostrophe($key)  . "=" . self::add_single_quote($value);
@@ -60,7 +60,7 @@ class Crystal_Methods_Mysql_Helper
         $temp = implode(',', $updated_cols);
 
 
-		return $temp;
+	return $temp;
 
     }
 
