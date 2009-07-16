@@ -9,16 +9,11 @@
  * @link		http://crystal.martinrusev.net
  * @since		Version 0.1
  * @version     0.1
- */
-
-// ------------------------------------------------------------------------
-/*
+ *  
  *  CONFIG FILE - USED TO RETRIEVE CONFIG VALUES 
  *
  */
 
-/** LOADS EXCEPTION CLASS **/
-// require_once(CRYSTAL_BASEPATH . CRYSTAL_DS . 'Config' . CRYSTAL_DS .  'Exception.php');
 
 /** TODO - REFACTORING **/
 class Crystal_Config_Reader

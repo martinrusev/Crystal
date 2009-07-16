@@ -41,6 +41,8 @@ class Crystal_Methods_Mysql_Query
 		(
 		'left_join' => 'join',
 		'right_join' => 'join',
+		'outer_join' => 'join',
+		'inner_join' => 'join',
 		'minimum' => 'expression',
 		'maximum' => 'expression',
 		'average' => 'expression',
@@ -92,11 +94,7 @@ class Crystal_Methods_Mysql_Query
 			
         }
 		
-		
-		
-		
-		
-								
+							
 			/**  CRUCIAL FOR METHOD CHAIN **/
 			
 			return $this;

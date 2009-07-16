@@ -17,35 +17,53 @@ class Crystal_Methods_Mysql_Orderby
 
     
 
-    function __construct($method, $order)
+    function __construct($method=null, $order=null)
     {
+	
+	
+	$this->order = " ORDER BY ";	
 		
-		
-	if(isset($order))
+	if(is_array($order))
 	{
+		
+		
+			if(!isset($order[0]))
+			{
+				
+				
+				/** 
+				*  Works for array type  -> array(key => value)
+			   */
+		       $last_element = end($order);
+			    foreach($order as $key => $value)
+			    {
+		            	if($key == $last_element)
+			        	{
+			             $this->order  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) . ' ' 
+						 .  $value . ' ,';
+		                }
+		                else
+		                {
+		                    $this->order  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) . ' '
+							. $value;
+		                }
+		
+		         }
+				
+				
+				
+				
+				
+			}
+			else
+			{
+				$this->order  .= Crystal_Methods_Mysql_Helper::add_single_quote($order[0]). ' ' 
+				. $order[1];
+				
+			}
 
-       $last_element = end($order);
-
-	    $this->order = " ORDER BY ";
-
-
-	    foreach($order as $key => $value)
-	    {
-            if($key == $last_element)
-	        {
-	             $this->order  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) . ' ' 
-				 .  $value . ' ,';
-                }
-                else
-                {
-                    $this->order  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) 
-					. $value;
-                }
-
-            }
-
-          
-        }
+		
+		}
         else
         {
 

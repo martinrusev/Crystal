@@ -26,35 +26,48 @@ class Crystal_Methods_Mysql_Select
 		
 
 
-                if(is_array($columns))
-                {
+          if(is_array($columns))
+          {
+			
+					
+	          $last_column =  end($columns);
+			  /** WORKS FOR CUSTOM SELECT: select('products, MIN(price)') **/
+			  if(isset($columns[1]) && $columns[1] == FALSE)
+			  { 
+			  	   $this->select .= ' '.  $columns[0]. ' ';
+			  }
+			  else
+			  {
+			  	
+					foreach($columns as $value)
+		            {
+						if($value != $last_column)
+						{
+							$this->select .= Crystal_Methods_Mysql_Helper::add_apostrophe($value) . ", ";
+						}
+						else
+						{
+							$this->select .= Crystal_Methods_Mysql_Helper::add_apostrophe($value);
+						}
+		
+		            }
+				
+			  }
+			  
+	           
 
-                    $last_column =  (end($columns));
-                    foreach($columns as $value)
-                    {
-			if($value != $last_column)
-			{
-				$this->select .= Crystal_Methods_Mysql_Helper::add_apostrophe($value) . ", ";
-			}
-			else
-			{
-				$this->select .= Crystal_Methods_Mysql_Helper::add_apostrophe($value);
-			}
-
-                    }
 
 
-
-                }
-                elseif(is_string($columns))
-                {
-                    
-                   $this->select .= Crystal_Methods_Mysql_Helper::add_apostrophe($columns);
-                }
-                else
-                {
-                    $this->select = FALSE;
-                }
+          }
+         elseif(is_string($columns))
+         {
+                 
+              $this->select .= Crystal_Methods_Mysql_Helper::add_apostrophe($columns);
+         }
+         else
+         {
+              $this->select = FALSE;
+         }
 		
 		
       

@@ -16,7 +16,6 @@ class Crystal_Methods_Mysql_Having
 {
 
     
-	/** TODO - write the method **/
     function __construct($method, $params)
     {
 		
@@ -24,30 +23,34 @@ class Crystal_Methods_Mysql_Having
 		
 		$this->having .= " HAVING "; 
 		
-			
-		foreach($params as $key => $value)
+		
+		if(is_array($params))
 		{
-            $first_element = key($params);
-			$last_element = end($params);
-			/* HAVING PARAM IS STRING **/
-			if($first_element == '0')
+			
+			if(isset($params[1]))
 			{
+				$this->having .= Crystal_Methods_Mysql_Helper::add_apostrophe($params[0])
+				. " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($params[1]);	
 				
+			}
+			else
+			{
 				$this->having .= $value;
 			}
-            elseif($value != $last_element)
-            {
-            	
-				$this->having .= Crystal_Methods_Mysql_Helper::add_apostrophe($key)
-				. " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($value) .", ";
-            }
-            else
-            {
-				$this->having .= Crystal_Methods_Mysql_Helper::add_apostrophe($key)
-				 . " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($value) ;
-            }
-
+			
+			
+			
+			
 		}
+		else
+		{
+		
+			$this->having = FALSE;
+		
+		}
+		
+		
+		
 		
       
     }

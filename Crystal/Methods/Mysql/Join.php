@@ -30,17 +30,27 @@ class Crystal_Methods_Mysql_Join
 		switch ($method) 
 		{
 		case 'left_join':
-		$this->join = "LEFT JOIN " . Crystal_Methods_Mysql_Helper::add_single_quote($params[0]) . " ON " . $params[1][0];
+		$this->join = "LEFT JOIN " . Crystal_Methods_Mysql_Helper::add_single_quote($params[0]) . " ON " . $params[1];
 		break;
 		
 		
 		case 'right_join':
-		$this->join = "RIGHT JOIN " . Crystal_Methods_Mysql_Helper::add_single_quote($params[0]) . " ON " . $params[1][0];
+		$this->join = "RIGHT JOIN " . Crystal_Methods_Mysql_Helper::add_single_quote($params[0]) . " ON " . $params[1];
+		break;
+		
+		
+		case 'outer_join':
+		$this->join = "OUTER JOIN " . Crystal_Methods_Mysql_Helper::add_single_quote($params[0]) . " ON " . $params[1];
+		break;
+		
+		
+		case 'inner_join':
+		$this->join = "INNER JOIN " . Crystal_Methods_Mysql_Helper::add_single_quote($params[0]) . " ON " . $params[1];
 		break;
 		
 		
 		default:
-		$this->join = "JOIN " . $params[0] . " ON " . $params[1][0];
+		$this->join = "JOIN " . Crystal_Methods_Mysql_Helper::add_single_quote($params[0]) . " ON " . $params[1];
 		break;
 		}
 

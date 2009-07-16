@@ -33,5 +33,6 @@ $test->addTestFile(CRYSTAL_VALIDATION_TESTS .'Url.php');
 
 /** MySQL METHODS **/
 $test->addTestFile(CRYSTAL_MYSQL_TESTS .'Select.php');
+$test->addTestFile(CRYSTAL_MYSQL_TESTS .'Orderby.php');
 
 $test->run(new ShowPasses());

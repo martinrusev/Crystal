@@ -19,30 +19,47 @@ class Crystal_Methods_Mysql_Groupby
 
     function __construct($method, $groupby)
     {
+    	
+		
+	 $this->groupby = " GROUP BY ";	
 		
 		
-	if(isset($groupby))
+	if(is_array($groupby))
 	{
 
-           $last_element = end($groupby);
-
-	    $this->groupby = " GROUP BY ";
-
-
-	    foreach($groupby as $key => $value)
-	    {
-            if($key == $last_element)
-	        {
-	             $this->groupby  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) . ' ' 
-				 .  $value . ' ,';
-                }
-                else
-                {
-                    $this->groupby  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) 
-					. $value;
-                }
-
-            }
+	
+			if(!isset($groupby[0]))
+			{
+					
+					
+				/** 
+				  Works for array type  -> array(key => value)
+				*/
+		        $last_element = end($groupby);
+			    foreach($groupby as $key => $value)
+			    {
+		            	if($key == $last_element)
+			        	{
+			             $this->groupby  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) . ' ' 
+						 .  $value . ' ,';
+		                }
+		                else
+		                {
+		                    $this->groupby  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) 
+							. $value;
+		                }
+		
+		        }
+				
+			}
+			else
+			{
+				
+					$this->groupby  .= Crystal_Methods_Mysql_Helper::add_single_quote($groupby[0]). ', ' 
+					. Crystal_Methods_Mysql_Helper::add_single_quote($groupby[1]);
+					
+				
+			}	
 
           
         }

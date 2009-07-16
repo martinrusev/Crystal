@@ -101,4 +101,4 @@ class Crystal
    
 $db = Crystal::db();
 
-$q = $db->select(array('products','clients'))->from('table')->where('product_id','2')->print_sql();
+$q = $db->select('product_id, MIN(price)', FALSE)->from('table')->inner_join('table', 'comments.id = blogs.id')->print_sql();
