@@ -101,4 +101,5 @@ class Crystal
    
 $db = Crystal::db();
 
-$q = $db->select('product_id, MIN(price)', FALSE)->from('table')->inner_join('table', 'comments.id = blogs.id')->print_sql();
+$q = $db->minimum('age')->from('clients')->fetch_element('age');
+print_r($q);
