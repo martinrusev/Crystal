@@ -99,7 +99,3 @@ class Crystal
 
     }
    
-$db = Crystal::db();
-
-$q = $db->minimum('age')->from('clients')->fetch_element('age');
-print_r($q);

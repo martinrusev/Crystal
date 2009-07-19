@@ -46,10 +46,10 @@ class Crystal_Methods_Common
        /** LOADS ADAPTER **/
        if(self::_check_connection($active_connection) == TRUE)
        {
-
-          
+    
            $_driver =  Crystal_Config_Reader::get_db_value($active_connection, 'driver');
-       }
+       
+	   }
        else
        {
            $_driver =  Crystal_Config_Reader::get_db_value('default', 'driver');

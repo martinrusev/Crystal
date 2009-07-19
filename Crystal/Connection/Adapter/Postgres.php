@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Connection_Adapter_Mysql
+class Crystal_Connection_Adapter_Postgres
 {
 
     private $db;
@@ -22,8 +22,12 @@ class Crystal_Connection_Adapter_Mysql
 			
 		
 			/** CHECKS FOR PORT **/
-			$port = (isset($database_config['port'])?$database_config['port']:'3306');
-            $this->db = mysql_connect($database_config['hostname']. ':'. $port, $database_config['username'], $database_config['password']);
+			$port = (isset($database_config['port'])?$database_config['port']:'5432');
+			
+			$conn_string = 'host=' . $database_config['hostname'] . ' port=' .  $port . ' dbname=' .  $database_config['database']
+			. ' user=' . $database_config['username'] . ' password=' .  $database_config['password'];
+			
+            $this->db = pg_connect($conn_string);
 
              /** SETS DATABASE COLLATION **/
              $this->_set_charset($database_config['char_set']);
@@ -34,12 +38,6 @@ class Crystal_Connection_Adapter_Mysql
                throw new Crystal_Connection_Exception("Cannot connect to database");
             }
 
-            $dbselect = mysql_select_db($database_config['database']);
-
-            if(!$dbselect)
-            {
-                throw new Crystal_Connection_Adapter_Exception("Cannot select database" . $database_config['database']);
-            }
 
 
             return $this->db;
@@ -58,7 +56,7 @@ class Crystal_Connection_Adapter_Mysql
         {   /**
             *  TODO - replace with general database helper
             **/
-             mysql_query("SET NAMES " . Crystal_Methods_Mysql_Helper::add_single_quote($charset));
+             pg_query("SET NAMES " . Crystal_Methods_Mysql_Helper::add_single_quote($charset));
         }
         catch (Exception $e)
         {

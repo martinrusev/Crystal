@@ -54,7 +54,14 @@ class Crystal_Connection_Manager
             case 'mysql':
             $this->conn = new Crystal_Connection_Adapter_Mysql($db_config);
             break;
-
+			
+			
+			case 'postgres':
+            $this->conn = new Crystal_Connection_Adapter_Postgres($db_config);
+            break;
+			
+			
+			
             default:
             throw new Crystal_Connection_Exception("Invalid database adapter");
             break;

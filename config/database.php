@@ -35,19 +35,20 @@
 |	['password'] The password used to connect to the database
 |	['database'] The name of the database you want to connect to
 |	['dbdriver'] The database type
- *               Currently supported: mysql
+ *               Currently supported: mysql,postgres, sqlite
 |	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
 |	['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
 |	['char_set'] The character set used in communicating with the database
 |	['dbcollat'] The character collation used in communicating with the database.
+|   ['port'] The character collation used in communicating with the database.
 |
 | 
 */
 $db = array();
 $db['development']['hostname'] = "localhost";
 $db['development']['username'] = "root";
-$db['development']['password'] = "genius";
-$db['development']['database'] = "drace";
+$db['development']['password'] = "";
+$db['development']['database'] = "";
 $db['development']['driver'] = "mysql";
 $db['development']['pconnect'] = TRUE;
 $db['development']['db_debug'] = TRUE;
@@ -59,8 +60,8 @@ $db['development']['dbcollat'] = "utf8_general_ci";
 
 $db['production']['hostname'] = "localhost";
 $db['production']['username'] = "root";
-$db['production']['password'] = "genius";
-$db['production']['database'] = "bushmills";
+$db['production']['password'] = "";
+$db['production']['database'] = "";
 $db['production']['driver'] = "mysql";
 $db['production']['pconnect'] = TRUE;
 $db['production']['db_debug'] = TRUE;
@@ -72,13 +73,13 @@ $db['production']['dbcollat'] = "utf8_general_ci";
 
 $db['default']['hostname'] = "localhost";
 $db['default']['username'] = "root";
-$db['default']['password'] = "genius";
-$db['default']['database'] = "framework_test";
-$db['default']['driver'] = "mysql";
+$db['default']['password'] = "";
+$db['default']['database'] = "";
+$db['default']['driver'] = "sqlite";
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['db_log']   = TRUE;
 $db['default']['char_set'] = "utf8";
 $db['default']['dbcollat'] = "utf8_general_ci";
-//$db['default']['modules']  = array('fixtures','migrations','logging','validation');
+
