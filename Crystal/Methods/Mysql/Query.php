@@ -109,7 +109,8 @@ class Crystal_Methods_Mysql_Query
 	{
 		
         $this->query = mysql_query($this->sql);
-
+	
+		
 
 	    if (!$this->query)
 		{
@@ -118,6 +119,7 @@ class Crystal_Methods_Mysql_Query
 		}
 		else
 		{
+			$this->sql = NULL;
 			return $this->query;
 		}
 
@@ -131,15 +133,27 @@ class Crystal_Methods_Mysql_Query
 
         $this->execute();
 
-	 	while($row = mysql_fetch_assoc($this->query))
+	 	 while($row = mysql_fetch_assoc($this->query))
          {
-             $result[] = $row;
+         	
+			$result[] = Crystal_Methods_Helper::clean_db_result($row);
+         	
          }
 
 		/** RESET SQL **/
 		$this->sql = NULL;
-			
-        return $result;
+		
+		if(isset($result))
+		{
+		
+			return $result;
+		
+		}
+		else
+		{
+			return FALSE;
+		}	
+        
 
     }
 
@@ -150,13 +164,23 @@ class Crystal_Methods_Mysql_Query
         $this->execute();
 		
 		
-		$result =  mysql_fetch_assoc($this->query);
+		$row =  mysql_fetch_assoc($this->query);
 		
-		
+		$clean_row[] = Crystal_Methods_Helper::clean_db_result($row);
+			
+         
+     
 		/** RESET SQL **/
 		$this->sql = NULL;
 		
-        return $result;
+       if(isset($clean_row))
+		{
+			return $clean_row;
+		}
+		else
+		{
+			return FALSE;
+		}	
     }
 	
 	function fetch_object()
@@ -170,7 +194,14 @@ class Crystal_Methods_Mysql_Query
 		/** RESET SQL **/
 		$this->sql = NULL;
 
-        return $result;
+       if(isset($result))
+		{
+			return $result;
+		}
+		else
+		{
+			return FALSE;
+		}	
     }
 
 

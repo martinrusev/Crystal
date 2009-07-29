@@ -27,7 +27,7 @@ class Crystal_Methods_Mysql_Delete
     {
 		
     	
-	 $this->delete = "DELETE FROM " . Crystal_Methods_Mysql_Helper::add_apostrophe($table[0]);
+	 $this->delete = "DELETE FROM " . Crystal_Methods_Helper::add_apostrophe($table[0]);
     	
 		
       

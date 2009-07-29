@@ -43,14 +43,14 @@ class Crystal_Methods_Mysql_Update
 		
 		
 		
-		$this->update = "UPDATE " . Crystal_Methods_Mysql_Helper::add_apostrophe($table) . " SET ";
+		$this->update = "UPDATE " . Crystal_Methods_Helper::add_apostrophe($table) . " SET ";
 
 
 
         if(isset($data))
         {
 
-            $this->update .= Crystal_Methods_Mysql_Helper::escape_update_values($data);
+            $this->update .= Crystal_Methods_Helper::escape_update_values($data);
 
         }
 		

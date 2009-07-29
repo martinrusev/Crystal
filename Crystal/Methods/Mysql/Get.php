@@ -20,7 +20,7 @@ class Crystal_Methods_Mysql_Get
     function __construct($method, $table)
     {
 		
-		$this->get = "SELECT * FROM" . Crystal_Methods_Mysql_Helper::add_apostrophe($table[0]);
+		$this->get = "SELECT * FROM" . Crystal_Methods_Helper::add_apostrophe($table[0]);
 		
 
     }

@@ -17,7 +17,7 @@ class Crystal_Methods_Postgres_Sql extends Crystal_Methods_Common
 
     
 
-    function __construct($sql)
+    function __construct($method, $sql)
     {
 
 

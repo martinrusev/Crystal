@@ -39,12 +39,12 @@ class Crystal_Methods_Mysql_Orderby
 			    {
 		            	if($key == $last_element)
 			        	{
-			             $this->order  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) . ' ' 
+			             $this->order  .= Crystal_Methods_Helper::add_single_quote($key) . ' ' 
 						 .  $value . ' ,';
 		                }
 		                else
 		                {
-		                    $this->order  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) . ' '
+		                    $this->order  .= Crystal_Methods_Helper::add_single_quote($key) . ' '
 							. $value;
 		                }
 		

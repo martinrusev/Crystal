@@ -32,13 +32,13 @@ class Crystal_Methods_Mysql_Where
 		{
 			if(isset($params[1]))
 			{
-				$this->where .= " WHERE " . Crystal_Methods_Mysql_Helper::add_apostrophe($params[0])
-				. " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($params[1]);
+				$this->where .= " WHERE " . Crystal_Methods_Helper::add_apostrophe($params[0])
+				. " = "  . Crystal_Methods_Helper::add_single_quote($params[1]);
 				
 			}
 			else
 			{
-				$this->where .= " WHERE " . Crystal_Methods_Mysql_Helper::add_apostrophe($params[0]);
+				$this->where .= " WHERE " . Crystal_Methods_Helper::add_apostrophe($params[0]);
 			}
 				
 		}
@@ -51,13 +51,13 @@ class Crystal_Methods_Mysql_Where
 	            if($key == $first_element)
 	            {
 	            	
-					$this->where .= " WHERE " . Crystal_Methods_Mysql_Helper::add_apostrophe($key)
-					. " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($value);
+					$this->where .= " WHERE " . Crystal_Methods_Helper::add_apostrophe($key)
+					. " = "  . Crystal_Methods_Helper::add_single_quote($value);
 	            }
 	            else
 	            {
-					$this->where .= " AND " . Crystal_Methods_Mysql_Helper::add_apostrophe($key)
-					 . " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($value);
+					$this->where .= " AND " . Crystal_Methods_Helper::add_apostrophe($key)
+					 . " = "  . Crystal_Methods_Helper::add_single_quote($value);
 	            }
 
 			}
@@ -73,13 +73,13 @@ class Crystal_Methods_Mysql_Where
 		{
 			if(isset($params[1]))
 			{
-				$this->where .= " AND " . Crystal_Methods_Mysql_Helper::add_apostrophe($params[0])
-				. " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($params[1]);
+				$this->where .= " AND " . Crystal_Methods_Helper::add_apostrophe($params[0])
+				. " = "  . Crystal_Methods_Helper::add_single_quote($params[1]);
 				
 			}
 			else
 			{
-				$this->where .= " AND " . Crystal_Methods_Mysql_Helper::add_apostrophe($params[0]);
+				$this->where .= " AND " . Crystal_Methods_Helper::add_apostrophe($params[0]);
 			}
 				
 		}
@@ -92,13 +92,13 @@ class Crystal_Methods_Mysql_Where
 	            if($key == $first_element)
 	            {
 	            	
-					$this->where .= " AND " . Crystal_Methods_Mysql_Helper::add_apostrophe($key)
-					. " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($value);
+					$this->where .= " AND " . Crystal_Methods_Helper::add_apostrophe($key)
+					. " = "  . Crystal_Methods_Helper::add_single_quote($value);
 	            }
 	            else
 	            {
-					$this->where .= " AND " . Crystal_Methods_Mysql_Helper::add_apostrophe($key)
-					 . " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($value);
+					$this->where .= " AND " . Crystal_Methods_Helper::add_apostrophe($key)
+					 . " = "  . Crystal_Methods_Helper::add_single_quote($value);
 	            }
 
 			}
@@ -111,7 +111,7 @@ class Crystal_Methods_Mysql_Where
 		
 		if($first_element == '0')
 		{
-				$this->where .= " OR " . Crystal_Methods_Mysql_Helper::add_single_quote($params[0]);
+				$this->where .= " OR " . Crystal_Methods_Helper::add_single_quote($params[0]);
 		}
 		else
 		{
@@ -119,8 +119,8 @@ class Crystal_Methods_Mysql_Where
 			foreach($params as $key => $value)
 			{
            
-			$this->where .= " OR " . Crystal_Methods_Mysql_Helper::add_apostrophe($key)
-			. " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($value);
+			$this->where .= " OR " . Crystal_Methods_Helper::add_apostrophe($key)
+			. " = "  . Crystal_Methods_Helper::add_single_quote($value);
            
 			}
 			
@@ -137,11 +137,11 @@ class Crystal_Methods_Mysql_Where
 		{
 			if($value != $last_element)
 			{
-				$this->where .= Crystal_Methods_Mysql_Helper::add_apostrophe($value) .",";
+				$this->where .= Crystal_Methods_Helper::add_apostrophe($value) .",";
 			}
 			else
 			{
-				$this->where .= Crystal_Methods_Mysql_Helper::add_apostrophe($value);
+				$this->where .= Crystal_Methods_Helper::add_apostrophe($value);
 			}
 			
 		}
@@ -153,7 +153,7 @@ class Crystal_Methods_Mysql_Where
 		case 'like':
 
 		$this->where .= " LIKE ";
-		$this->where .= Crystal_Methods_Mysql_Helper::add_single_quote("%" . $params[0] . "%") ;
+		$this->where .= Crystal_Methods_Helper::add_single_quote("%" . $params[0] . "%") ;
 
 		break;
 		

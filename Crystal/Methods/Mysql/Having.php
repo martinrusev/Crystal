@@ -29,8 +29,8 @@ class Crystal_Methods_Mysql_Having
 			
 			if(isset($params[1]))
 			{
-				$this->having .= Crystal_Methods_Mysql_Helper::add_apostrophe($params[0])
-				. " = "  . Crystal_Methods_Mysql_Helper::add_single_quote($params[1]);	
+				$this->having .= Crystal_Methods_Helper::add_apostrophe($params[0])
+				. " = "  . Crystal_Methods_Helper::add_single_quote($params[1]);	
 				
 			}
 			else

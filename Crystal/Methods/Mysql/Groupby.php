@@ -40,12 +40,12 @@ class Crystal_Methods_Mysql_Groupby
 			    {
 		            	if($key == $last_element)
 			        	{
-			             $this->groupby  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) . ' ' 
+			             $this->groupby  .= Crystal_Methods_Helper::add_single_quote($key) . ' ' 
 						 .  $value . ' ,';
 		                }
 		                else
 		                {
-		                    $this->groupby  .= Crystal_Methods_Mysql_Helper::add_single_quote($key) 
+		                    $this->groupby  .= Crystal_Methods_Helper::add_single_quote($key) 
 							. $value;
 		                }
 		

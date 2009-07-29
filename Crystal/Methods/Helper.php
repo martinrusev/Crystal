@@ -40,7 +40,8 @@ class Crystal_Methods_Helper
 		
 		if(is_string($string))
 		{
-			return strtolower(filter_var($string, FILTER_SANITIZE_STRING));
+			
+			return  " '" . htmlspecialchars(self::mysql_real_escape_string_alternative($string), ENT_QUOTES) . "' "; 			
 		}
 		else
 		{	
@@ -57,6 +58,12 @@ class Crystal_Methods_Helper
 		{
 			return " '" . strtolower(filter_var($string, FILTER_SANITIZE_STRING)) . "' ";
 		}
+		elseif(is_numeric($string))
+		{
+			
+			return $string;
+			
+		}
 		else
 		{	
 			throw new Crystal_Methods_Postgres_Exception("Helper accepts only strings for add_single_quote function");
@@ -70,7 +77,7 @@ class Crystal_Methods_Helper
 	foreach($cols as $key => $value)
         {
 
-            $updated_cols[] = self::add_apostrophe($key)  . "=" . self::add_single_quote($value);
+            $updated_cols[] = self::add_apostrophe($key)  . "= '"  . $value . "'";
 
 
         }
@@ -81,5 +88,38 @@ class Crystal_Methods_Helper
 	return $temp;
 
     }
+	
+	static function clean_db_result($rows)
+	{
+		
+		foreach($rows as $key =>  $column)
+		{
+				
+			if(!is_numeric($column))
+			{	
+				
+			$rows[$key]  = stripslashes($column);
+			
+			}
+		
+		}
+		
+		return $rows;
+		
+		
+		
+		
+	}
+	
+
+	
+	function mysql_real_escape_string_alternative($value)
+	{
+		
+    $search = array("\x00", "\n", "\r", "\\", "'", "\"", "\x1a");
+    $replace = array("\\x00", "\\n", "\\r", "\\\\" ,"\'", "\\\"", "\\\x1a");
+
+    return str_replace($search, $replace, $value);
+	}
 
 }
