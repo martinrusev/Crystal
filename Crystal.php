@@ -43,14 +43,14 @@ class Crystal
     static public function db($connection = null)
     {
 
-        return Crystal_Methods_Common::db($connection);
+        return Crystal_Query_Common::db($connection);
         
     }     
    
-    static public function utilities($connection = null)
+    static public function manipulation($connection = null)
     {
 
-        return DB::load_utilities($connection);
+        return Crystal_Manipulation_Manipulator::start($connection);
         
     }
 

@@ -12,44 +12,60 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Loader
+class Crystal_Query_Common
 {
 
-   
-    /** LOADS DATABASE ADAPTER
-     *  @return object
-     */
-    function __construct($active_connection)
+    private $active_connection;
+
+    public $db; 
+
+    private $_driver;
+
+    static public function db($active_connection)
+    {
+      	
+        $_driver =  new Crystal_Loader($active_connection);
+
+        $adapter = "Crystal_Query_" . $_driver . "_Query";
+        
+		
+        $db = new $adapter($active_connection);
+
+        
+        return $db;
+    
+    }
+
+
+	
+	/*
+    function _load_valid_adapter($active_connection)
     {
 
-       /** LOADS ADAPTER **/
+      
        if(self::_check_connection($active_connection) == TRUE)
        {
     
-           $this->_driver =  Crystal_Config_Reader::get_db_value($active_connection, 'driver');
+           $_driver =  Crystal_Config_Reader::get_db_value($active_connection, 'driver');
        
 	   }
        else
        {
-           $this->_driver =  Crystal_Config_Reader::get_db_value('default', 'driver');
+           $_driver =  Crystal_Config_Reader::get_db_value('default', 'driver');
            
 
        }
 	
 		
-       $this->_driver = ucfirst($_driver);
+       $_driver = ucfirst($_driver);
 	  
 
-               
+       return $_driver;
+        
         
     }
-	
-	
 
-    /**
-     * CHECKS IF ACTIVE CONNECTION EXISTS
-     * @return boolean
-     */
+   
     private function _check_connection($active_connection)
     {
 
@@ -65,12 +81,9 @@ class Crystal_Loader
         }
         
     }
-	
-	public function __toString() 
-	{
-        return $this->_driver;
-    }
 
+	*/
+   
 
-
+    
 }
