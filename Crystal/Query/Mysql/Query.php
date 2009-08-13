@@ -136,7 +136,7 @@ class Crystal_Query_Mysql_Query
 	 	 while($row = mysql_fetch_assoc($this->query))
          {
          	
-			$result[] = Crystal_Methods_Helper::clean_db_result($row);
+			$result[] = Crystal_Helper::clean_db_result($row);
          	
          }
 
@@ -166,7 +166,7 @@ class Crystal_Query_Mysql_Query
 		
 		$row =  mysql_fetch_assoc($this->query);
 		
-		$clean_row[] = Crystal_Methods_Helper::clean_db_result($row);
+		$clean_row[] = Crystal_Helper::clean_db_result($row);
 			
          
      

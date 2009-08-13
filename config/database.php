@@ -6,7 +6,7 @@
  *
  * @package		MicroORM
  * @author		Martin Rusev
- * @link		http://orm.martinrusev.net
+ * @link		http://crystal.martinrusev.net
  * @since		Version 0.1
  * @version     0.1
  */
@@ -16,7 +16,7 @@
 /**
  * Config file
  *
- * This file is used for microORM configuration.
+ * This file is used for Crystal Database wrapper configuration.
  *
  *
  *
@@ -45,37 +45,12 @@
 | 
 */
 $db = array();
-$db['development']['hostname'] = "localhost";
-$db['development']['username'] = "root";
-$db['development']['password'] = "";
-$db['development']['database'] = "";
-$db['development']['driver'] = "mysql";
-$db['development']['pconnect'] = TRUE;
-$db['development']['db_debug'] = TRUE;
-$db['development']['cache_on'] = FALSE;
-$db['development']['db_log']   = FALSE;
-$db['development']['char_set'] = "utf8";
-$db['development']['dbcollat'] = "utf8_general_ci";
-
-
-$db['production']['hostname'] = "localhost";
-$db['production']['username'] = "root";
-$db['production']['password'] = "";
-$db['production']['database'] = "";
-$db['production']['driver'] = "mysql";
-$db['production']['pconnect'] = TRUE;
-$db['production']['db_debug'] = TRUE;
-$db['production']['cache_on'] = FALSE;
-$db['production']['db_log']   = FALSE;
-$db['production']['char_set'] = "utf8";
-$db['production']['dbcollat'] = "utf8_general_ci";
-
 
 $db['default']['hostname'] = "localhost";
-$db['default']['username'] = "root";
+$db['default']['username'] = "";
 $db['default']['password'] = "";
 $db['default']['database'] = "";
-$db['default']['driver']   = "sqlite";
+$db['default']['driver']   = "mysql";
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache']    = 'memcached';

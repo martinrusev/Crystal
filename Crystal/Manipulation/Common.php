@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Common
+class Crystal_Manipulation_Common
 {
 
     private $active_connection;
@@ -26,7 +26,7 @@ class Crystal_Query_Common
       	
         $_driver =  new Crystal_Loader($active_connection);
 
-        $adapter = "Crystal_Query_" . $_driver . "_Query";
+        $adapter = "Crystal_Manipulation_" . $_driver . "_Builder";
         
 		
         $db = new $adapter($active_connection);

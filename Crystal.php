@@ -50,7 +50,7 @@ class Crystal
     static public function manipulation($connection = null)
     {
 
-        return Crystal_Manipulation_Manipulator::start($connection);
+        return Crystal_Manipulation_Common::db($connection);
         
     }
 

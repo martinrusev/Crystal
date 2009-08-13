@@ -17,7 +17,7 @@ class Crystal_Connection_Adapter_Mysql
 
     private $db;
 
-    function __construct($database_config)
+    function __construct($database_config, $params=null)
     {
 			
 		
@@ -33,12 +33,30 @@ class Crystal_Connection_Adapter_Mysql
             {
                throw new Crystal_Connection_Exception("Cannot connect to database");
             }
-
-            $dbselect = mysql_select_db($database_config['database']);
+			
+			
+			
+			/** CHECKS FOR database in params **/
+			if(isset($params) && !empty($params))
+			{
+				if(array_key_exists('database', $params))
+				{
+					
+				$dbselect = mysql_select_db($params['database']);
+				
+				}
+				
+			}
+			else
+			{
+				$dbselect = mysql_select_db($database_config['database']);
+			}
+			
+            
 
             if(!$dbselect)
             {
-                throw new Crystal_Connection_Adapter_Exception("Cannot select database" . $database_config['database']);
+                throw new Crystal_Connection_Adapter_Exception("Cannot select database: " . mysql_error() );
             }
 
 
@@ -58,7 +76,7 @@ class Crystal_Connection_Adapter_Mysql
         {   /**
             *  TODO - replace with general database helper
             **/
-             mysql_query("SET NAMES " . Crystal_Methods_Mysql_Helper::add_single_quote($charset));
+             mysql_query("SET NAMES " . Crystal_Query_Helper::add_single_quote($charset));
         }
         catch (Exception $e)
         {

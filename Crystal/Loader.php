@@ -37,7 +37,7 @@ class Crystal_Loader
        }
 	
 		
-       $this->_driver = ucfirst($_driver);
+       $this->_driver = ucfirst($this->_driver);
 	  
 
                

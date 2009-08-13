@@ -20,7 +20,7 @@ class Crystal_Connection_Manager
     private $conn;
     
 
-    function __construct($connection = null)
+    function __construct($connection = null, $params = null)
     {
 
 		
@@ -52,12 +52,12 @@ class Crystal_Connection_Manager
         switch ($db_config['driver'])
         {
             case 'mysql':
-            $this->conn = new Crystal_Connection_Adapter_Mysql($db_config);
+            $this->conn = new Crystal_Connection_Adapter_Mysql($db_config, $params);
             break;
 			
 			
 			case 'postgres':
-            $this->conn = new Crystal_Connection_Adapter_Postgres($db_config);
+            $this->conn = new Crystal_Connection_Adapter_Postgres($db_config, $params);
             break;
 			
 			
