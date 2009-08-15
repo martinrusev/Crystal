@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Manipulation_Mysql_Builder 
+class Crystal_Manipulation_Postgres_Builder 
 {
 
    private $query;
@@ -32,7 +32,7 @@ class Crystal_Manipulation_Mysql_Builder
     {
     	
 		/** TODO - Rewrite it,  not the most elegant solution **/
-		$constant = "Crystal_Manipulation_Mysql_";
+		$constant = "Crystal_Manipulation_Postgres_";
 		
 		
 		/** METHOD MAPPER **/
@@ -47,6 +47,10 @@ class Crystal_Manipulation_Mysql_Builder
 							'rename_table' => 'rename'
 							);
        	
+		
+		
+		/** SAVES THE table name for with_fields() function **/
+		if($name == 'create_table'){ $this->table = $arguments;}
 		
 		/** NEEDED FOR METHODS THAT MUST REPLACE %s in PREVIOUS METHODS **/
 		$replacement_exceptions = array('with_fields' => 'fields');
@@ -82,7 +86,7 @@ class Crystal_Manipulation_Mysql_Builder
 			
 			$rescue_method = $constant . ucfirst($replacement_exceptions[$name]);
 			
-			$this->replacement  .= new $rescue_method($name, $filtered_arguments);
+			$this->replacement  .= new $rescue_method($name, $filtered_arguments, $this->table);
 		
 				
 			
@@ -96,7 +100,7 @@ class Crystal_Manipulation_Mysql_Builder
         else
         {
         	
-			throw new Crystal_Methods_Mysql_Exception('Invalid or not existing method' . $name);	
+			throw new Crystal_Methods_Postgres_Exception('Invalid or not existing method' . $name);	
 			
         }
 		
@@ -144,13 +148,13 @@ class Crystal_Manipulation_Mysql_Builder
 		}
 		
 		
-        $this->query = mysql_query($this->sql);
+        $this->query = pg_query($this->sql);
 	
 		
 
 	    if (!$this->query)
 		{
-	            throw new Crystal_Exception("Mysql Error:" . mysql_error());
+	            throw new Crystal_Exception("Postgres Error:" . pg_last_error($this->conn));
 	            return;
 		}
 		else
@@ -170,7 +174,7 @@ class Crystal_Manipulation_Mysql_Builder
         if($this->sql == FALSE)
         {
             
-            throw new Crystal_Methods_Mysql_Exception("No valid sql to print");
+            throw new Crystal_Methods_Postgres_Exception("No valid sql to print");
         }
         else
         {

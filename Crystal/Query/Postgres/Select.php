@@ -43,11 +43,11 @@ class Crystal_Methods_Postgres_Select
 		            {
 						if($value != $last_column)
 						{
-							$this->select .= Crystal_Methods_Helper::sanitize_string($value) . ", ";
+							$this->select .= Crystal_Helper::sanitize_string($value) . ", ";
 						}
 						else
 						{
-							$this->select .= Crystal_Methods_Helper::sanitize_string($value);
+							$this->select .= Crystal_Helper::sanitize_string($value);
 						}
 		
 		            }
@@ -62,7 +62,7 @@ class Crystal_Methods_Postgres_Select
          elseif(is_string($columns))
          {
                  
-              $this->select .= Crystal_Methods_Helper::sanitize_string($columns);
+              $this->select .= Crystal_Helper::sanitize_string($columns);
          }
          else
          {

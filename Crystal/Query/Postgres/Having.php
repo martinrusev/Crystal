@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Methods_Postgres_Having 
+class Crystal_Query_Postgres_Having 
 {
 
     
@@ -29,8 +29,8 @@ class Crystal_Methods_Postgres_Having
 			
 			if(isset($params[1]))
 			{
-				$this->having .= Crystal_Methods_Helper::sanitize_string($params[0])
-				. " = "  . Crystal_Methods_Helper::add_single_quote($params[1]);	
+				$this->having .= Crystal_Helper::sanitize_string($params[0])
+				. " = "  . Crystal_Helper::add_single_quote($params[1]);	
 				
 			}
 			else

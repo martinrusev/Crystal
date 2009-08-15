@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Methods_Postgres_Query 
+class Crystal_Query_Postgres_Query 
 {
 
    private $query;
@@ -35,7 +35,7 @@ class Crystal_Methods_Postgres_Query
     {
     	
 		/** TODO - Rewrite it,  not the most elegant solution **/
-		$constant = "Crystal_Methods_Postgres_";
+		$constant = "Crystal_Query_Postgres_";
 		
 		$exceptions = array
 		(
@@ -113,7 +113,7 @@ class Crystal_Methods_Postgres_Query
 
 	    if (!$this->query)
 		{
-	            throw new Crystal_Methods_Mysql_Exception("Mysql Error:" . mysql_error());
+	            throw new Crystal_Methods_Postgres_Exception("Postgres Error:" . pg_last_error($this->conn));
 	            return;
 		}
 		else
@@ -232,16 +232,7 @@ class Crystal_Methods_Postgres_Query
 
 
     }
-    
-
-
-    function last_insert_id()
-	{
-
-	 /** TODO - Write implementation **/
-     return mysql_insert_id();
-
-    }
+   
 
 
     function affected_rows()

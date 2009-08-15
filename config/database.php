@@ -35,7 +35,7 @@
 |	['password'] The password used to connect to the database
 |	['database'] The name of the database you want to connect to
 |	['dbdriver'] The database type
- *               Currently supported: mysql,postgres, sqlite
+ *               Currently supported: mysql,postgres
 |	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
 |	['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
 |	['char_set'] The character set used in communicating with the database
@@ -50,11 +50,13 @@ $db['default']['hostname'] = "localhost";
 $db['default']['username'] = "";
 $db['default']['password'] = "";
 $db['default']['database'] = "";
-$db['default']['driver']   = "mysql";
+$db['default']['driver']   = "postgres";
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache']    = 'memcached';
 $db['default']['db_log']   = TRUE;
 $db['default']['char_set'] = "utf8";
 $db['default']['dbcollat'] = "utf8_general_ci";
+
+
 

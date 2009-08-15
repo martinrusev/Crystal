@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Manipulation_Mysql_Fields
+class Crystal_Manipulation_Postgres_Fields
 {
 
 	private $primary_key;
@@ -24,16 +24,15 @@ class Crystal_Manipulation_Mysql_Fields
 	 * @return string
 	 * @param array $table
 	 */
-    function __construct($method, $params)
+    function __construct($method, $params, $table)
     {
     	
 		$array_keys = array_keys($params);
 		$last_column = end($array_keys);
-   
+   	
    
 	    switch ($method) 
 		{
-			
 			
 			
 			case 'with_fields':
@@ -43,9 +42,9 @@ class Crystal_Manipulation_Mysql_Fields
 				{
 					
 					
-					$this->fields .= Crystal_Helper::add_apostrophe($column);  
+					$this->fields .= Crystal_Helper::add_double_quote($column) ." ";  
 					
-					$this->fields .= self::process_rows($rows, $column, $last_column);
+					$this->fields .= self::process_rows($rows, $column, $last_column, $table);
 						
 			    }
 			
@@ -54,6 +53,7 @@ class Crystal_Manipulation_Mysql_Fields
 					$this->fields .= $this->primary_key;
 				}
 	    	break;
+			
 			
 			
 	    	case 'add_fields':
@@ -98,14 +98,23 @@ class Crystal_Manipulation_Mysql_Fields
     }
 	
 	
-	function process_rows($rows, $column, $last_column)
+	function process_rows($rows, $column, $last_column, $table)
 	{
 		$this->row = '';
 	
 	
 		if(array_key_exists('type', $rows))
 		{
-			$this->row .= strtoupper($rows['type'])  . " ";
+			
+			if($rows['type'] == 'key')
+			{
+				$this->row .=  "serial";
+			}
+			else
+			{
+				$this->row .= strtoupper($rows['type'])  . " ";
+			}
+			
 		}
 		
 		
@@ -164,12 +173,10 @@ class Crystal_Manipulation_Mysql_Fields
 		}
 		
 		
-	
-		
 		
 		if(array_key_exists('primary_key', $rows))
 		{
-			$this->primary_key =  ", PRIMARY KEY ( " . Crystal_Helper::add_apostrophe($column) . ")";
+			$this->primary_key =  ", CONSTRAINT " . $table[0] . "_pkey PRIMARY KEY ("  . $column . ")" ;
 			
 		}
 		

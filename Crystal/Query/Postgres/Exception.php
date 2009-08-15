@@ -1,3 +1,3 @@
 <?php
 
-class Crystal_Methods_Postgres_Exception extends Crystal_Exception {}
+class Crystal_Query_Postgres_Exception extends Crystal_Exception {}

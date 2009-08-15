@@ -12,25 +12,35 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Postgres_Sql
+class Crystal_Manipulation_Postgres_Alter 
 {
 
     
 
-    function __construct($method, $sql)
+    function __construct($method, $params)
     {
-
-
-	   
-		$this->sql = $sql[0];
+    	
+	
+	    switch ($method) 
+		{
+	    	case 'alter_table':
+	    	$this->alter = "ALTER TABLE"  . Crystal_Helper::add_apostrophe($params[0]);
+	    	break;
+			
+	    	
+	    	default:
+	       	break;
+	    }
 		
-    
+	
+	}
+		
       
-    }
+    
 
     public function __toString() 
 	{
-        return $this->sql;
+        return $this->alter;
     }
     
     

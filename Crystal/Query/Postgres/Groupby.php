@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Methods_Postgres_Groupby
+class Crystal_Query_Postgres_Groupby
 {
 
     
@@ -40,12 +40,12 @@ class Crystal_Methods_Postgres_Groupby
 			    {
 		            	if($key == $last_element)
 			        	{
-			             $this->groupby  .= Crystal_Methods_Helper::add_single_quote($key) . ' ' 
+			             $this->groupby  .= Crystal_Helper::add_single_quote($key) . ' ' 
 						 .  $value . ' ,';
 		                }
 		                else
 		                {
-		                    $this->groupby  .= Crystal_Methods_Helper::add_single_quote($key) 
+		                    $this->groupby  .= Crystal_Helper::add_single_quote($key) 
 							. $value;
 		                }
 		
@@ -55,8 +55,8 @@ class Crystal_Methods_Postgres_Groupby
 			else
 			{
 				
-					$this->groupby  .= Crystal_Methods_Helper::add_single_quote($groupby[0]). ', ' 
-					. Crystal_Methods_Helper::add_single_quote($groupby[1]);
+					$this->groupby  .= Crystal_Helper::add_single_quote($groupby[0]). ', ' 
+					. Crystal_Helper::add_single_quote($groupby[1]);
 					
 				
 			}	

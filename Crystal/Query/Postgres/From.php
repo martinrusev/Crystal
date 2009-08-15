@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Methods_Postgres_From 
+class Crystal_Query_Postgres_From 
 {
 
     
@@ -21,7 +21,7 @@ class Crystal_Methods_Postgres_From
     {
     	
 		
-        $this->_from = " FROM " . Crystal_Methods_Helper::sanitize_string($table[0]);
+        $this->_from = " FROM " . Crystal_Helper::sanitize_string($table[0]);
       
     }
 

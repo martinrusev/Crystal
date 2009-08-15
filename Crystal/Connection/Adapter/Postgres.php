@@ -17,15 +17,37 @@ class Crystal_Connection_Adapter_Postgres
 
     private $db;
 
-    function __construct($database_config)
+    function __construct($database_config, $params=null)
     {
 			
 		
 			/** CHECKS FOR PORT **/
 			$port = (isset($database_config['port'])?$database_config['port']:'5432');
 			
-			$conn_string = 'host=' . $database_config['hostname'] . ' port=' .  $port . ' dbname=' .  $database_config['database']
+			
+			
+			/** CHECKS FOR database in params **/
+			if(isset($params) && !empty($params))
+			{
+				if(array_key_exists('database', $params))
+				{
+					
+				$conn_string = 'host=' . $database_config['hostname'] . ' port=' .  $port . ' dbname=' .  $params['database']
+				. ' user=' . $database_config['username'] . ' password=' .  $database_config['password'];	
+				
+				
+				}
+				
+			}
+			else
+			{
+				$conn_string = 'host=' . $database_config['hostname'] . ' port=' .  $port . ' dbname=' .  $database_config['database']
 			. ' user=' . $database_config['username'] . ' password=' .  $database_config['password'];
+			}
+			
+			
+			
+			
 			
             $this->db = pg_connect($conn_string);
 
@@ -56,7 +78,7 @@ class Crystal_Connection_Adapter_Postgres
         {   /**
             *  TODO - replace with general database helper
             **/
-             pg_query("SET NAMES " . Crystal_Methods_Mysql_Helper::add_single_quote($charset));
+             pg_query("SET NAMES " . Crystal_Helper::add_single_quote($charset));
         }
         catch (Exception $e)
         {

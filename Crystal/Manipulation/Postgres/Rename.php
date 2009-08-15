@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Manipulation_Mysql_Rename 
+class Crystal_Manipulation_Postgres_Rename 
 {
 
     

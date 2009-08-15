@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Methods_Postgres_Expression
+class Crystal_Query_Postgres_Expression
 {
 
     

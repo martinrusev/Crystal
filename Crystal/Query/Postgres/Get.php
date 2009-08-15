@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Methods_Postgres_Get 
+class Crystal_Query_Postgres_Get 
 {
 
     
@@ -20,7 +20,7 @@ class Crystal_Methods_Postgres_Get
     function __construct($method, $table)
     {
 		
-		$this->get = "SELECT * FROM" . Crystal_Methods_Helper::sanitize_string($table[0]);
+		$this->get = "SELECT * FROM " . Crystal_Helper::sanitize_string($table[0]);
 		
 
     }

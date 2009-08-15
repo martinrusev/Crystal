@@ -16,7 +16,6 @@ class Crystal_Helper
 {
 	
 	
-	/** ACCEPTS ONLY STRING **/
 	static function add_apostrophe($string)
 	{
 		
@@ -41,7 +40,7 @@ class Crystal_Helper
 		if(is_string($string))
 		{
 			
-			return  " '" . htmlspecialchars(self::mysql_real_escape_string_alternative($string), ENT_QUOTES) . "' "; 			
+			return  htmlspecialchars(self::mysql_real_escape_string_alternative($string), ENT_QUOTES); 			
 		}
 		else
 		{	
@@ -67,6 +66,26 @@ class Crystal_Helper
 		else
 		{	
 			throw new Crystal_Helper_Exception("Helper accepts only strings for add_single_quote function");
+		}
+        
+    }
+	
+	
+	static function add_double_quote($string)
+	{
+		if(is_string($string))
+		{
+			return '"' . strtolower(filter_var($string, FILTER_SANITIZE_STRING)) . '"';
+		}
+		elseif(is_numeric($string))
+		{
+			
+			return $string;
+			
+		}
+		else
+		{	
+			throw new Crystal_Helper_Exception("Helper accepts only strings for add_double_quote function");
 		}
         
     }
