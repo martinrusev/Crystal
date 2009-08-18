@@ -20,7 +20,7 @@ class Crystal_Query_Postgres_Count
     function __construct($table)
     {
 				
-       $this->count = "SELECT COUNT(*) as total FROM" . Crystal_Methods_Helper::sanitize_string($table);
+       $this->count = "SELECT COUNT(*) as total FROM" . Crystal_Helper::sanitize_string($table);
      	     
     }
 

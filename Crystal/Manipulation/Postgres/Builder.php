@@ -109,6 +109,7 @@ class Crystal_Manipulation_Postgres_Builder
 		if(isset($this->replacement))
 		{
 			$this->sql =  preg_replace('/%s/', $this->replacement, $this->sql);
+			unset($this->replacement);
 		}
 		
 			

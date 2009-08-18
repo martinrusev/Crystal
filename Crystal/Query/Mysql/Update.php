@@ -27,7 +27,7 @@ class Crystal_Query_Mysql_Update
 		}
 		else
 		{
-			throw new Crystal_Methods_Mysql_Exception("Expecting string for table in update() function");
+			throw new Crystal_Query_Mysql_Exception("Expecting string for table in update() function");
 		}
 		
 		
@@ -38,19 +38,19 @@ class Crystal_Query_Mysql_Update
 		}
 		else
 		{
-			throw new Crystal_Methods_Mysql_Exception("Expecting array for data in update() function");
+			throw new Crystal_Query_Mysql_Exception("Expecting array for data in update() function");
 		}
 		
 		
 		
-		$this->update = "UPDATE " . Crystal_Methods_Helper::add_apostrophe($table) . " SET ";
+		$this->update = "UPDATE " . Crystal_Helper::add_apostrophe($table) . " SET ";
 
 
 
         if(isset($data))
         {
 
-            $this->update .= Crystal_Methods_Helper::escape_update_values($data);
+            $this->update .= Crystal_Helper::escape_update_values($data);
 
         }
 		

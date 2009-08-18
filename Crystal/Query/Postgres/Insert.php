@@ -28,7 +28,7 @@ class Crystal_Query_Postgres_Insert
 		}
 		else
 		{
-			throw new Crystal_Methods_Postgres_Exception("Expecting string for table in insert() function");
+			throw new Crystal_Query_Postgres_Exception("Expecting string for table in insert() function");
 		}
 		
 		
@@ -39,7 +39,7 @@ class Crystal_Query_Postgres_Insert
 		}
 		else
 		{
-			throw new Crystal_Methods_Postgres_Exception("Expecting array for data in insert() function");
+			throw new Crystal_Query_Postgres_Exception("Expecting array for data in insert() function");
 		}
 		
 		

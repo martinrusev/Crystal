@@ -40,7 +40,7 @@ class Crystal_Query_Postgres_Expression
 		break;
 		
 		default:
-		throw new Crystal_Methods_Postgres_Expression("Undefined expression:  " . $method);
+		throw new Crystal_Query_Postgres_Expression("Undefined expression:  " . $method);
 		break;
 		}
 

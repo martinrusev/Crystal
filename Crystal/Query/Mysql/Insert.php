@@ -45,15 +45,15 @@ class Crystal_Query_Mysql_Insert
 		
 		
 	 	  $columns_temp = array_keys($data);
-		  foreach($columns_temp as $value){$columns[] = Crystal_Methods_Helper::add_apostrophe($value);}
+		  foreach($columns_temp as $value){$columns[] = Crystal_Helper::add_apostrophe($value);}
 	    
 	    
 		  $values_temp = array_values($data);
-		  foreach($values_temp as $value){$values[] = Crystal_Methods_Helper::add_single_quote($value);}
+		  foreach($values_temp as $value){$values[] = Crystal_Helper::add_single_quote($value);}
 	    
 	    
 	    
-		    $this->insert = "INSERT INTO " . Crystal_Methods_Helper::add_apostrophe($table);
+		    $this->insert = "INSERT INTO " . Crystal_Helper::add_apostrophe($table);
 		    $this->insert .= '(' . implode(', ' , $columns) . ')';
 		    $this->insert .= " VALUES ";
 		    $this->insert .= '(' . implode(', ' , $values) . ')';

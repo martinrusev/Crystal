@@ -21,7 +21,7 @@ class Crystal_Query_Mysql_From
     {
     	
 		
-        $this->_from = "FROM" . Crystal_Methods_Helper::add_apostrophe($table[0]);
+        $this->_from = "FROM" . Crystal_Helper::add_apostrophe($table[0]);
       
     }
 

@@ -159,7 +159,7 @@ class Crystal_Query_Postgres_Where
 		
 		
 		default:
-		throw new Crystal_Methods_Postgres_Exception("Invalid method: " . $method);
+		throw new Crystal_Query_Postgres_Exception("Invalid method: " . $method);
 		break;
 		}
 

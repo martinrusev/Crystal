@@ -27,7 +27,7 @@ class Crystal_Query_Postgres_Update
 		}
 		else
 		{
-			throw new Crystal_Methods_Postgres_Exception("Expecting string for table in update() function");
+			throw new Crystal_Query_Postgres_Exception("Expecting string for table in update() function");
 		}
 		
 		
@@ -38,7 +38,7 @@ class Crystal_Query_Postgres_Update
 		}
 		else
 		{
-			throw new Crystal_Methods_Postgres_Exception("Expecting array for data in update() function");
+			throw new Crystal_Query_Postgres_Exception("Expecting array for data in update() function");
 		}
 		
 		

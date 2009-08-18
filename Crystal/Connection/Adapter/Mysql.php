@@ -76,7 +76,7 @@ class Crystal_Connection_Adapter_Mysql
         {   /**
             *  TODO - replace with general database helper
             **/
-             mysql_query("SET NAMES " . Crystal_Query_Helper::add_single_quote($charset));
+             mysql_query("SET NAMES " . Crystal_Helper::add_single_quote($charset));
         }
         catch (Exception $e)
         {

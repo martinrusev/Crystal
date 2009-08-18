@@ -90,7 +90,7 @@ class Crystal_Query_Postgres_Query
         else
         {
         	
-			throw new Crystal_Methods_Postgres_Exception('Invalid or not existing method' . $name);	
+			throw new Crystal_Query_Postgres_Exception('Invalid or not existing method' . $name);	
 			
         }
 		
@@ -113,7 +113,7 @@ class Crystal_Query_Postgres_Query
 
 	    if (!$this->query)
 		{
-	            throw new Crystal_Methods_Postgres_Exception("Postgres Error:" . pg_last_error($this->conn));
+	            throw new Crystal_Query_Postgres_Exception("Postgres Error:" . pg_last_error($this->conn));
 	            return;
 		}
 		else
@@ -196,7 +196,7 @@ class Crystal_Query_Postgres_Query
 		  }	
 		  else
 		  {
-		  	throw new Crystal_Methods_Postgres_Exception("Element:" . $element . "can't be found");
+		  	throw new Crystal_Query_Postgres_Exception("Element:" . $element . "can't be found");
          
 		  }
 		  
@@ -204,7 +204,7 @@ class Crystal_Query_Postgres_Query
         }
         else
         {
-           throw new Crystal_Methods_Postgres_Exception("<b>fetch_element()</b> works only with strings as parameter");
+           throw new Crystal_Query_Postgres_Exception("<b>fetch_element()</b> works only with strings as parameter");
            
         }
 
@@ -219,7 +219,7 @@ class Crystal_Query_Postgres_Query
         if($this->sql == FALSE)
         {
             
-            throw new Crystal_Methods_Postgres_Exception("No valid sql to print");
+            throw new Crystal_Query_Postgres_Exception("No valid sql to print");
         }
         else
         {

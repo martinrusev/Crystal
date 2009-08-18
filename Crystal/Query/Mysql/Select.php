@@ -43,11 +43,11 @@ class Crystal_Query_Mysql_Select
 		            {
 						if($value != $last_column)
 						{
-							$this->select .= Crystal_Methods_Helper::add_apostrophe($value) . ", ";
+							$this->select .= Crystal_Helper::add_apostrophe($value) . ", ";
 						}
 						else
 						{
-							$this->select .= Crystal_Methods_Helper::add_apostrophe($value);
+							$this->select .= Crystal_Helper::add_apostrophe($value);
 						}
 		
 		            }
@@ -62,7 +62,7 @@ class Crystal_Query_Mysql_Select
          elseif(is_string($columns))
          {
                  
-              $this->select .= Crystal_Methods_Helper::add_apostrophe($columns);
+              $this->select .= Crystal_Helper::add_apostrophe($columns);
          }
          else
          {

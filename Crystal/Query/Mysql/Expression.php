@@ -40,7 +40,7 @@ class Crystal_Query_Mysql_Expression
 		break;
 		
 		default:
-		throw new Crystal_Methods_Mysql_Expression("Undefined expression:  " . $method);
+		throw new Crystal_Query_Mysql_Expression("Undefined expression:  " . $method);
 		break;
 		}
 
