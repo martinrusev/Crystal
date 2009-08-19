@@ -51,7 +51,7 @@ class Crystal_Query_Mysql_Insert
 		  $values_temp = array_values($data);
 		  foreach($values_temp as $value){$values[] = Crystal_Helper::add_single_quote($value);}
 	    
-	    
+	   
 	    
 		    $this->insert = "INSERT INTO " . Crystal_Helper::add_apostrophe($table);
 		    $this->insert .= '(' . implode(', ' , $columns) . ')';

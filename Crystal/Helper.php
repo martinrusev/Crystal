@@ -55,7 +55,7 @@ class Crystal_Helper
 	{
 		if(is_string($string))
 		{
-			return " '" . strtolower(filter_var($string, FILTER_SANITIZE_STRING)) . "' ";
+			return " '" . htmlspecialchars(self::mysql_real_escape_string_alternative($string), ENT_QUOTES) . "' ";
 		}
 		elseif(is_numeric($string))
 		{
@@ -75,7 +75,7 @@ class Crystal_Helper
 	{
 		if(is_string($string))
 		{
-			return '"' . strtolower(filter_var($string, FILTER_SANITIZE_STRING)) . '"';
+			return '"' . htmlspecialchars(self::mysql_real_escape_string_alternative($string), ENT_QUOTES). '"';
 		}
 		elseif(is_numeric($string))
 		{
@@ -96,7 +96,7 @@ class Crystal_Helper
 	foreach($cols as $key => $value)
         {
 
-            $updated_cols[] = self::add_apostrophe($key)  . "= '"  . $value . "'";
+            $updated_cols[] = self::add_apostrophe($key)  . "= '"  . self::mysql_real_escape_string_alternative($value)  . "'";
 
 
         }
@@ -136,7 +136,7 @@ class Crystal_Helper
 	{
 		
     $search = array("\x00", "\n", "\r", "\\", "'", "\"", "\x1a");
-    $replace = array("\\x00", "\\n", "\\r", "\\\\" ,"\'", "\\\"", "\\\x1a");
+    $replace = array("\\x00", "\\n", "\\r", "\\\\" ,"&#039;", "&quot;", "\\\x1a");
 
     return str_replace($search, $replace, $value);
 	}

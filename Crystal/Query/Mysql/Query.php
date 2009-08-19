@@ -175,7 +175,7 @@ class Crystal_Query_Mysql_Query
 		
        if(isset($clean_row))
 		{
-			return $clean_row;
+			return $clean_row[0];
 		}
 		else
 		{
