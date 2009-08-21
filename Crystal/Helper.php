@@ -21,7 +21,7 @@ class Crystal_Helper
 		
 		if(is_string($string))
 		{
-			return  " `" . htmlspecialchars(self::mysql_real_escape_string_alternative($string), ENT_QUOTES) . "` ";
+			return  " `" . htmlentities(self::mysql_real_escape_string_alternative($string), ENT_QUOTES) . "` ";
 		}
 		else
 		{	
@@ -40,7 +40,7 @@ class Crystal_Helper
 		if(is_string($string))
 		{
 			
-			return  htmlspecialchars(self::mysql_real_escape_string_alternative($string), ENT_QUOTES); 			
+			return  htmlentities(self::mysql_real_escape_string_alternative($string), ENT_QUOTES); 			
 		}
 		else
 		{	
@@ -55,7 +55,7 @@ class Crystal_Helper
 	{
 		if(is_string($string))
 		{
-			return " '" . htmlspecialchars(self::mysql_real_escape_string_alternative($string), ENT_QUOTES) . "' ";
+			return " '" . htmlentities(self::mysql_real_escape_string_alternative("{$string}"),ENT_QUOTES, "UTF-8") . "' ";
 		}
 		elseif(is_numeric($string))
 		{
@@ -75,7 +75,7 @@ class Crystal_Helper
 	{
 		if(is_string($string))
 		{
-			return '"' . htmlspecialchars(self::mysql_real_escape_string_alternative($string), ENT_QUOTES). '"';
+			return '"' . htmlentities(self::mysql_real_escape_string_alternative($string), ENT_QUOTES). '"';
 		}
 		elseif(is_numeric($string))
 		{
@@ -96,7 +96,7 @@ class Crystal_Helper
 	foreach($cols as $key => $value)
         {
 
-            $updated_cols[] = self::add_apostrophe($key)  . "= '"  . self::mysql_real_escape_string_alternative($value)  . "'";
+           $updated_cols[] = self::add_apostrophe($key)  . "= "  . self::add_single_quote($value)  . " ";
 
 
         }
@@ -117,7 +117,7 @@ class Crystal_Helper
 			if(!is_numeric($column))
 			{	
 				
-			$rows[$key]  = stripslashes($column);
+			$rows[$key]  = html_entity_decode(stripslashes($column));
 			
 			}
 		
@@ -130,13 +130,14 @@ class Crystal_Helper
 		
 	}
 	
+	
 
 	
 	function mysql_real_escape_string_alternative($value)
 	{
 		
-    $search = array("\x00", "\n", "\r", "\\", "'", "\"", "\x1a");
-    $replace = array("\\x00", "\\n", "\\r", "\\\\" ,"&#039;", "&quot;", "\\\x1a");
+    $search = array("\x00", "\\", "\x1a");
+    $replace = array("\\x00",  "\\\\" , "\\\x1a");
 
     return str_replace($search, $replace, $value);
 	}

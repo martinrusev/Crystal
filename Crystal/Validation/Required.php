@@ -25,11 +25,11 @@ class Crystal_Validation_Required
         if(!isset($param) or empty($param))
         {
 
-            $this->result = TRUE;
+            $this->result = FALSE;
         }
         else
         {
-            $this->result = FALSE;
+            $this->result = TRUE;
         }
 
 
