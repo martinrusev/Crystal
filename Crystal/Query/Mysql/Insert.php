@@ -19,7 +19,7 @@ class Crystal_Query_Mysql_Insert
 
     function __construct($method, $params)
     {
-		
+    	
 		
 		/** CHECKS  TABLE **/
 		if(is_string($params[0]))
@@ -45,19 +45,35 @@ class Crystal_Query_Mysql_Insert
 		
 		
 	 	  $columns_temp = array_keys($data);
-		  foreach($columns_temp as $value){$columns[] = Crystal_Helper::add_apostrophe($value);}
+		  foreach($columns_temp as $column_value){$columns[] = Crystal_Helper::add_apostrophe($column_value);}
 	    
 	    
-		  $values_temp = array_values($data);
-		  foreach($values_temp as $value){$values[] = Crystal_Helper::add_single_quote($value);}
+		 $values_temp = array_values($data);
+		
+		
+		if($method == 'insert_safe')
+		{
+			
+			
+		  	   foreach($values_temp as $value){$values[] = Crystal_Helper::add_single_quoute_safe_string($value);}
+			
+		}
+		else
+		{
+			
+				foreach($values_temp as $value){$values[] = Crystal_Helper::add_single_quote($value);}
+		}
 	    
-	   
-	    
+		
+			
+		
 		    $this->insert = "INSERT INTO " . Crystal_Helper::add_apostrophe($table);
 		    $this->insert .= '(' . implode(', ' , $columns) . ')';
 		    $this->insert .= " VALUES ";
 		    $this->insert .= '(' . implode(', ' , $values) . ')';
-    	
+    		
+		
+		
 		
       
     }

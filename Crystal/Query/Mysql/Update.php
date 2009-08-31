@@ -49,13 +49,20 @@ class Crystal_Query_Mysql_Update
 
         if(isset($data))
         {
-
-            $this->update .= Crystal_Helper::escape_update_values($data);
+			
+			if($method == 'update_safe')
+			{
+				$this->update .= Crystal_Helper::escape_update_values_safe($data);
+			}
+			else
+			{
+				$this->update .= Crystal_Helper::escape_update_values($data);
+			}
+            
 
         }
 		
-	 	
-		
+	 
       
     }
 

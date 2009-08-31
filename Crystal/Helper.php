@@ -53,9 +53,15 @@ class Crystal_Helper
 
     static function add_single_quote($string)
 	{
+		
+		
+		
+		
 		if(is_string($string))
-		{
-			return " '" . htmlentities(self::mysql_real_escape_string_alternative("{$string}"),ENT_QUOTES, "UTF-8") . "' ";
+		{	
+		
+			
+			return " '" . htmlentities(self::mysql_real_escape_string_alternative($string),ENT_QUOTES) . "' ";
 		}
 		elseif(is_numeric($string))
 		{
@@ -69,6 +75,33 @@ class Crystal_Helper
 		}
         
     }
+	
+
+	static function add_single_quoute_safe_string($string)
+	{
+	
+		
+	 	
+		if(is_numeric($string))
+		{
+			
+			return $string;
+			
+		}
+		elseif(is_string($string))
+		{
+			$parsed_string = self::mysql_real_escape_string_alternative($string);
+			
+			return "'" . $parsed_string . "'";
+			
+		}
+		else
+		{	
+			throw new Crystal_Helper_Exception("Helper accepts only strings for add_single_quote function");
+		}
+		
+		
+	}
 	
 	
 	static function add_double_quote($string)
@@ -92,8 +125,10 @@ class Crystal_Helper
 	
 	static function escape_update_values($cols)
 	{
+		
+		
 
-	foreach($cols as $key => $value)
+		foreach($cols as $key => $value)
         {
 
            $updated_cols[] = self::add_apostrophe($key)  . "= "  . self::add_single_quote($value)  . " ";
@@ -105,6 +140,25 @@ class Crystal_Helper
 
 
 	return $temp;
+
+    }
+	
+	
+	static function escape_update_values_safe($cols)
+	{
+
+		foreach($cols as $key => $value)
+        {
+
+           $updated_cols[] = self::add_apostrophe($key)  . "="  . self::add_single_quoute_safe_string($value);
+
+
+        }
+
+        $temp = implode(',', $updated_cols);
+
+	
+	    return $temp;
 
     }
 	
@@ -130,16 +184,36 @@ class Crystal_Helper
 		
 	}
 	
-	
+	function remove_single_quote($value)
+	{
+		
+		$search = array("'");
+    	$replace = array("&#039;");
+
+    return str_replace($search, $replace, $value);	
+		
+	}
 
 	
 	function mysql_real_escape_string_alternative($value)
 	{
+	
+	
+	return strtr($value, array
+	(
+		  "\x00" => '\x00',
+		  "\n" => '\n', 
+		  "\r" => '\r', 
+		  '\\' => '\\\\',
+		  "\x1a" => '\x1a'
+	));
+	
 		
-    $search = array("\x00", "\\", "\x1a");
-    $replace = array("\\x00",  "\\\\" , "\\\x1a");
+		
+    //$search = array("\x00", "\\", "\x1a", "\n", "\r" );
+   // $replace = array("\\x00",  "\\\\" , "\\\x1a", '\n', '\r');
 
-    return str_replace($search, $replace, $value);
+   // return str_replace($search, $replace, $value);
 	}
 
 }

@@ -50,7 +50,9 @@ class Crystal_Query_Mysql_Query
 		'or' => 'where',
 		'in' => 'where',
 		'and' => 'where',
-		'like' => 'where'
+		'like' => 'where',
+		'insert_safe' => 'insert',
+		'update_safe' => 'update'
 		);
        
 	    $default_method = $constant . ucfirst($name);
@@ -108,8 +110,9 @@ class Crystal_Query_Mysql_Query
     public function execute()
 	{
 		
+		
         $this->query = mysql_query($this->sql);
-	
+		
 		
 
 	    if (!$this->query)
@@ -173,6 +176,7 @@ class Crystal_Query_Mysql_Query
 		/** RESET SQL **/
 		$this->sql = NULL;
 		
+		
        if(isset($clean_row))
 		{
 			return $clean_row[0];
@@ -196,6 +200,7 @@ class Crystal_Query_Mysql_Query
 
        if(isset($result))
 		{
+			
 			return $result;
 		}
 		else
