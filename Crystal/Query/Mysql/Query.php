@@ -169,7 +169,11 @@ class Crystal_Query_Mysql_Query
 		
 		$row =  mysql_fetch_assoc($this->query);
 		
-		$clean_row[] = Crystal_Helper::clean_db_result($row);
+		if(isset($row) && !empty($row))
+		{
+			$clean_row[] = Crystal_Helper::clean_db_result($row);
+		}
+		
 			
          
      

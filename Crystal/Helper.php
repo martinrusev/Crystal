@@ -165,6 +165,9 @@ class Crystal_Helper
 	static function clean_db_result($rows)
 	{
 		
+		if(isset($rows) && !empty($rows))
+		{
+				
 		foreach($rows as $key =>  $column)
 		{
 				
@@ -178,6 +181,10 @@ class Crystal_Helper
 		}
 		
 		return $rows;
+			
+			
+		}
+	
 		
 		
 		
