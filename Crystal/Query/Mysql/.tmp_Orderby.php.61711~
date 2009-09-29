@@ -39,12 +39,12 @@ class Crystal_Query_Mysql_Orderby
 			    {
 		            	if($key == $last_element)
 			        	{
-			             $this->order  .= Crystal_Query_Mysql_Helper::add_single_quote($key) . ' ' 
+			             $this->order  .= Crystal_Mysql_Helper::add_single_quote($key) . ' ' 
 						 .  $value . ' ,';
 		                }
 		                else
 		                {
-		                    $this->order  .= Crystal_Query_Mysql_Helper::add_single_quote($key) . ' '
+		                    $this->order  .= Crystal_Mysql_Helper::add_single_quote($key) . ' '
 							. $value;
 		                }
 		
@@ -57,7 +57,7 @@ class Crystal_Query_Mysql_Orderby
 			}
 			else
 			{
-				$this->order  .= Crystal_Query_Mysql_Helper::add_single_quote($order[0]). ' ' 
+				$this->order  .= Crystal_Mysql_Helper::add_single_quote($order[0]). ' ' 
 				. $order[1];
 				
 			}

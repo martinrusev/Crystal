@@ -40,12 +40,12 @@ class Crystal_Query_Mysql_Groupby
 			    {
 		            	if($key == $last_element)
 			        	{
-			             $this->groupby  .= Crystal_Query_Mysql_Helper::add_single_quote($key) . ' ' 
+			             $this->groupby  .= Crystal_Mysql_Helper::add_single_quote($key) . ' ' 
 						 .  $value . ' ,';
 		                }
 		                else
 		                {
-		                    $this->groupby  .= Crystal_Query_Mysql_Helper::add_single_quote($key) 
+		                    $this->groupby  .= Crystal_Mysql_Helper::add_single_quote($key) 
 							. $value;
 		                }
 		
@@ -55,8 +55,8 @@ class Crystal_Query_Mysql_Groupby
 			else
 			{
 				
-					$this->groupby  .= Crystal_Query_Mysql_Helper::add_single_quote($groupby[0]). ', ' 
-					. Crystal_Query_Mysql_Helper::add_single_quote($groupby[1]);
+					$this->groupby  .= Crystal_Mysql_Helper::add_single_quote($groupby[0]). ', ' 
+					. Crystal_Mysql_Helper::add_single_quote($groupby[1]);
 					
 				
 			}	

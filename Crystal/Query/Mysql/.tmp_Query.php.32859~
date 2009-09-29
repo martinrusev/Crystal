@@ -25,6 +25,7 @@ class Crystal_Query_Mysql_Query
 
         $this->conn = new Crystal_Connection_Manager($active_connection);
 		
+		
 
     }
 
@@ -138,7 +139,7 @@ class Crystal_Query_Mysql_Query
 	 	 while($row = mysql_fetch_assoc($this->query))
          {
          	
-			$result[] = Crystal_Query_Mysql_Helper::clean_db_result($row);
+			$result[] = Crystal_Helper::clean_db_result($row);
          	
          }
 
@@ -170,7 +171,7 @@ class Crystal_Query_Mysql_Query
 		
 		if(isset($row) && !empty($row))
 		{
-			$clean_row[] = Crystal_Query_Mysql_Helper::clean_db_result($row);
+			$clean_row[] = Crystal_Mysql_Helper::clean_db_result($row);
 		}
 		
 			

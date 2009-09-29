@@ -12,58 +12,57 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Orderby 
+class Crystal_Query_Mysql_Groupby
 {
 
     
 
-    function __construct($method=null, $order=null)
+    function __construct($method, $groupby)
     {
-	
-	
-	$this->order = " ORDER BY ";	
+    	
 		
-	if(is_array($order))
+	 $this->groupby = " GROUP BY ";	
+		
+		
+	if(is_array($groupby))
 	{
-		
-		
-			if(!isset($order[0]))
+
+	
+			if(!isset($groupby[0]))
 			{
-				
-				
+					
+					
 				/** 
-				*  Works for array type  -> array(key => value)
-			   */
-		       $last_element = end($order);
-			    foreach($order as $key => $value)
+				  Works for array type  -> array(key => value)
+				*/
+		        $last_element = end($groupby);
+			    foreach($groupby as $key => $value)
 			    {
 		            	if($key == $last_element)
 			        	{
-			             $this->order  .= Crystal_Query_Mysql_Helper::add_single_quote($key) . ' ' 
+			             $this->groupby  .= Crystal_Helper::add_single_quote($key) . ' ' 
 						 .  $value . ' ,';
 		                }
 		                else
 		                {
-		                    $this->order  .= Crystal_Query_Mysql_Helper::add_single_quote($key) . ' '
+		                    $this->groupby  .= Crystal_Helper::add_single_quote($key) 
 							. $value;
 		                }
 		
-		         }
-				
-				
-				
-				
+		        }
 				
 			}
 			else
 			{
-				$this->order  .= Crystal_Query_Mysql_Helper::add_single_quote($order[0]). ' ' 
-				. $order[1];
 				
-			}
+					$this->groupby  .= Crystal_Helper::add_single_quote($groupby[0]). ', ' 
+					. Crystal_Helper::add_single_quote($groupby[1]);
+					
+				
+			}	
 
-		
-		}
+          
+        }
         else
         {
 
@@ -77,7 +76,7 @@ class Crystal_Query_Mysql_Orderby
 
     public function __toString() 
 	{
-        return $this->order;
+        return $this->groupby;
     }
     
     

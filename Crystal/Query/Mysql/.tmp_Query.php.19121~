@@ -25,6 +25,7 @@ class Crystal_Query_Mysql_Query
 
         $this->conn = new Crystal_Connection_Manager($active_connection);
 		
+		
 
     }
 

@@ -12,25 +12,30 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_From 
+class Crystal_Query_Mysql_Delete 
 {
 
     
-
+	
+	/** TODO - MASS DELETE FUNCTION
+	 *  description delete('table1','table2');
+	 *  
+	 * @return string
+	 * @param array $table
+	 */
     function __construct($method, $table)
     {
+		
+    	
+	 $this->delete = "DELETE FROM " . Crystal_Helper::add_apostrophe($table[0]);
     	
 		
-        $this->_from = "FROM" . Crystal_Query_Mysql_Helper::add_apostrophe($table[0]);
       
     }
 
     public function __toString() 
-    {
-
-        return $this->_from;
-    
-    
+	{
+        return $this->delete;
     }
     
     

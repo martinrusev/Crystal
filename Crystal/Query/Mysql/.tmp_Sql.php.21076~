@@ -12,25 +12,25 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_From 
+class Crystal_Query_Mysql_Sql 
 {
 
     
 
-    function __construct($method, $table)
+    function __construct($method, $sql)
     {
-    	
+
+
+	   
+		$this->sql = $sql[0];
 		
-        $this->_from = "FROM" . Crystal_Query_Mysql_Helper::add_apostrophe($table[0]);
+    
       
     }
 
     public function __toString() 
-    {
-
-        return $this->_from;
-    
-    
+	{
+        return $this->sql;
     }
     
     
