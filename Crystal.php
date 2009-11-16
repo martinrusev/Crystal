@@ -1,4 +1,4 @@
- <?php
+<?php
 /**
  *  Crystal DBAL
  *
@@ -42,14 +42,15 @@ class Crystal
       
     static public function db($connection = null)
     {
-
+		
+		
         return Crystal_Query_Common::db($connection);
         
     }     
    
     static public function manipulation($connection = null)
     {
-
+    	
         return Crystal_Manipulation_Common::db($connection);
         
     }
@@ -57,6 +58,9 @@ class Crystal
 
     static public function validation($rules, $data)
     {
+    	
+		
+		
 
 
         return new Crystal_Validator($rules, $data);
@@ -65,20 +69,11 @@ class Crystal
     }
 	
 	
-
-}
-
-
- /** GLOBAL AUTOLOAD FUNCTION 
-     *
-     *  Simple autoload function 
-     *  @param <string> $class_name
-     */
-    function __autoload($class_name)
-    {
-
-   
-        $path = str_replace("_", CRYSTAL_DS, $class_name);
+	public static function crystal_autoload($class_name)
+	{
+		
+		
+		$path = str_replace("_", CRYSTAL_DS, $class_name);
         
 	
         if(file_exists(CRYSTAL_BASE . CRYSTAL_DS . $path . '.php'))
@@ -96,5 +91,10 @@ class Crystal
             throw new Exception("Invalid Class name ". $class_name);
         }
      
+	
+		
+	}
+	
 
-    }
+}
+spl_autoload_register(array('Crystal', 'crystal_autoload'));

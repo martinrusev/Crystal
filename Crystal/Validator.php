@@ -36,7 +36,9 @@ class Crystal_Validator
                                    'numeric' => 'Numeric',
                                    'regexp' => 'Regexp',
                                    'unique' => 'Unique',
-                                   'valid_url' => 'Url');
+                                   'valid_url' => 'Url',
+								   'required' => 'Required'
+								   );
 								   
 	private $method_prefix = "Crystal_Validation_";							   
 
@@ -71,7 +73,7 @@ class Crystal_Validator
                     $method = $this->_validate_method($rule_type);
                     $method_name = $this->method_prefix . $method;
             
-                    $validation = new $method_name($data[$field], $params);
+                    $validation = new $method_name($data[$field], $params = null);
                                 
 
                     
@@ -90,17 +92,21 @@ class Crystal_Validator
 				
 				
 				case 'rule':
+					print_r($conditions);
 				 	$method = $this->_validate_method($conditions['rule']);
                     $method_name = $this->method_prefix . $method;
 				
-            
-                    $validation = new $method_name($data[$field], $params);
+            		//print_r($params);
+                    $validation = new $method_name($data[$field], $params= null);
 					
 					
 					if($validation->result != TRUE)
                     {
                        
-					   $this->errors[$field] = $this->_assign_error_message($method, $conditions['message']);
+					   //echo $field;
+					  //echo $conditions['rule'];
+					  // echo $conditions['message'];
+				$this->errors[$field] = $this->_assign_error_message($conditions['rule'], $conditions['message'] = null, $field);
 
 					   $this->passed = FALSE;
                                     
@@ -151,7 +157,10 @@ class Crystal_Validator
 
     private function _validate_method($method)
     {
-
+	
+	  // CHECKS FOR rule => array('rule');
+	  $method = (is_array($method))?$method[0]:$method;
+	 
 
       if(array_key_exists($method, $this->valid_methods))
       {
@@ -159,7 +168,7 @@ class Crystal_Validator
       }
       else
       {
-	  throw new Crystal_Validation_Exception("Cannot find requested validation method " . $method);
+	  throw new Crystal_Validation_Exception("Cannot find requested validation method: " . $method);
       }
 	
         

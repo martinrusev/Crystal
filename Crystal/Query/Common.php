@@ -23,19 +23,21 @@ class Crystal_Query_Common
 
     static public function db($active_connection)
     {
-      	
+      	static $db;
+	  
         $_driver =  new Crystal_Loader($active_connection);
 
         $adapter = "Crystal_Query_" . $_driver . "_Query";
         
-		
-        $db = new $adapter($active_connection);
-
+		if (!isset($db)) 
+		{
+             $db = new $adapter($active_connection);
+        } 
         
         return $db;
+
     
     }
+	
 
-
-    
 }

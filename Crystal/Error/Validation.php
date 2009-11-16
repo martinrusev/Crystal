@@ -23,7 +23,8 @@ class Crystal_Error_Validation
 
         /** IF $error is array filter coresponding key **/
         $error_string = (is_array($method))? $method[0]: $method;
-
+		
+		
         if(isset($validation[$error_string]))
         {
 
