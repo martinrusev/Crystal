@@ -20,10 +20,11 @@ class Crystal_Validation_MinLength
 
     function __construct($string=null, $min_length=null)
     {
-
+		
+		
        /** checks for min lenght array **/
        $value = (is_array($min_length)) ? $min_length[0]:$min_length;
-
+	
     
       if(isset($string) && !is_null($value))
         {

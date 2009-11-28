@@ -78,7 +78,7 @@ class Crystal_Connection_Adapter_Postgres
         {   /**
             *  TODO - replace with general database helper
             **/
-             pg_query("SET NAMES " . Crystal_Query_Postgres_Helper::add_single_quote($charset));
+             pg_query("SET NAMES " . Crystal_Helper_Postgres::add_single_quote($charset));
         }
         catch (Exception $e)
         {

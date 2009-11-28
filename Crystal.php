@@ -14,14 +14,6 @@
 // ------------------------------------------------------------------------
 
 /* DEFINE APPLICATION GLOBAL CONSTANTS **/
-/**
- *  CONTSTANTS EXPLAINED
- *  EXT - file extension, default '.php'
- *  DS - shortcut for DIRECTORY_SEPARATOR
- *  BASE - THIS FILE DIRECTORY PATH
- *  BASEPATH - absolute path to 'base' directory
- *  LOG - path to 'log'  directory
- */
 define('CRYSTAL_DS',  DIRECTORY_SEPARATOR);
 define('CRYSTAL_BASE', dirname(__FILE__));
 define('CRYSTAL_BASEPATH', CRYSTAL_BASE . CRYSTAL_DS . 'Crystal' . CRYSTAL_DS);
@@ -58,10 +50,6 @@ class Crystal
 
     static public function validation($rules, $data)
     {
-    	
-		
-		
-
 
         return new Crystal_Validator($rules, $data);
 

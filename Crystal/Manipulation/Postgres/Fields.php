@@ -42,7 +42,7 @@ class Crystal_Manipulation_Postgres_Fields
 				{
 					
 					
-					$this->fields .= Crystal_Helper::add_double_quote($column) ." ";  
+					$this->fields .= Crystal_Query_Postgres_Helper::add_double_quote($column) ." ";  
 					
 					$this->fields .= self::process_rows($rows, $column, $last_column, $table);
 						
@@ -64,7 +64,7 @@ class Crystal_Manipulation_Postgres_Fields
 				{
 					
 					
-					$this->fields .= Crystal_Helper::add_apostrophe($column);  
+					$this->fields .= Crystal_Query_Postgres_Helper::add_apostrophe($column);  
 					
 					$this->fields .= self::process_rows($rows, $column, $last_column);
 						
@@ -77,7 +77,7 @@ class Crystal_Manipulation_Postgres_Fields
 				
 				foreach($params as $key => $value)
 				{
-					$this->fields .= "DROP" . Crystal_Helper::add_apostrophe($value);
+					$this->fields .= "DROP" . Crystal_Query_Postgres_Helper::add_apostrophe($value);
 					
 					
 					if($key != $last_column)
@@ -136,7 +136,7 @@ class Crystal_Manipulation_Postgres_Fields
 			foreach($rows['choises'] as $key => $value)
 			{
 				
-				$this->row .= Crystal_Helper::add_single_quote($value); 
+				$this->row .= Crystal_Query_Postgres_Helper::add_single_quote($value); 
 				
 				 if($value != $last_field){$this->row .= ","; }
 				
@@ -168,7 +168,7 @@ class Crystal_Manipulation_Postgres_Fields
 		
 		if(array_key_exists('default', $rows))
 		{
-			$this->row .=  " DEFAULT " . Crystal_Helper::add_single_quote($rows['default']);
+			$this->row .=  " DEFAULT " . Crystal_Query_Postgres_Helper::add_single_quote($rows['default']);
 			
 		}
 		

@@ -20,7 +20,7 @@ class Crystal_Query_Postgres_Get
     function __construct($method, $table)
     {
 		
-		$this->get = "SELECT * FROM " . Crystal_Helper::sanitize_string($table[0]);
+		$this->get = "SELECT * FROM " . Crystal_Helper_Postgres::sanitize_string($table[0]);
 		
 
     }

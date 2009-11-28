@@ -12,25 +12,8 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Helper
+class Crystal_Helper_Postgres
 {
-	
-	
-	static function add_apostrophe($string)
-	{
-		
-		if(is_string($string))
-		{
-			return  " `" .  mysql_real_escape_string($string) . "` ";
-		}
-		else
-		{	
-			throw new Crystal_Helper_Exception("Helper accepts only strings for add_apostrophe function");
-		}
-
-        
-    }
-	
 	
 	
 	/** ACCEPTS ONLY STRING **/
@@ -40,7 +23,7 @@ class Crystal_Query_Mysql_Helper
 		if(is_string($string))
 		{
 			
-			return mysql_real_escape_string($string); 			
+			return pg_escape_string($string); 			
 		}
 		else
 		{	
@@ -58,7 +41,7 @@ class Crystal_Query_Mysql_Helper
 		{	
 		
 			
-			return " '" . mysql_real_escape_string($string) . "' ";
+			return " '" . pg_escape_string($string) . "' ";
 		}
 		elseif(is_numeric($string))
 		{
@@ -80,7 +63,7 @@ class Crystal_Query_Mysql_Helper
 	{
 		if(is_string($string))
 		{
-			return '"' . mysql_real_escape_string($string) . '"';
+			return '"' . pg_escape_string($string) . '"';
 		}
 		elseif(is_numeric($string))
 		{
@@ -103,7 +86,7 @@ class Crystal_Query_Mysql_Helper
 		foreach($cols as $key => $value)
         {
 
-           $updated_cols[] = self::add_apostrophe($key)  . "= "  . self::add_single_quote($value)  . " ";
+           $updated_cols[] = self::sanitize_string($key)  . "= "  . self::add_single_quote($value)  . " ";
 
 
         }
@@ -122,7 +105,7 @@ class Crystal_Query_Mysql_Helper
 		foreach($cols as $key => $value)
         {
 
-           $updated_cols[] = self::add_apostrophe($key)  . "="  . self::add_single_quoute($value);
+           $updated_cols[] = self::sanitize_string($key)  . "="  . self::add_single_quoute($value);
 
 
         }

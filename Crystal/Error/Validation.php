@@ -16,7 +16,7 @@
 class Crystal_Error_Validation 
 {
 
-    static function get_validation_error($method=null, $fields=null)
+    static function get_validation_error($method=null, $field,  $params = null)
     {
 
         include(CRYSTAL_BASE . CRYSTAL_DS . 'messages' . CRYSTAL_DS .  'validation_errors.php');
@@ -27,16 +27,18 @@ class Crystal_Error_Validation
 		
         if(isset($validation[$error_string]))
         {
-
+			
+			
            /** CHECKS ERROR ARRAY FOR PARAMETERS TO PASS IN ERROR MESSAGE **/
-           if(is_array($fields))
+           if(is_array($params))
            {
               $total_params = count($error);
-
+			
+				
                switch ($total_params)
                {
                     case 2:
-                    $message = sprintf($validation[$error_string], $error_string , $error[1]);
+                    $message = sprintf($validation[$error_string], $field , $error[1]);
                     break;
 
                     case 3:
@@ -55,8 +57,8 @@ class Crystal_Error_Validation
            }
            else
            {
-
-                $message = sprintf($validation[$error_string], $method);
+	
+                $message = sprintf($validation[$error_string], $field);
                
            }
 

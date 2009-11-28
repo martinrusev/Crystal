@@ -12,10 +12,24 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Postgres_Helper
+class Crystal_Helper_Mysql
 {
 	
 	
+	static function add_apostrophe($string)
+	{
+		
+		if(is_string($string))
+		{
+			return  " `" .  mysql_real_escape_string($string) . "` ";
+		}
+		else
+		{	
+			throw new Crystal_Helper_Exception("Helper accepts only strings for add_apostrophe function");
+		}
+
+        
+    }
 	
 	
 	
@@ -26,7 +40,7 @@ class Crystal_Query_Postgres_Helper
 		if(is_string($string))
 		{
 			
-			return pg_escape_string($string); 			
+			return mysql_real_escape_string($string); 			
 		}
 		else
 		{	
@@ -44,7 +58,7 @@ class Crystal_Query_Postgres_Helper
 		{	
 		
 			
-			return " '" . pg_escape_string($string) . "' ";
+			return " '" . mysql_real_escape_string($string) . "' ";
 		}
 		elseif(is_numeric($string))
 		{
@@ -66,7 +80,7 @@ class Crystal_Query_Postgres_Helper
 	{
 		if(is_string($string))
 		{
-			return '"' . pg_escape_string($string) . '"';
+			return '"' . mysql_real_escape_string($string) . '"';
 		}
 		elseif(is_numeric($string))
 		{

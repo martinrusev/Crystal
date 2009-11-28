@@ -11,12 +11,11 @@
  * @version     0.1
  */
 
-// ------------------------------------------------------------------------
 
 /**
  * Config file
  *
- * This file is used for Crystal Database wrapper configuration.
+ * This file is used for Crystal database configuration.
  *
  *
  *
@@ -50,9 +49,8 @@ $db['default']['hostname'] = "localhost";
 $db['default']['username'] = "";
 $db['default']['password'] = "";
 $db['default']['database'] = "";
-$db['default']['driver']   = "postgres";
+$db['default']['driver']   = "";
 $db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
 $db['default']['char_set'] = "utf8";
 $db['default']['dbcollat'] = "utf8_general_ci";
 

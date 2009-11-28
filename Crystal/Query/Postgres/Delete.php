@@ -27,7 +27,7 @@ class Crystal_Query_Postgres_Delete
     {
 		
     	
-	 $this->delete = "DELETE FROM " . Crystal_Helper::sanitize_string($table[0]);
+	 $this->delete = "DELETE FROM " . Crystal_Helper_Postgres::sanitize_string($table[0]);
     	
 		
       

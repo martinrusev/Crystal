@@ -27,18 +27,21 @@ class Crystal_Query_Mysql_Where
 		switch ($method) 
 		{
 		
+		
+		
+		
 		case 'where':
 		if($first_element == '0')
 		{
 			if(isset($params[1]))
 			{
-				$this->where .= " WHERE " . Crystal_Query_Mysql_Helper::add_apostrophe($params[0])
-				. " = "  . Crystal_Query_Mysql_Helper::add_single_quote($params[1]);
+				$this->where .= " WHERE " . Crystal_Helper_Mysql::add_apostrophe($params[0])
+				. " = "  . Crystal_Helper_Mysql::add_single_quote($params[1]);
 				
 			}
 			else
 			{
-				$this->where .= " WHERE " . Crystal_Query_Mysql_Helper::add_apostrophe($params[0]);
+				$this->where .= " WHERE " . Crystal_Helper_Mysql::add_apostrophe($params[0]);
 			}
 				
 		}
@@ -51,21 +54,24 @@ class Crystal_Query_Mysql_Where
 	            if($key == $first_element)
 	            {
 	            	
-					$this->where .= " WHERE " . Crystal_Query_Mysql_Helper::add_apostrophe($key)
-					. " = "  . Crystal_Query_Mysql_Helper::add_single_quote($value);
+					$this->where .= " WHERE " . Crystal_Helper_Mysql::add_apostrophe($key)
+					. " = "  . Crystal_Helper_Mysql::add_single_quote($value);
 	            }
 	            else
 	            {
-					$this->where .= " AND " . Crystal_Query_Mysql_Helper::add_apostrophe($key)
-					 . " = "  . Crystal_Query_Mysql_Helper::add_single_quote($value);
+					$this->where .= " AND " . Crystal_Helper_Mysql::add_apostrophe($key)
+					 . " = "  . Crystal_Helper_Mysql::add_single_quote($value);
 	            }
 
 			}
 			
 		}
-
-		
 		break;
+		
+		
+		
+		
+		
 		
 		
 		case 'and':
@@ -73,13 +79,13 @@ class Crystal_Query_Mysql_Where
 		{
 			if(isset($params[1]))
 			{
-				$this->where .= " AND " . Crystal_Query_Mysql_Helper::add_apostrophe($params[0])
-				. " = "  . Crystal_Query_Mysql_Helper::add_single_quote($params[1]);
+				$this->where .= " AND " . Crystal_Helper_Mysql::add_apostrophe($params[0])
+				. " = "  . Crystal_Helper_Mysql::add_single_quote($params[1]);
 				
 			}
 			else
 			{
-				$this->where .= " AND " . Crystal_Query_Mysql_Helper::add_apostrophe($params[0]);
+				$this->where .= " AND " . Crystal_Helper_Mysql::add_apostrophe($params[0]);
 			}
 				
 		}
@@ -92,13 +98,13 @@ class Crystal_Query_Mysql_Where
 	            if($key == $first_element)
 	            {
 	            	
-					$this->where .= " AND " . Crystal_Query_Mysql_Helper::add_apostrophe($key)
-					. " = "  . Crystal_Query_Mysql_Helper::add_single_quote($value);
+					$this->where .= " AND " . Crystal_Helper_Mysql::add_apostrophe($key)
+					. " = "  . Crystal_Helper_Mysql::add_single_quote($value);
 	            }
 	            else
 	            {
-					$this->where .= " AND " . Crystal_Query_Mysql_Helper::add_apostrophe($key)
-					 . " = "  . Crystal_Query_Mysql_Helper::add_single_quote($value);
+					$this->where .= " AND " . Crystal_Helper_Mysql::add_apostrophe($key)
+					 . " = "  . Crystal_Helper_Mysql::add_single_quote($value);
 	            }
 
 			}
@@ -106,12 +112,15 @@ class Crystal_Query_Mysql_Where
 		}
 		break;
 		
+		
+		
+		
+		
 		case 'or':
-		
-		
+			
 		if($first_element == '0')
 		{
-				$this->where .= " OR " . Crystal_Query_Mysql_Helper::add_single_quote($params[0]);
+				$this->where .= " OR " . Crystal_Helper_Mysql::add_single_quote($params[0]);
 		}
 		else
 		{
@@ -119,8 +128,8 @@ class Crystal_Query_Mysql_Where
 			foreach($params as $key => $value)
 			{
            
-			$this->where .= " OR " . Crystal_Query_Mysql_Helper::add_apostrophe($key)
-			. " = "  . Crystal_Query_Mysql_Helper::add_single_quote($value);
+			$this->where .= " OR " . Crystal_Helper_Mysql::add_apostrophe($key)
+			. " = "  . Crystal_Helper_Mysql::add_single_quote($value);
            
 			}
 			
@@ -128,6 +137,11 @@ class Crystal_Query_Mysql_Where
 		
 		
 		break;
+		
+		
+		
+		
+		
 		
 		case 'in':
 
@@ -137,11 +151,11 @@ class Crystal_Query_Mysql_Where
 		{
 			if($value != $last_element)
 			{
-				$this->where .= Crystal_Query_Mysql_Helper::add_apostrophe($value) .",";
+				$this->where .= Crystal_Helper_Mysql::add_apostrophe($value) .",";
 			}
 			else
 			{
-				$this->where .= Crystal_Query_Mysql_Helper::add_apostrophe($value);
+				$this->where .= Crystal_Helper_Mysql::add_apostrophe($value);
 			}
 			
 		}
@@ -150,12 +164,17 @@ class Crystal_Query_Mysql_Where
 		
 		
 		
+		
+		
 		case 'like':
 
 		$this->where .= " LIKE ";
-		$this->where .= Crystal_Query_Mysql_Helper::add_single_quote("%" . $params[0] . "%") ;
+		$this->where .= Crystal_Helper_Mysql::add_single_quote("%" . $params[0] . "%") ;
 
 		break;
+		
+		
+		
 		
 		
 		default:

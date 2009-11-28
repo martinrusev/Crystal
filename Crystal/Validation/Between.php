@@ -17,16 +17,19 @@ class Crystal_Validation_Between
 
 	public $result;
 	
-	
-    function __construct($params = null)
+	/**
+	*  @var field_data = numeric
+	*  @var params = array(numeric, numeric)
+	*/
+    function __construct($field_data, $params = null)
     {
-		
+
 		$required_params = count($params);
 		
-		if($required_params == '3')
+		if($required_params == '2')
 		{
 			
-			 if($params[1] < $params[0] && $params[0] < $params[2])
+			if($field_data > $params[0] && $field_data < $params[1])
 	        {
 	        	$this->result = TRUE;
 	           

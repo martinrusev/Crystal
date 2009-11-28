@@ -16,17 +16,28 @@ class Crystal_Validation_Comparsion
 {
 
 	public $result;
-
+	
+	/**
+	 * 
+	 * @param $value numeric
+	 * @param $comparsion_options array
+	 * @return string/boolean
+	 */
     function __construct($value=null, $comparsion_options=null)
     {
-
-        $comparsion = $comparsion_options[0];
+		
+		/** CHECKS FOR $comparsion_options format
+		 *   [0] => [0] => '>', [1] => 'number'
+		 *   or [0] => '>', [1] => 'number'
+		 *   
+		 **/
+        $comparsion = (is_array($comparsion_options[0]))?$comparsion_options[0]:$comparsion_options;
 	
-
+	
         switch ($comparsion[0])
         {
             case '>=':
-            if($value >= $comparsion_options[1])
+            if($value >= $comparsion[1])
             {
                 $this->result =  TRUE;
             }
@@ -37,7 +48,7 @@ class Crystal_Validation_Comparsion
             break;
 
             case '<=':
-            if($value <= $comparsion_options[1])
+            if($value <= $comparsion[1])
             {
                 $this->result =  TRUE;
             }
@@ -49,7 +60,7 @@ class Crystal_Validation_Comparsion
 
 
             case '>':
-            if($value > $comparsion_options[1])
+            if($value > $comparsion[1])
             {
                  $this->result =  TRUE;
             }
@@ -62,7 +73,7 @@ class Crystal_Validation_Comparsion
 
 
             case '<':
-            if($value < $comparsion_options[1])
+            if($value < $comparsion[1])
             {
                  $this->result =  TRUE;
             }
@@ -74,7 +85,7 @@ class Crystal_Validation_Comparsion
 			
 			
 			case '=':
-            if($value == $comparsion_options[1])
+            if($value == $comparsion[1])
             {
                  $this->result =  TRUE;
             }

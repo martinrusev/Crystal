@@ -21,7 +21,7 @@ class Crystal_Query_Postgres_From
     {
     	
 		
-        $this->_from = " FROM " . Crystal_Helper::sanitize_string($table[0]);
+        $this->_from = " FROM " . Crystal_Helper_Postgres::sanitize_string($table[0]);
       
     }
 

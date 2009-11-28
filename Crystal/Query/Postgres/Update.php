@@ -43,14 +43,14 @@ class Crystal_Query_Postgres_Update
 		
 		
 		
-		$this->update = "UPDATE " . Crystal_Helper::sanitize_string($table) . " SET ";
+		$this->update = "UPDATE " . Crystal_Helper_Postgres::sanitize_string($table) . " SET ";
 
 
 
         if(isset($data))
         {
 
-        $this->update .= Crystal_Helper::escape_update_values($data);
+        $this->update .= Crystal_Helper_Postgres::escape_update_values($data);
 
         }
 		

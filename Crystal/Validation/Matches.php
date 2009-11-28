@@ -20,11 +20,13 @@ class Crystal_Validation_Matches
     function __construct($value=null, $match=null)
     {
 
-
-        if(isset($value) && is_string($match))
+		$match_string = (is_array($match))?$match[0]:$match;
+		
+		
+        if(isset($value) && is_string($match_string))
         {
 
-            if($value == $match)
+            if($value == $match_string)
             {
 
               $this->result = TRUE;

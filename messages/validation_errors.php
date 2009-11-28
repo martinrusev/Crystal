@@ -16,6 +16,6 @@ $validation['matches']			= "The %s field does not match the %s field.";
 
 
 $validation['boolean'] 			= "The %s field must contain only boolean values.";
-$validation['extension'] 			= "The file %s must be valid.";
-$validation['comparsion'] 			= "The file %s must be valid.";
+$validation['extension'] 			= "The file %s doesn't have a valid extension.";
+$validation['comparsion'] 			= "Invalid value in %s field.";
 $validation['between'] 			= "The value %s must be between %s and %s.";
