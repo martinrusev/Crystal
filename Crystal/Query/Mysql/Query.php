@@ -170,7 +170,7 @@ class Crystal_Query_Mysql_Query
 		
 		if(isset($row) && !empty($row))
 		{
-			$clean_row[] = Crystal_Query_Mysql_Helper::clean_db_result($row);
+			$clean_row[] = Crystal_Helper_Mysql::clean_db_result($row);
 		}
 		
 			
