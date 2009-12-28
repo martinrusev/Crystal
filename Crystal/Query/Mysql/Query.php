@@ -109,10 +109,9 @@ class Crystal_Query_Mysql_Query
     public function execute()
 	{
 		
-		
-        $this->query = mysql_query($this->sql);
-		
-		
+		  
+			
+         $this->query = mysql_query($this->sql);		
 
 	    if (!$this->query)
 		{
@@ -138,7 +137,7 @@ class Crystal_Query_Mysql_Query
 	 	 while($row = mysql_fetch_assoc($this->query))
          {
          	
-			$result[] = Crystal_Query_Mysql_Helper::clean_db_result($row);
+			$result[] = Crystal_Helper_Mysql::clean_db_result($row);
          	
          }
 
@@ -262,14 +261,37 @@ class Crystal_Query_Mysql_Query
         }
         else
         {
-             $this->print_query =  print_r('</br>'. $this->sql);
+             print_r('</br>'. $this->sql);
 
-             return $this->print_query;
+             return $this;
         }
 
        
 
 
+    }
+    
+    function query_time()
+    {
+    	list($usec, $sec) = explode(' ',microtime()); 
+		$querytime_before = ((float)$usec + (float)$sec);
+    	
+		$this->execute();
+		
+		list($usec, $sec) = explode(' ',microtime()); 
+		$querytime_after = ((float)$usec + (float)$sec); 
+		 
+		$this->query_time = $querytime_after - $querytime_before; 
+		
+    	if($this->query_time == TRUE)
+    	{
+    		
+    		 $strQueryTime = ' Query took %01.4f sec'; 
+    		 printf($strQueryTime, $this->query_time);
+
+            return $this;	
+    		
+    	}
     }
     
 

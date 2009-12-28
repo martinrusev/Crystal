@@ -40,24 +40,5 @@ class Crystal_Connection_Adapter_Sqlite
         
  
 
-
-/*
-    private function _set_charset($charset)
-    {
-        try
-        {   
-             pg_query("SET NAMES " . Crystal_Methods_Mysql_Helper::add_single_quote($charset));
-        }
-        catch (Exception $e)
-        {
-            throw new Crystal_Connection_Adapter_Exception("Cannot set database charset");
-        }
-
-
-      
-        
-    }
-*/
-
     
 }

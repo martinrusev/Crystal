@@ -117,7 +117,8 @@ class Crystal_Query_Postgres_Query
 	            return;
 		}
 		else
-		{
+		{	
+			$this->sql = NULL;
 			return $this->query;
 		}
 
@@ -223,14 +224,37 @@ class Crystal_Query_Postgres_Query
         }
         else
         {
-             $this->print_query =  print_r('</br>'. $this->sql);
+             print_r('</br>'. $this->sql);
 
-             return $this->print_query;
+             return $this;
         }
 
        
 
 
+    }
+    
+	function query_time()
+    {
+    	list($usec, $sec) = explode(' ',microtime()); 
+		$querytime_before = ((float)$usec + (float)$sec);
+    	
+		$this->execute();
+		
+		list($usec, $sec) = explode(' ',microtime()); 
+		$querytime_after = ((float)$usec + (float)$sec); 
+		 
+		$this->query_time = $querytime_after - $querytime_before; 
+		
+    	if($this->query_time == TRUE)
+    	{
+    		
+    		 $strQueryTime = ' Query took %01.4f sec'; 
+    		 printf($strQueryTime, $this->query_time);
+
+            return $this;	
+    		
+    	}
     }
    
 

@@ -23,7 +23,9 @@ class Crystal_Connection_Adapter_Mysql
 		
 			/** CHECKS FOR PORT **/
 			$port = (isset($database_config['port'])?$database_config['port']:'3306');
-            $this->db = mysql_connect($database_config['hostname']. ':'. $port, $database_config['username'], $database_config['password']);
+			$hostname = (isset($database_config['hostname'])?$database_config['hostname']:'localhost');
+			
+            $this->db = mysql_connect($hostname. ':'. $port, $database_config['username'], $database_config['password']);
 
              /** SETS DATABASE COLLATION **/
              $this->_set_charset($database_config['char_set']);
@@ -72,20 +74,16 @@ class Crystal_Connection_Adapter_Mysql
 
     private function _set_charset($charset)
     {
-        try
-        {   /**
-            *  TODO - replace with general database helper
-            **/
-             mysql_query("SET NAMES " . $charset  );
-        }
-        catch (Exception $e)
-        {
-            throw new Crystal_Connection_Adapter_Exception("Cannot set database charset");
-        }
-
-
-      
-        
+    	
+    	if(isset($charset) && !empty($charset))
+    	{
+    		 mysql_query("SET NAMES " . $charset);
+    	}
+    	else
+    	{
+    		mysql_query("SET NAMES utf8");
+    	}
+       
     }
 
 
