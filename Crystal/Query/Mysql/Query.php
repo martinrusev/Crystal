@@ -294,6 +294,29 @@ class Crystal_Query_Mysql_Query
     	}
     }
     
+    /** EXPERIMENTAL FUNCTION  * */
+    function get_memory_usage($param = null)
+    {
+    	$memory_usage = memory_get_usage();
+    	
+    	echo "<br/>";
+    	
+    	if($param == False)
+    	{
+    		echo "Crystal memory usage: "  . $memory_usage . " bytes"; 
+    	}
+    	else if($param == 'kb')
+    	{
+    		echo "Crystal memory usage: "  . round($memory_usage/1024,2)." kilobytes"; 
+    	}
+    	else if($param == 'mb')
+    	{
+    		echo "Crystal memory usage: "  . round($memory_usage/1048576,2)." megabytes";
+    	}
+    	
+    	
+    }
+    
 
 
     function last_insert_id()
