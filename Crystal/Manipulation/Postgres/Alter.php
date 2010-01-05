@@ -24,7 +24,7 @@ class Crystal_Manipulation_Postgres_Alter
 	    switch ($method) 
 		{
 	    	case 'alter_table':
-	    	$this->alter = "ALTER TABLE"  . Crystal_Helper::add_apostrophe($params[0]);
+	    	$this->alter = "ALTER TABLE"  . Crystal_Helper_Postgres::add_single_quote($params[0]);
 	    	break;
 			
 	    	

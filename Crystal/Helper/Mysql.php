@@ -14,7 +14,12 @@
 // ------------------------------------------------------------------------
 class Crystal_Helper_Mysql
 {
+	private $conn;
 	
+	public function __construct($db_connection)
+	{
+		$this->conn = $db_connection;
+	}
 	
 	static function add_apostrophe($string)
 	{

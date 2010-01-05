@@ -22,11 +22,11 @@ class Crystal_Manipulation_Postgres_Rename
     	
 		
 	
-	    	$this->rename = "RENAME TABLE"  . Crystal_Helper::add_apostrophe($params[0]);
+	    	$this->rename = "RENAME TABLE"  . Crystal_Helper_Postgres::add_single_quote($params[0]);
 	    	
 			$this-> rename .= "TO";
 			
-			$this->rename .= Crystal_Helper::add_apostrophe($params[1]);
+			$this->rename .= Crystal_Helper_Postgres::add_single_quote($params[1]);
 	  		
 	
 	}

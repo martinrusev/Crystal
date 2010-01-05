@@ -26,16 +26,16 @@ class Crystal_Manipulation_Mysql_Create
     function __construct($method, $params)
     {
     	
-	
+		
 	    switch ($method) 
 		{
 	    	case 'create_database':
-	    	$this->create = "CREATE DATABASE " . Crystal_Helper::add_apostrophe($params[0]);
+	    	$this->create = "CREATE DATABASE " . Crystal_Helper_Mysql::add_apostrophe($params[0]);
 	    	break;
 			
 			
 			case 'create_table':
-	    	$this->create = "CREATE TABLE " . Crystal_Helper::add_apostrophe($params[0]) . " (%s)";
+	    	$this->create = "CREATE TABLE " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " (%s)";
 			
 			/** TABLE OPTIONS **/
 			if(isset($params[1]) && !empty($params[1]))
