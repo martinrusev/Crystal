@@ -30,11 +30,11 @@ class Crystal_Manipulation_Mysql_Drop
 		switch ($method) 
 		{
 			case 'drop_table':
-			$this->drop = "DROP TABLE IF EXISTS " . Crystal_Helper::add_apostrophe($params[0]);
+			$this->drop = "DROP TABLE IF EXISTS " . Crystal_Helper_Mysql::add_apostrophe($params[0]);
 			break;
 			
 			case 'drop_database':
-			$this->drop = "DROP DATABASE " . Crystal_Helper::add_apostrophe($params[0]);
+			$this->drop = "DROP DATABASE " . Crystal_Helper_Mysql::add_apostrophe($params[0]);
 			break;	
 			
 			default:	

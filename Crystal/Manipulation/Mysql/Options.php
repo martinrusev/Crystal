@@ -42,7 +42,7 @@ class Crystal_Manipulation_Mysql_Options
 		
 		if(array_key_exists('primary_key', $options))
 		{
-			$this->options .= "PRIMARY KEY (" . Crystal_Helper::add_apostrophe($options['primary_key']) . " ) ";
+			$this->options .= "PRIMARY KEY (" . Crystal_Helper_Mysql::add_apostrophe($options['primary_key']) . " ) ";
 		}
 		
 		
