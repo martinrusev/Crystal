@@ -105,7 +105,7 @@ class Crystal_Query_Postgres_Query
 
   
 
-    public function execute()
+    public function execute($keep_sql = null)
 	{
 		
         $this->query = pg_query($this->sql);
@@ -117,8 +117,12 @@ class Crystal_Query_Postgres_Query
 	            return;
 		}
 		else
-		{	
-			$this->sql = NULL;
+		{
+			if($keep_sql == null)
+			{
+				$this->sql = NULL;
+			}	
+			
 			return $this->query;
 		}
 
@@ -211,7 +215,44 @@ class Crystal_Query_Postgres_Query
 
 
     }
+    
 	
+    function affected_rows()
+	{
+
+        return pg_affected_rows();
+    }
+	
+    
+/******************************
+*  
+*  DEBUG FUNCTIONS 
+*
+*****************************/
+	
+	function debug_fetch()
+	{
+		
+		$this->execute($keep_sql=true);
+		
+
+	 	while($row = pg_fetch_assoc($this->query))
+         {
+             $result[] = $row;
+         }
+
+			
+		if(isset($result))
+		{
+			return $result;
+		}
+		else
+		{
+			return FALSE;
+		}		
+		
+		
+	}
 	
 	
 	function print_sql()
@@ -239,7 +280,7 @@ class Crystal_Query_Postgres_Query
     	list($usec, $sec) = explode(' ',microtime()); 
 		$querytime_before = ((float)$usec + (float)$sec);
     	
-		$this->execute();
+		$this->debug_fetch();
 		
 		list($usec, $sec) = explode(' ',microtime()); 
 		$querytime_after = ((float)$usec + (float)$sec); 
@@ -259,10 +300,40 @@ class Crystal_Query_Postgres_Query
    
 
 
-    function affected_rows()
-	{
-
-        return pg_affected_rows();
+   
+    
+    
+    
+	function print_as_table($debug = null)
+    {
+    	
+    	if($debug == true)
+    	{
+    		$this->print_sql();
+    		$this->query_time();
+    		$result = $this->debug_fetch();
+    	}
+    	else
+    	{
+    		$result = $this->fetch_all();
+    	}
+    	
+		if(isset($result[0]) && !empty($result[0]))
+		{
+			$table_fields = array_keys($result[0]);
+			
+		}
+		
+    	
+		
+		ob_start();
+		include(CRYSTAL_BASE . CRYSTAL_DS . 'views' . CRYSTAL_DS . 'print_as_table.php');
+		$rendered_template = ob_get_contents();
+		ob_end_clean();
+         
+		echo $rendered_template;
+    	
+    	
     }
 
 
