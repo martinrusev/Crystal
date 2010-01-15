@@ -14,7 +14,12 @@
 // ------------------------------------------------------------------------
 class Crystal_Helper_Mysql
 {
+	private $conn;
 	
+	public function __construct($db_connection)
+	{
+		$this->conn = $db_connection;
+	}
 	
 	static function add_apostrophe($string)
 	{
@@ -22,6 +27,12 @@ class Crystal_Helper_Mysql
 		if(is_string($string))
 		{
 			return  " `" .  mysql_real_escape_string($string) . "` ";
+		}
+		elseif(is_numeric($string) or $string == False)
+		{
+			
+			return $string;
+			
 		}
 		else
 		{	
@@ -42,6 +53,12 @@ class Crystal_Helper_Mysql
 			
 			return mysql_real_escape_string($string); 			
 		}
+		elseif(is_numeric($string) or $string == False)
+		{
+			
+			return $string;
+			
+		}
 		else
 		{	
 			throw new Crystal_Helper_Exception("Helper accepts only strings for add_apostrophe function");
@@ -56,11 +73,9 @@ class Crystal_Helper_Mysql
 		
 		if(is_string($string))
 		{	
-		
-			
 			return " '" . mysql_real_escape_string($string) . "' ";
 		}
-		elseif(is_numeric($string))
+		elseif(is_numeric($string) or $string == False)
 		{
 			
 			return $string;
@@ -82,7 +97,7 @@ class Crystal_Helper_Mysql
 		{
 			return '"' . mysql_real_escape_string($string) . '"';
 		}
-		elseif(is_numeric($string))
+		elseif(is_numeric($string) or $string == False)
 		{
 			
 			return $string;
@@ -111,7 +126,7 @@ class Crystal_Helper_Mysql
         $temp = implode(',', $updated_cols);
 
 
-	return $temp;
+		return $temp;
 
     }
 	

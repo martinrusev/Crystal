@@ -25,6 +25,10 @@ class Crystal_Helper_Postgres
 			
 			return pg_escape_string($string); 			
 		}
+		elseif(is_numeric($string) or $string == FALSE)
+		{
+			return $string;		
+		}
 		else
 		{	
 			throw new Crystal_Helper_Exception("Helper accepts only strings for add_apostrophe function");
@@ -39,11 +43,9 @@ class Crystal_Helper_Postgres
 		
 		if(is_string($string))
 		{	
-		
-			
 			return " '" . pg_escape_string($string) . "' ";
 		}
-		elseif(is_numeric($string))
+		elseif(is_numeric($string) or $string == FALSE)
 		{
 			
 			return $string;
@@ -65,7 +67,7 @@ class Crystal_Helper_Postgres
 		{
 			return '"' . pg_escape_string($string) . '"';
 		}
-		elseif(is_numeric($string))
+		elseif(is_numeric($string) or $string == FALSE)
 		{
 			
 			return $string;
