@@ -27,7 +27,16 @@ class Crystal_Connection_Manager
         /** GETS PREFERED CONNECTION DETAILS **/
         if(isset($connection))
         {
-            $db_config = Crystal_Config_Reader::get_db_config($connection);
+            
+        	if(is_array($connection))
+        	{
+        		$db_config = $connection;
+        	}
+        	else
+        	{
+        		$db_config = Crystal_Config_Reader::get_db_config($connection);	
+        	}
+        	
         }
         /** FALLS BACK TO DEFAULT **/
         else

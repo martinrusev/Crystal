@@ -24,6 +24,9 @@ class Crystal_Manipulation_Mysql_Builder
     {
 		
         $this->active_connection = $active_connection;
+        $this->conn = new Crystal_Connection_Manager($this->active_connection);
+        $this->helper = new Crystal_Helper_Mysql($this->conn);
+        
     }
 
 
@@ -138,12 +141,6 @@ class Crystal_Manipulation_Mysql_Builder
 			$this->conn = new Crystal_Connection_Manager($this->active_connection, $this->database);
 			
 		}
-		else
-		{
-			
-			$this->conn = new Crystal_Connection_Manager($this->active_connection);
-		}
-		
 		
         $this->query = mysql_query($this->sql);
 	

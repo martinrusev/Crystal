@@ -105,7 +105,7 @@ class Crystal_Query_Postgres_Query
 
   
 
-    public function execute()
+    public function execute($keep_sql = null)
 	{
 		
         $this->query = pg_query($this->sql);
@@ -118,6 +118,11 @@ class Crystal_Query_Postgres_Query
 		}
 		else
 		{
+			if($keep_sql == null)
+			{
+				$this->sql = NULL;
+			}	
+			
 			return $this->query;
 		}
 
@@ -210,7 +215,44 @@ class Crystal_Query_Postgres_Query
 
 
     }
+    
 	
+    function affected_rows()
+	{
+
+        return pg_affected_rows();
+    }
+	
+    
+/******************************
+*  
+*  DEBUG FUNCTIONS 
+*
+*****************************/
+	
+	function debug_fetch()
+	{
+		
+		$this->execute($keep_sql=true);
+		
+
+	 	while($row = pg_fetch_assoc($this->query))
+         {
+             $result[] = $row;
+         }
+
+			
+		if(isset($result))
+		{
+			return $result;
+		}
+		else
+		{
+			return FALSE;
+		}		
+		
+		
+	}
 	
 	
 	function print_sql()
@@ -223,22 +265,75 @@ class Crystal_Query_Postgres_Query
         }
         else
         {
-             $this->print_query =  print_r('</br>'. $this->sql);
+             print_r('</br>'. $this->sql);
 
-             return $this->print_query;
+             return $this;
         }
 
        
 
 
     }
+    
+	function query_time()
+    {
+    	list($usec, $sec) = explode(' ',microtime()); 
+		$querytime_before = ((float)$usec + (float)$sec);
+    	
+		$this->debug_fetch();
+		
+		list($usec, $sec) = explode(' ',microtime()); 
+		$querytime_after = ((float)$usec + (float)$sec); 
+		 
+		$this->query_time = $querytime_after - $querytime_before; 
+		
+    	if($this->query_time == TRUE)
+    	{
+    		
+    		 $strQueryTime = ' Query took %01.4f sec'; 
+    		 printf($strQueryTime, $this->query_time);
+
+            return $this;	
+    		
+    	}
+    }
    
 
 
-    function affected_rows()
-	{
-
-        return pg_affected_rows();
+   
+    
+    
+    
+	function print_as_table($debug = null)
+    {
+    	
+    	if($debug == true)
+    	{
+    		$this->print_sql();
+    		$this->query_time();
+    		$result = $this->debug_fetch();
+    	}
+    	else
+    	{
+    		$result = $this->fetch_all();
+    	}
+    	
+		if(isset($result[0]) && !empty($result[0]))
+		{
+			$table_fields = array_keys($result[0]);
+			
+		}
+		
+    	
+		
+		ob_start();
+		include(CRYSTAL_BASE . CRYSTAL_DS . 'views' . CRYSTAL_DS . 'print_as_table.php');
+		$rendered_template = ob_get_contents();
+		ob_end_clean();
+         
+		echo $rendered_template;
+    	
+    	
     }
 
 

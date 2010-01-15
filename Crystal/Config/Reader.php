@@ -27,7 +27,7 @@ class Crystal_Config_Reader
        
         require(CRYSTAL_BASE . CRYSTAL_DS . 'config' . CRYSTAL_DS . 'database.php');
 
-       
+     
         if(isset($db[$key][$value]) && !empty($db[$key][$value]))
         {
             return $db[$key][$value];
@@ -46,7 +46,7 @@ class Crystal_Config_Reader
 
 
         require(CRYSTAL_BASE . CRYSTAL_DS . 'config' . CRYSTAL_DS . 'database.php');
-
+		
 
          if(isset($db[$key]) && !empty($db[$key]))
         {
