@@ -20,7 +20,7 @@ class Crystal_Query_Mysql_Count
     function __construct($table)
     {
 				
-       $this->count = "SELECT COUNT(*) as total FROM" .Crystal_Helper_Mysql::add_apostrophe($table);
+       $this->count = "SELECT COUNT(*) as total FROM" . Crystal_Helper_Mysql::add_apostrophe($table);
      	     
     }
 

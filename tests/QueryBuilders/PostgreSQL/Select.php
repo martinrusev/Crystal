@@ -1,7 +1,7 @@
 <?php
 require_once(CRYSTAL_ROOT_DIR . 'Crystal.php');
 
-class TestOfSelectMysql extends UnitTestCase
+class TestOfSelectPostgres extends UnitTestCase
 {
 	
 	function __construct()
@@ -15,7 +15,7 @@ class TestOfSelectMysql extends UnitTestCase
 	{
 		$this->db->clear_sql();
 		$method = $this->db->select('column');
-		$this->assertEqual($method->sql, 'SELECT `column` ');
+		$this->assertEqual($method->sql, 'SELECT column');
 	}
 	
 	
@@ -32,7 +32,7 @@ class TestOfSelectMysql extends UnitTestCase
 	{
 		$this->db->clear_sql();
 		$method = $this->db->select(array('column'));
-		$this->assertEqual($method->sql, 'SELECT `column` ');
+		$this->assertEqual($method->sql, 'SELECT column');
 
 	}
 	
@@ -40,7 +40,7 @@ class TestOfSelectMysql extends UnitTestCase
 	{
 		$this->db->clear_sql();
 		$method = $this->db->select(('column, another_column'));
-		$this->assertEqual($method->sql, 'SELECT `column` , `another_column` ');
+		$this->assertEqual($method->sql, 'SELECT column , another_column');
 
 	}
 	
@@ -49,7 +49,7 @@ class TestOfSelectMysql extends UnitTestCase
 	{
 		$this->db->clear_sql();
 		$method = $this->db->select('very_long_column :as column');
-		$this->assertEqual($method->sql, 'SELECT `very_long_column` AS `column` ');
+		$this->assertEqual($method->sql, 'SELECT very_long_column AS column');
 
 	}
 	
@@ -58,8 +58,7 @@ class TestOfSelectMysql extends UnitTestCase
 	{
 		$this->db->clear_sql();
 		$method = $this->db->select('very_long_column :as column, column ');
-		
-		$this->assertEqual($method->sql, 'SELECT `very_long_column` AS `column` , `column` ');
+		$this->assertEqual($method->sql, 'SELECT very_long_column AS column , column');
 	}
 
 

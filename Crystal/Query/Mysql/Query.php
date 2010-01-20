@@ -23,6 +23,9 @@ class Crystal_Query_Mysql_Query
     function  __construct($active_connection = null)
     {
         $this->conn = new Crystal_Connection_Manager($active_connection);
+             
+        $this->helper = new Crystal_Helper_Mysql($this->conn);
+       
     }
 
 
@@ -30,7 +33,6 @@ class Crystal_Query_Mysql_Query
     function  __call($name,  $arguments)
     {
     	
-		/** TODO - Rewrite it,  not the most elegant solution **/
 		$constant = "Crystal_Query_Mysql_";
 		
 		$exceptions = array
@@ -47,8 +49,7 @@ class Crystal_Query_Mysql_Query
 		'in' => 'where',
 		'and' => 'where',
 		'like' => 'where',
-		'insert_safe' => 'insert',
-		'update_safe' => 'update'
+		'order_by' => 'orderby'
 		);
        
 	    $default_method = $constant . ucfirst($name);
@@ -68,11 +69,11 @@ class Crystal_Query_Mysql_Query
 		{
 			$rescue_method = $constant . ucfirst($exceptions[$name]);
 			
-			$this->sql  .= new $rescue_method($name, $filtered_arguments);	
+			$this->sql  .= new $rescue_method($name,  $filtered_arguments, $this->helper);	
 		}
 		elseif(class_exists($default_method))
 		{	
-			$this->sql  .= new $default_method($name, $filtered_arguments);	
+			$this->sql  .= new $default_method($name, $filtered_arguments , $this->helper);	
 		}
         else
         {	
@@ -244,6 +245,14 @@ class Crystal_Query_Mysql_Query
 *  DEBUG FUNCTIONS 
 *
 *****************************/
+	
+	
+	function clear_sql()
+	{
+		
+		$this->sql = null;
+		
+	}
 	
 	function debug_fetch()
 	{

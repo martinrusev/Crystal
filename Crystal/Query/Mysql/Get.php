@@ -12,7 +12,7 @@
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Get 
+class Crystal_Query_Mysql_Get
 {
 
     

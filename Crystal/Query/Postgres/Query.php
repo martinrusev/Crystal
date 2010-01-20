@@ -8,7 +8,7 @@
  * @author		Martin Rusev
  * @link		http://crystal.martinrusev.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.3
  */
 
 // ------------------------------------------------------------------------
@@ -230,7 +230,14 @@ class Crystal_Query_Postgres_Query
 *
 *****************************/
 	
-	function debug_fetch()
+	
+    function clear_sql()
+    {
+    	
+    	$this->sql = null;
+    }
+    
+    function debug_fetch()
 	{
 		
 		$this->execute($keep_sql=true);
