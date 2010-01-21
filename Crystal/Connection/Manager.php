@@ -8,7 +8,7 @@
  * @author		Martin Rusev
  * @link		http://crystal.martinrusev.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.3
  */
 
 // ------------------------------------------------------------------------
@@ -20,27 +20,29 @@ class Crystal_Connection_Manager
     private $conn;
     
 
-    function __construct($connection = null, $params = null)
+    function __construct($connection = null, $config_params = null)
     {
-
-		
-        /** GETS PREFERED CONNECTION DETAILS **/
+	
+		/** GETS PREFERED CONNECTION DETAILS **/
         if(isset($connection))
         {
-            
+            /** DOESN'T NEED Config Reader if configuration is array,
+             *  the fastest option for Crystal
+             ***/
         	if(is_array($connection))
         	{
         		$db_config = $connection;
         	}
         	else
         	{
-        		$db_config = Crystal_Config_Reader::get_db_config($connection);	
+        		$db_config = Crystal_Config_Reader::get_db_config($connection, $config_params);	
         	}
         	
         }
         /** FALLS BACK TO DEFAULT **/
         else
         {
+        	
            $db_config = Crystal_Config_Reader::get_db_config('default');
         }
 

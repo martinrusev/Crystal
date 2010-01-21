@@ -20,9 +20,9 @@ class Crystal_Query_Mysql_Query
    protected $exceptions; 
 
 
-    function  __construct($active_connection = null)
+    function  __construct($active_connection = null, $additional_config_params = null)
     {
-        $this->conn = new Crystal_Connection_Manager($active_connection);
+        $this->conn = new Crystal_Connection_Manager($active_connection, $additional_config_params);
              
         $this->helper = new Crystal_Helper_Mysql($this->conn);
        

@@ -20,10 +20,10 @@ class Crystal_Query_Postgres_Query
    protected $exceptions; 
 
 
-    function  __construct($active_connection = null)
+    function  __construct($active_connection = null, $additional_config_params=null)
     {
 
-        $this->conn = new Crystal_Connection_Manager($active_connection);
+        $this->conn = new Crystal_Connection_Manager($active_connection, $additional_config_params);
 		
 		
 

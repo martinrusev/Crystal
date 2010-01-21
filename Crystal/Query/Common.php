@@ -22,17 +22,18 @@ class Crystal_Query_Common
     private $_driver;
 
 	/** LAZY DATABASE DRIVER LOADING **/
-    static public function db($active_connection)
+    static public function db($active_connection, $additional_config_params = null)
     {
       	static $db;
-	  
-        $_driver =  new Crystal_Loader($active_connection);
-
+	  	
+        $_driver =  new Crystal_Loader($active_connection, $additional_config_params);
+        
         $adapter = "Crystal_Query_" . $_driver . "_Query";
+   
         
 		if (!isset($db)) 
 		{
-             $db = new $adapter($active_connection);
+             $db = new $adapter($active_connection, $additional_config_params);
         } 
         
         return $db;

@@ -17,6 +17,7 @@
 define('CRYSTAL_DS',  DIRECTORY_SEPARATOR);
 define('CRYSTAL_BASE', dirname(__FILE__));
 define('CRYSTAL_BASEPATH', CRYSTAL_BASE . CRYSTAL_DS . 'Crystal' . CRYSTAL_DS);
+define('CRYSTAL_CONFIG', CRYSTAL_BASE . CRYSTAL_DS . 'config' . CRYSTAL_DS . 'database.php');
 
 
 class Crystal
@@ -32,11 +33,11 @@ class Crystal
 
         
       
-    static public function db($connection = null)
+    static public function db($connection = null, $additional_parameters = null)
     {
 		
 		
-        return Crystal_Query_Common::db($connection);
+        return Crystal_Query_Common::db($connection, $additional_parameters);
         
     }     
    
