@@ -50,7 +50,9 @@ class Crystal_Query_Postgres_Query
 		'or' => 'where',
 		'in' => 'where',
 		'and' => 'where',
-		'like' => 'where'
+		'like' => 'where',
+		'order_by' => 'orderby',
+		'group_by' => 'groupby'
 		);
        
 	    $default_method = $constant . ucfirst($name);

@@ -9,5 +9,6 @@ $test = &new GroupTest('Crystal Query Builder test suite - MySQL Version');
 $test->addTestFile(CRYSTAL_MYSQL_TESTS .'Select.php');
 $test->addTestFile(CRYSTAL_MYSQL_TESTS .'Where.php');
 $test->addTestFile(CRYSTAL_MYSQL_TESTS .'Orderby.php');
+$test->addTestFile(CRYSTAL_MYSQL_TESTS .'Groupby.php');
 
 $test->run(new ShowPasses());

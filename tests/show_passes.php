@@ -7,6 +7,8 @@ class ShowPasses extends HtmlReporter
         $this->HtmlReporter();
     }
     
+    
+    
     function paintPass($message) 
 	{
         parent::paintPass($message);
@@ -22,18 +24,7 @@ class ShowPasses extends HtmlReporter
     
     
     
-	function paintFail($message) 
-	{
-        parent::paintFail($message);
-        print "<p style='font-size:16px'>";
-        print "<br/>";
-        print "<span class=\"fail\" style='background-color:red; color:white;'>Fail</span>: ";
-        $breadcrumb = $this->getTestList();
-        array_shift($breadcrumb);
-        print "<span style='font-size:16px; color:#777;'>" . implode("-&gt;", $breadcrumb) . "</span> <br/>";
-        print $message . "<br />\n\n";
-        print "</p>";
-    }
+	
     
     
 }

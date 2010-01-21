@@ -8,5 +8,7 @@ $test = &new GroupTest('Crystal Query Builder test suite - PostgreSQL Version');
 //  PostgreSQL METHODS
 $test->addTestFile(CRYSTAL_POSTGRE_TESTS .'Select.php');
 $test->addTestFile(CRYSTAL_POSTGRE_TESTS .'Where.php');
+$test->addTestFile(CRYSTAL_POSTGRE_TESTS .'Orderby.php');
+$test->addTestFile(CRYSTAL_POSTGRE_TESTS .'Groupby.php');
 
 $test->run(new ShowPasses());

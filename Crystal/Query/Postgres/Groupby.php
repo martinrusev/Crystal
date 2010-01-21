@@ -21,54 +21,76 @@ class Crystal_Query_Postgres_Groupby
     {
     	
 		
-	 $this->groupby = " GROUP BY ";	
-		
-		
-	if(is_array($groupby))
-	{
-
+	 
+		$this->groupby = '';
+			
+		if(is_array($groupby) && !empty($groupby))
+		{
+			
+				$this->groupby = " GROUP BY ";	
 	
-			if(!isset($groupby[0]))
-			{
+				/** WORKS FOR ARRAYS group_by(array('product_id', 'category_id')) **/
+				if(isset($groupby[1]))
+				{
+						
+			      	end($groupby);
+				    $last_element = key($groupby);
+				    reset($groupby);
+				    
+				    
+				    foreach($groupby as $key => $value)
+				    {
+				    	
+				    	$this->groupby  .= Crystal_Helper_Postgres::sanitize_string($value); 
+			            
+				    	if($key != $last_element)
+				    	{
+				    		$this->groupby  .= ' , ';
+				    		
+				    	}
+			
+			        }
 					
+				}
+				else
+				{		$filtered_params = Crystal_Parser_String::parse($groupby[0]);
+				
+						if(is_string($filtered_params))
+						{
+							$this->groupby  .= Crystal_Helper_Postgres::sanitize_string($filtered_params);
+						}
+						elseif(is_array($filtered_params) && !empty($filtered_params))
+						{
+							
+							end($filtered_params);
+							$last_element = key($filtered_params);
+							reset($filtered_params);
+							
+							
+							foreach($filtered_params as $key => $value)
+							{
+								
+								$this->groupby  .= Crystal_Helper_Postgres::sanitize_string($value);
+								
+								if($key != $last_element)
+								{
+									$this->groupby .= ' , ';
+								}
+								
+							}
+							
+							
+						}
+						else
+						{
+							throw new Crystal_Query_Exception('Invalid parameters in order_by function');
+						}
+											
 					
-				/** 
-				  Works for array type  -> array(key => value)
-				*/
-		        $last_element = end($groupby);
-			    foreach($groupby as $key => $value)
-			    {
-		            	if($key == $last_element)
-			        	{
-			             $this->groupby  .= Crystal_Helper_Postgres::add_single_quote($key) . ' ' 
-						 .  $value . ' ,';
-		                }
-		                else
-		                {
-		                    $this->groupby  .= Crystal_Helper_Postgres::add_single_quote($key) 
-							. $value;
-		                }
-		
-		        }
-				
-			}
-			else
-			{
-				
-					$this->groupby  .= Crystal_Helper_Postgres::add_single_quote($groupby[0]). ', ' 
-					. Crystal_Helper_Postgres::add_single_quote($groupby[1]);
-					
-				
-			}	
-
-          
-        }
-        else
-        {
-
-           $this->order = FALSE;
-
-        }
+				}	
+	
+	          
+	        }
     	
 		
       

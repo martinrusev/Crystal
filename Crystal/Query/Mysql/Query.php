@@ -49,7 +49,8 @@ class Crystal_Query_Mysql_Query
 		'in' => 'where',
 		'and' => 'where',
 		'like' => 'where',
-		'order_by' => 'orderby'
+		'order_by' => 'orderby',
+		'group_by' => 'groupby'
 		);
        
 	    $default_method = $constant . ucfirst($name);

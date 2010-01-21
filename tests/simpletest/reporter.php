@@ -110,11 +110,14 @@ class HtmlReporter extends SimpleReporter {
      */
     function paintFail($message) {
         parent::paintFail($message);
-        print "<span class=\"fail\">Fail</span>: ";
+        print "<p style='font-size:16px'>";
+        print "<br/>";
+        print "<span class=\"fail\" style='background-color:red; color:white;padding:3px;'>Fail</span>: ";
         $breadcrumb = $this->getTestList();
         array_shift($breadcrumb);
-        print implode(" -&gt; ", $breadcrumb);
-        print " -&gt; " . $this->_htmlEntities($message) . "<br />\n";
+        print "<span style='font-size:16px; color:#777;'>" . implode(" -&gt; ", $breadcrumb) . "</span> <br/>";
+        print $this->_htmlEntities($message) . "<br />\n";
+        print "</p>";
     }
 
     /**

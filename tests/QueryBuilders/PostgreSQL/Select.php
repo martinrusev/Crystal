@@ -67,7 +67,7 @@ class TestOfSelectPostgres extends UnitTestCase
 		
 		$this->db->clear_sql();
 		$method = $this->db->select();
-		$this->assertFalse($method->sql, 'MySQL SELECT with no params should be false');
+		$this->assertFalse($method->sql, 'PostgreSQL SELECT with no params should be false');
 
 	}
         

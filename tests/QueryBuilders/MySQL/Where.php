@@ -1,7 +1,7 @@
 <?php
 require_once(CRYSTAL_ROOT_DIR . 'Crystal.php');
 
-class TestOfWherePostgres extends UnitTestCase
+class TestOfWhereMysql extends UnitTestCase
 {
 	
 	function __construct()
