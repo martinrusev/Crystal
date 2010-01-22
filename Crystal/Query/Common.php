@@ -24,7 +24,6 @@ class Crystal_Query_Common
 	/** LAZY DATABASE DRIVER LOADING **/
     static public function db($active_connection, $additional_config_params = null)
     {
-      	static $db;
 	  	
         $_driver =  new Crystal_Loader($active_connection, $additional_config_params);
         

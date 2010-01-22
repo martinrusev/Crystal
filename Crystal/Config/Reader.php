@@ -62,7 +62,7 @@ class Crystal_Config_Reader
     
     
     
-    private function _set_configuration_settings($configuration, $additional_config_params = null)
+    private static function _set_configuration_settings($configuration, $additional_config_params = null)
     {
     	
     	

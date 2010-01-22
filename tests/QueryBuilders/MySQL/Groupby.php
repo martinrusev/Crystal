@@ -4,7 +4,7 @@ require_once(CRYSTAL_ROOT_DIR . 'Crystal.php');
 class TestOfGroupbyMysql extends UnitTestCase
 {
 	
-function __construct()
+	function __construct()
 	{
 		echo '<h2>Testing Crystal group_by() function</h2>';
 		$this->db = Crystal::db();

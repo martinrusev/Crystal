@@ -25,7 +25,6 @@ class Crystal_Connection_Adapter_Postgres
 			$port = (isset($database_config['port'])?$database_config['port']:'5432');
 			$hostname = (isset($database_config['hostname'])?$database_config['hostname']:'localhost');
 			
-			
 			/** CHECKS FOR database in params **/
 			if(isset($params) && !empty($params))
 			{

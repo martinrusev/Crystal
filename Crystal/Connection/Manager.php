@@ -63,12 +63,12 @@ class Crystal_Connection_Manager
         switch ($db_config['driver'])
         {
             case 'mysql':
-            $this->conn = new Crystal_Connection_Adapter_Mysql($db_config, $params);
+            $this->conn = new Crystal_Connection_Adapter_Mysql($db_config);
             break;
 			
 			
 			case 'postgres':
-            $this->conn = new Crystal_Connection_Adapter_Postgres($db_config, $params);
+            $this->conn = new Crystal_Connection_Adapter_Postgres($db_config);
             break;
 			
 			
