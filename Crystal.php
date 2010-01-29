@@ -59,28 +59,31 @@ class Crystal
 	
 	public static function crystal_autoload($class_name)
 	{
-		
-		
-		$path = str_replace("_", CRYSTAL_DS, $class_name);
-        
-	
-        if(file_exists(CRYSTAL_BASE . CRYSTAL_DS . $path . '.php'))
-        {
-            include(CRYSTAL_BASE . CRYSTAL_DS . $path . '.php');
-        }
-        else
-        {
-           throw new Exception("Cannot find requested class " . $class_name . " in " . $path);
-        }
-        
 
-        if(!class_exists($class_name))
-        {
-            throw new Exception("Invalid Class name ". $class_name);
-        }
-     
-	
+		/** LOADS CRYSTAL SPECIFIC CLASSESS ONLY **/
+		$pattern = '/^Crystal/i';
+		$match = preg_match($pattern, $class_name, $matches);
 		
+		if($match != 0 && $match != False)
+		{
+			$path = str_replace("_", CRYSTAL_DS, $class_name);
+	        
+	        if(file_exists(CRYSTAL_BASE . CRYSTAL_DS . $path . '.php'))
+	        {
+	            include(CRYSTAL_BASE . CRYSTAL_DS . $path . '.php');
+	        }
+	        else
+	        {
+	           throw new Exception("Cannot find requested class " . $class_name . " in " . $path);
+	        }
+	        
+	
+	        if(!class_exists($class_name))
+	        {
+	            throw new Exception("Invalid Class name ". $class_name);
+	        }
+		}
+	
 	}
 	
 
