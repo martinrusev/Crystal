@@ -15,9 +15,6 @@
 
 class Crystal_Connection_Manager
 {
-
-
-    private $conn;
     
 
     function __construct($connection = null, $config_params = null)
@@ -46,6 +43,7 @@ class Crystal_Connection_Manager
            $db_config = Crystal_Config_Reader::get_db_config('default');
         }
 
+     
 
         if ($db_config == false )
         {

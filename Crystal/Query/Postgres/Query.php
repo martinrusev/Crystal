@@ -23,9 +23,7 @@ class Crystal_Query_Postgres_Query
     function  __construct($active_connection = null, $additional_config_params=null)
     {
 
-        $this->conn = new Crystal_Connection_Manager($active_connection, $additional_config_params);
-		
-		
+        $this->conn = new Crystal_Connection_Manager($active_connection, $additional_config_params);	
 
     }
 
@@ -109,8 +107,9 @@ class Crystal_Query_Postgres_Query
 
     public function execute($keep_sql = null)
 	{
-		
-        $this->query = pg_query($this->sql);
+
+		$connection_object = get_object_vars($this->conn);	
+        $this->query = pg_query($connection_object['conn']->db, $this->sql );
 
 
 	    if (!$this->query)

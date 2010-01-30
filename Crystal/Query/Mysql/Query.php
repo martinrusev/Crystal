@@ -91,7 +91,8 @@ class Crystal_Query_Mysql_Query
 
     public function execute($delete_sql = null)
 	{
-		$this->query = mysql_query($this->sql);		
+		$connection_object = get_object_vars($this->conn);
+		$this->query = mysql_query($this->sql, $connection_object['conn']->db);		
 
 		if (!$this->query)
 		{

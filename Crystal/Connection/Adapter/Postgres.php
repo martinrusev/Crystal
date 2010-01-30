@@ -15,8 +15,6 @@
 class Crystal_Connection_Adapter_Postgres
 {
 
-    private $db;
-
     function __construct($database_config, $params=null)
     {
 			
@@ -48,7 +46,7 @@ class Crystal_Connection_Adapter_Postgres
 			
 			
 			
-            $this->db = pg_connect($conn_string);
+            $this->db = pg_connect($conn_string, PGSQL_CONNECT_FORCE_NEW);
 
              /** SETS DATABASE COLLATION **/
              $this->_set_charset($database_config['char_set']);

@@ -15,18 +15,16 @@
 class Crystal_Connection_Adapter_Mysql
 {
 
-    private $db;
 
     function __construct($database_config, $params=null)
     {
 			
-		
+			
 			/** CHECKS FOR PORT **/
 			$port = (isset($database_config['port'])?$database_config['port']:'3306');
 			$hostname = (isset($database_config['hostname'])?$database_config['hostname']:'localhost');
 			
-            $this->db = mysql_connect($hostname. ':'. $port, $database_config['username'], $database_config['password']);
-
+            $this->db = mysql_connect($hostname. ':'. $port, $database_config['username'], $database_config['password'], true);
              /** SETS DATABASE COLLATION **/
              $this->_set_charset($database_config['char_set']);
           
@@ -44,19 +42,19 @@ class Crystal_Connection_Adapter_Mysql
 				if(array_key_exists('database', $params))
 				{
 					
-				$dbselect = mysql_select_db($params['database']);
+				$this->dbselect = mysql_select_db($params['database']);
 				
 				}
 				
 			}
 			else
-			{
-				$dbselect = mysql_select_db($database_config['database']);
+			{	
+				$this->dbselect = mysql_select_db($database_config['database'], $this->db);
 			}
 			
             
 
-            if(!$dbselect)
+            if(!$this->dbselect)
             {
                 throw new Crystal_Connection_Adapter_Exception("Cannot select database: " . mysql_error() );
             }
@@ -66,10 +64,6 @@ class Crystal_Connection_Adapter_Mysql
 
 
     }
-
-        
- 
-
 
 
     private function _set_charset($charset)
