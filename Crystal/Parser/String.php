@@ -1,7 +1,10 @@
 <?php
 class Crystal_Parser_String
 {
-	
+	/**
+	 *  Parse parameters for the database manipulation class
+	 * @param unknown_type $string
+	 */
 	static function parse($string)
 	{
 		
@@ -18,10 +21,13 @@ class Crystal_Parser_String
 			{
 				/** Check for colon **/
 				$colon = strpos($v, ':');
+				
 				if($colon != False)
 				{
 					
-					$params[$k] = self::_process_string_with_colon($v);		
+			
+					$params[$k] = self::_process_string_with_colon($v);
+	
 					
 	
 				}
@@ -58,9 +64,132 @@ class Crystal_Parser_String
 		
 	}
 	
+	static public function parse_validation($string)
+	{
+		
+		/** Check for comma **/
+		$comma = strpos($string, ',');
+		
+		
+		/** Multiple params **/
+		if($comma != False)
+		{
+			$rule_parts = explode(',', $string);
+			
+			foreach($rule_parts as $key => $rule_param)
+			{
+				if($key == '0')
+				{	
+					$rule = self::_process_rule_string($rule_param);
+
+				}
+				else
+				{
+					$parse_rule_param = self::_process_validation_string($rule_param);
+					
+					
+					foreach($parse_rule_param as $key => $value)
+					{
+						$rule[$key] = $value;
+					}
+					
+				}
+				
+				
+			}
+			
+			
+		}
+		else
+		{
+			$rule = self::_process_rule_string($string);
+
+			
+		}
+		
+		
+		
+		return $rule;
+		
+	}
+	
+	private function _process_rule_string($string)
+	{
+		
+		
+		/** CHECKS FOR COLON - rules with parameter **/
+		$colon = strpos($string, ':');
+		
+		if($colon != False)
+		{ 
+			
+			$split_string = explode(':', $string);
+			
+			$cleared_rule = trim($split_string[0]);
+			$clear_params = trim($split_string[1]);
+			
+			/** Checks for parenthesis **/
+			$parenthesis = strpos($clear_params, "(");
+			
+			if($parenthesis != False or is_numeric($parenthesis))
+			{
+				$rule['rule'] = $cleared_rule;
+				
+				$filter_params = preg_match('#\((.*?)\)#', $clear_params, $match);
+				
+				$rule['params'] = explode(' ', trim($match[1]));
+				
+			}
+			else
+			{
+				
+				$rule['rule'] = $cleared_rule;
+				$rule['params'] = trim($split_string[1]);
+			}
+			
+				
+			
+			
+		}
+		else
+		{
+			$rule['rule'] = trim($string);
+		}
+		
+
+		return $rule;
+		
+	}
+	
+	
+	private function _process_validation_string($string)
+	{
+		
+		$colon = strpos($string, ':');
+		
+		if($colon != False)
+		{
+			$key_value = explode(':', $string);
+
+			$param_array[trim($key_value[0])] = trim($key_value[1]);
+			
+			return $param_array;
+			
+			
+		}
+		else
+		{
+			return $string;
+		}
+		
+		
+		
+	}
 	
 	private function _process_string_with_colon($string)
 	{
+		
+		
 		
 		/** Explode params to array 
 		* 

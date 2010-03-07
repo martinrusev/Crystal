@@ -21,23 +21,20 @@ class Crystal_Validation_Email
     function __construct($email=null)
     {
 
-        
-      if(!empty($email) && !is_array($email))
-      {
-          if($this->is_email($email))
-           {
-               $this->result = TRUE;
-           }
-           else
-           {
-               $this->result = FALSE;
-           }
+       
+		if(!empty($email) && !is_array($email))
+      	{
+			if($this->is_email($email))
+			{
+				$this->result = TRUE;
+			}
+			else
+			{
+				$this->result = FALSE;
+			}
 
-      }
-      
-	   
-	   
-	  
+		}
+
 
     }
     

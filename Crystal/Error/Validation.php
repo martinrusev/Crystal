@@ -1,14 +1,14 @@
 <?php
 /**
- * MicroORM
+ * Crystal
  *
  * An open source application for database manipulation
  *
- * @package		MicroORM
+ * @package		Crystal
  * @author		Martin Rusev
- * @link		http://orm.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.4
  */
 
 // ------------------------------------------------------------------------
@@ -27,45 +27,25 @@ class Crystal_Error_Validation
 		
         if(isset($validation[$error_string]))
         {
+        	$sprintf_params = array($validation[$error_string], $field);
+        	
+        	
+        	if(isset($params) && !empty($params))
+        	{
+	        	foreach($params as $value)
+	        	{
+	        		array_push($sprintf_params, $value);
+	        	}
+        		
+        	}
+        	
+        	
+      
+			$message = call_user_func_array('sprintf', $sprintf_params);
+
 			
-			
-           /** CHECKS ERROR ARRAY FOR PARAMETERS TO PASS IN ERROR MESSAGE **/
-           if(is_array($params))
-           {
-              $total_params = count($error);
-			
-				
-               switch ($total_params)
-               {
-                    case 2:
-                    $message = sprintf($validation[$error_string], $field , $error[1]);
-                    break;
-
-                    case 3:
-                    $message = sprintf($validation[$error_string], $error_string , $error[1], $error[2]);
-                    break;
-
-                    default:
-                    break;
-                }
-
-               $message = sprintf($validation[$error_string], $error_string , $error[1], $error[2]);
-
-          
-
-
-           }
-           else
-           {
-	
-                $message = sprintf($validation[$error_string], $field);
-               
-           }
-
-
-
-            return $message;
-                
+			return $message; 
+     
 
         }
         else

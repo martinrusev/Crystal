@@ -40,7 +40,7 @@ class Crystal_Validator
 								   
 	private $method_prefix = "Crystal_Validation_";							   
 
-    function __construct($rules ,$data)
+    function __construct($rules ,$data, $db)
     {
 
         $this->errors = array();
@@ -220,6 +220,13 @@ class Crystal_Validator
       }
 	
         
+    }
+    
+    
+    private function _database_check()
+    {
+    	
+    	
     }
 
 
