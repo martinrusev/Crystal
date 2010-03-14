@@ -2,6 +2,7 @@
 
 require(CRYSTAL_ROOT_DIR . 'Validation' . DIRECTORY_SEPARATOR . 'Alpha.php');
 
+
 class TestOfAlphaValidation extends UnitTestCase
 {
 	

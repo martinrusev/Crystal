@@ -1,13 +1,14 @@
 <?php
 /**
- *  Crystal DBAL
+ *  Crystal 
  *
  * An open source application for database manipulation
  *
- * @package		Crystal DBAL
+ * @package		Crystal 
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
+ * 
  * 
  */
 
@@ -19,12 +20,11 @@ define('CRYSTAL_BASE', dirname(__FILE__));
 define('CRYSTAL_BASEPATH', CRYSTAL_BASE . CRYSTAL_DS . 'Crystal' . CRYSTAL_DS);
 define('CRYSTAL_CONFIG', CRYSTAL_BASE . CRYSTAL_DS . 'config' . CRYSTAL_DS . 'database.php');
 
-
 class Crystal
 {
+	
+	const VERSION = '0.4';
 
-
-    /** DISABLES CLASS INSTANCE **/
     function __construct()
     {
         echo "Crystal is static class, no instances allowed";

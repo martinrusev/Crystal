@@ -69,10 +69,11 @@ class Crystal_Parser_String
 		
 		/** Check for comma **/
 		$comma = strpos($string, ',');
+		$regex = preg_match('/regex/', $string);
 		
 		
 		/** Multiple params **/
-		if($comma != False)
+		if($comma != False && $regex == False)
 		{
 			$rule_parts = explode(',', $string);
 			

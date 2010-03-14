@@ -19,10 +19,17 @@ class TestOfBetweenValidation extends UnitTestCase
 	}
 	
 	
-	function TestValidParam()
+	function TestValidIntegerParam()
 	{
-		$alpha = new Crystal_Validation_Between(array('6' , '5', '7'));
-		$this->assertTrue($alpha->result, 'Between with array should be false');
+		$alpha = new Crystal_Validation_Between('7', array('6', '8'));
+		$this->assertTrue($alpha->result, 'Between with valid integer param should be true');
+		
+	}
+	
+	function TestValidStringParam()
+	{
+		$alpha = new Crystal_Validation_Between('test', array('3', '5'));
+		$this->assertTrue($alpha->result, 'Between with valid string param should be true');
 		
 	}
 	

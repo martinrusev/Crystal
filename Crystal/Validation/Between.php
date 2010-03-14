@@ -21,9 +21,10 @@ class Crystal_Validation_Between
 	*  @var field_data = numeric / string
 	*  @var params = array(numeric, numeric)
 	*/
-    function __construct($field_data, $params = null)
+    function __construct($field_data=null, $params = null)
     {
 		$required_params = count($params);
+	
 		
 		if($required_params == '2')
 		{
@@ -43,9 +44,6 @@ class Crystal_Validation_Between
 				$this->result = FALSE;
 			}
 				
-			
-			
-			
 			
 			
 		}

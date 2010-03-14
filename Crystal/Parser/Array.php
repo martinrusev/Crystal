@@ -2,7 +2,7 @@
 class Crystal_Parser_Array
 {
 	
-	public static function parse($string)
+	public static function parse($string=null)
 	{
 		
 		/** Check for | separator **/

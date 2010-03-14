@@ -55,10 +55,14 @@ class Crystal_ValidatorNew
 			/** Multiple rules for field **/
 			if(is_array($parse_rules))
 			{
-
+				
+				/** clear the parsed rule array **/
+				$parsed_rule_params = array();
+				
 				/** Analyze and parse rules array **/	
 				foreach($parse_rules as $rule => $params)
 				{
+					
 					$parsed_rule_params[] = Crystal_Parser_String::parse_validation($params);
 							
 				}

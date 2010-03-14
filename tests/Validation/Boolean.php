@@ -22,7 +22,6 @@ class TestOfBooleanValidation extends UnitTestCase
 	function TestValidParam()
 	{
 		$alpha = new Crystal_Validation_Boolean('1');
-		var_dump($alpha->result);
 		$this->assertTrue($alpha->result, 'Boolean with valid values should be true');
 		
 	}

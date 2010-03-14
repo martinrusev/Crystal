@@ -1,14 +1,14 @@
 <?php
 /**
- * Crystal DBAL
+ * Crystal 
  *
  * An open source application for database manipulation
  *
- * @package		Crystal DBAL
+ * @package		Crystal 
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.4
  */
 
 // ------------------------------------------------------------------------
@@ -19,16 +19,14 @@ class Crystal_Validation_Ip
     
     function __construct($param=null)
     {
-
-        /** TODO - rewrite the regular expression - not working as expected every time **/
+		
        if(isset($param) && !is_array($param))
        {
 
       
-        $validate = preg_match("^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}^",
+        $validate = preg_match("/^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/",
         $param);
 
-      
         if($validate)
         {
            $this->result =  TRUE;

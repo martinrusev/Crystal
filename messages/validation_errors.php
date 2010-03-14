@@ -12,11 +12,12 @@ $validation['alpha_numeric']		= "The %s field may only contain alpha-numeric cha
 $validation['numeric']			= "The %s field must contain only numbers.";
 $validation['is_numeric']         = "The %s field must contain only numeric characters.";
 $validation['integer']			= "The %s field must contain an integer.";
-$validation['matches']			= "The %s field does not match the %s field.";
+$validation['matches']			= "The %s field value does not match '%s'.";
 
 
 $validation['boolean'] 			= "The %s field must contain only boolean values.";
 $validation['extension'] 			= "The file %s doesn't have a valid extension.";
-$validation['comparsion'] 			= "Invalid value in %s field.";
+$validation['comparsion'] 			= "The %s field value doesn't match the comparsion rules.";
 $validation['between'] 			= "The %s field value must be between %d and %d symbols.";
 $validation['unique'] 			= "The value of %s must be unique.";
+$validation['regexp'] 			= "The value of %s doesn't match the specified regular expression.";

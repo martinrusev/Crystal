@@ -8,7 +8,7 @@
  * @author		Martin Rusev
  * @link		http://crystal.martinrusev.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.4
  */
 
 // ------------------------------------------------------------------------
@@ -19,7 +19,9 @@ class Crystal_Validation_Regexp
 
     function __construct($string=null, $pattern=null)
     {
-
+		
+		$pattern = (is_array($pattern)?$pattern[0]:$pattern);
+    	
         if(isset($string) && isset($pattern))
         {
 
