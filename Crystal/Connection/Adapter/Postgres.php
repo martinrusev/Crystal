@@ -49,7 +49,7 @@ class Crystal_Connection_Adapter_Postgres
             $this->db = pg_connect($conn_string, PGSQL_CONNECT_FORCE_NEW);
 
              /** SETS DATABASE COLLATION **/
-             $this->_set_charset($database_config['char_set']);
+             $this->_set_charset($database_config['char_set']=null);
           
 
             if (!$this->db)

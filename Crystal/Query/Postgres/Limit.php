@@ -20,11 +20,10 @@ class Crystal_Query_Postgres_Limit
     function __construct($method, $limit_params)
     {
 		
-		
 	 	if(isset($limit_params[0]) && isset($limit_params[1]))
         {
             
-			$this->limit = " LIMIT " . $limit_params[0] . ',' . $limit_params[1];
+			$this->limit = " OFFSET " . $limit_params[0] . ' LIMIT ' . $limit_params[1];
 
         }
         else

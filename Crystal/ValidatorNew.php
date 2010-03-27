@@ -199,7 +199,9 @@ class Crystal_ValidatorNew
     private function _assign_error_message($method, $field, $params = null)
     {	
 		
-        if(isset($params['message']) && !empty($params['message']))
+        $parse_params = isset($params['params'])?$params['params']:'';
+    	
+    	if(isset($params['message']) && !empty($params['message']))
         {
         	
             return $params['message'];
@@ -207,7 +209,7 @@ class Crystal_ValidatorNew
         else
         {
         	
-           return Crystal_Error_Validation::get_validation_error($method, $field, $params['params']);
+           return Crystal_Error_Validation::get_validation_error($method, $field, $parse_params);
         }
 
         

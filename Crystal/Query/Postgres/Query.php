@@ -1,14 +1,14 @@
 <?php
 /**
- * Crystal DBAL
+ * Crystal 
  *
  * An open source application for database manipulation
  *
  * @package		Crystal DBAL
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.3
+ * @version     0.4
  */
 
 // ------------------------------------------------------------------------
@@ -29,10 +29,10 @@ class Crystal_Query_Postgres_Query
 
 
 	/** USED FOR GENERATING QUERY **/
-    function  __call($name,  $arguments)
+    function  __call($method,  $arguments)
     {
+    	$this->method = (isset($method))?$method:'';
     	
-		/** TODO - Rewrite it,  not the most elegant solution **/
 		$constant = "Crystal_Query_Postgres_";
 		
 		$exceptions = array
@@ -53,7 +53,8 @@ class Crystal_Query_Postgres_Query
 		'group_by' => 'groupby'
 		);
        
-	    $default_method = $constant . ucfirst($name);
+	    $default_method = $constant . ucfirst($this->method);
+	    
 			
 		
 		/** CHECKS FOR ARRAY **/		
@@ -65,16 +66,24 @@ class Crystal_Query_Postgres_Query
 		{
 					
 			$filtered_arguments = $arguments;
-		}	
+		}
+
+		
+		/** GETS TABLE NAME **/
+		if($method == 'insert')
+		{
+			$this->table = $filtered_arguments[0];
+		}
 		
 		
 		
-		if(array_key_exists($name, $exceptions))
+		
+		if(array_key_exists($this->method, $exceptions))
 		{
 			
-			$rescue_method = $constant . ucfirst($exceptions[$name]);
+			$rescue_method = $constant . ucfirst($exceptions[$this->method]);
 			
-			$this->sql  .= new $rescue_method($name, $filtered_arguments);
+			$this->sql  .= new $rescue_method($this->method, $filtered_arguments);
 				
 			
 		}
@@ -82,7 +91,7 @@ class Crystal_Query_Postgres_Query
 		{
 				
 			
-			$this->sql  .= new $default_method($name, $filtered_arguments);
+			$this->sql  .= new $default_method($this->method, $filtered_arguments);
 				
 
 			
@@ -90,12 +99,10 @@ class Crystal_Query_Postgres_Query
         else
         {
         	
-			throw new Crystal_Query_Postgres_Exception('Invalid or not existing method' . $name);	
+			throw new Crystal_Query_Postgres_Exception('Invalid or not existing method' . $this->method);	
 			
         }
 		
-							
-			/**  CRUCIAL FOR METHOD CHAIN **/
 			
 			return $this;
      	
@@ -109,12 +116,28 @@ class Crystal_Query_Postgres_Query
 	{
 
 		$connection_object = get_object_vars($this->conn);	
-        $this->query = pg_query($connection_object['conn']->db, $this->sql );
+		
+        $this->query =  pg_query($connection_object['conn']->db, $this->sql );
+        
+       
+        /** GATHERS INFO FOR LAST INSERT ID **/
+        if(isset($this->table))
+        {
+        	 $meta = pg_meta_data($connection_object['conn']->db, $this->table);	 
+        	 reset($meta);
+			 $id = key($meta); 
+			 
+			 $this->seq = $this->table . '_' . $id . '_seq';
+        	 
+        }
+       
+        
+       	
 
 
 	    if (!$this->query)
 		{
-	            throw new Crystal_Query_Postgres_Exception("Postgres Error:" . pg_last_error($this->conn));
+	            throw new Crystal_Query_Postgres_Exception("Postgres syntax error: " . pg_last_error($connection_object['conn']->db));
 	            return;
 		}
 		else
@@ -217,6 +240,28 @@ class Crystal_Query_Postgres_Query
 
     }
     
+    function last_insert_id()
+    {
+    	if(isset($this->table))
+    	{
+    		
+    		$connection_object = get_object_vars($this->conn);
+		
+    		$result = pg_query($connection_object['conn']->db, "SELECT CURRVAL('{$this->seq}') as seq_id");
+    	
+    		$id =  pg_fetch_assoc($result);
+    	
+    		return $id['seq_id'];
+    		
+    	}
+    	else
+    	{
+    		throw new Crystal_Query_Postgres_Exception("last_insert_id workso only for INSERTS");
+    	}
+		
+
+    }
+    
 	
     function affected_rows()
 	{
@@ -274,6 +319,8 @@ class Crystal_Query_Postgres_Query
         else
         {
              print_r('</br>'. $this->sql);
+             
+             $this->clear_sql();
 
              return $this;
         }
@@ -306,9 +353,7 @@ class Crystal_Query_Postgres_Query
     	}
     }
    
-
-
-   
+    
     
     
     

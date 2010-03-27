@@ -114,7 +114,7 @@ class Crystal_Parser_String
 		
 	}
 	
-	private function _process_rule_string($string)
+	private static function _process_rule_string($string)
 	{
 		
 		
@@ -163,7 +163,7 @@ class Crystal_Parser_String
 	}
 	
 	
-	private function _process_validation_string($string)
+	private static function _process_validation_string($string)
 	{
 		
 		$colon = strpos($string, ':');
@@ -187,7 +187,7 @@ class Crystal_Parser_String
 		
 	}
 	
-	private function _process_string_with_colon($string)
+	private static function _process_string_with_colon($string)
 	{
 		
 		
