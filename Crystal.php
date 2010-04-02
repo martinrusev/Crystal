@@ -35,7 +35,6 @@ class Crystal
       
     static public function db($connection = null, $additional_parameters = null)
     {
-
     	return Crystal_Query_Common::db($connection, $additional_parameters);
         
     }     
@@ -94,6 +93,7 @@ class Crystal
 		}
 	
 	}
+	
 	
 
 }
