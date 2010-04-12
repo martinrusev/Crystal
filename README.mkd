@@ -101,8 +101,8 @@ In most cases we validate the data for our application just before we send it to
 	
 	$rules = array
 	(
-	'username' => array('rule' => 'required'),
-	'email' => array('rules' => array('valid_email', 'required'))
+	'username' => array('required'),
+	'email' => array('valid_email | required')
 	)
 	
 	$validation = Crystal::validation($rules, $data);
