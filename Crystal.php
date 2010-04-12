@@ -47,7 +47,7 @@ class Crystal
     }
 
 
-    static public function validation($rules, $data, $db=null)
+    static public function validation_legacy($rules, $data, $db=null)
     {
 
         return new Crystal_Validator($rules, $data, $db);
@@ -57,7 +57,7 @@ class Crystal
     
     
     /** Validation class with new syntax - Crystal 0.4 and beyond **/
-    static public function validation_new($rules, $data, $db=null)
+    static public function validation($rules, $data, $db=null)
     {
     	
     	return new Crystal_ValidatorNew($rules, $data, $db);
