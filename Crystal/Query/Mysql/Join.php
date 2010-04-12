@@ -30,27 +30,27 @@ class Crystal_Query_Mysql_Join
 		switch ($method) 
 		{
 		case 'left_join':
-		$this->join = "LEFT JOIN " . Crystal_Helper_Mysql::add_single_quote($params[0]) . " ON " . $params[1];
+		$this->join = "LEFT JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
 		break;
 		
 		
 		case 'right_join':
-		$this->join = "RIGHT JOIN " . Crystal_Helper_Mysql::add_single_quote($params[0]) . " ON " . $params[1];
+		$this->join = "RIGHT JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
 		break;
 		
 		
 		case 'outer_join':
-		$this->join = "OUTER JOIN " . Crystal_Helper_Mysql::add_single_quote($params[0]) . " ON " . $params[1];
+		$this->join = "OUTER JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
 		break;
 		
 		
 		case 'inner_join':
-		$this->join = "INNER JOIN " . Crystal_Helper_Mysql::add_single_quote($params[0]) . " ON " . $params[1];
+		$this->join = "INNER JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
 		break;
 		
 		
 		default:
-		$this->join = "JOIN " . Crystal_Helper_Mysql::add_single_quote($params[0]) . " ON " . $params[1];
+		$this->join = "JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
 		break;
 		}
 

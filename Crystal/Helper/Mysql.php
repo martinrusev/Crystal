@@ -175,7 +175,7 @@ class Crystal_Helper_Mysql
 }
 
 
-	public function escape_string($string)
+	static public function escape_string($string)
 	{
 	
 		if (function_exists('mysql_real_escape_string'))

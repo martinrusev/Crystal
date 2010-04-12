@@ -1,14 +1,14 @@
 <?php
 /**
- * Crystal DBAL
+ * Crystal 
  *
  * An open source application for database manipulation
  *
  * @package		Crystal DBAL
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.4
  */
 
 // ------------------------------------------------------------------------
@@ -23,10 +23,11 @@ class Crystal_Connection_Adapter_Mysql
 			/** CHECKS FOR PORT **/
 			$port = (isset($database_config['port'])?$database_config['port']:'3306');
 			$hostname = (isset($database_config['hostname'])?$database_config['hostname']:'localhost');
+			$charset = (isset($database_config['char_set'])?$database_config['char_set']:'utf8');
 			
             $this->db = mysql_connect($hostname. ':'. $port, $database_config['username'], $database_config['password'], true);
              /** SETS DATABASE COLLATION **/
-             $this->_set_charset($database_config['char_set']);
+             $this->_set_charset($charset);
           
 
             if (!$this->db)
@@ -66,7 +67,7 @@ class Crystal_Connection_Adapter_Mysql
     }
 
 
-    private function _set_charset($charset)
+    private function _set_charset($charset = null)
     {
     	
     	if(isset($charset) && !empty($charset))
