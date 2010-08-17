@@ -39,9 +39,20 @@ class Crystal_Query_Postgres_Where
 				{
 					if(isset($params[1]))
 					{
+						
+						
+						// DISABLE SQL ESCAPING
+						if($params[1] == false)
+						{
+							$this->where .= " WHERE " . $params[0];
+						}
+						else
+						{
+					
 						$this->where .= " WHERE " . Crystal_Helper_Postgres::sanitize_string($params[0])
 						. " =". Crystal_Helper_Postgres::add_single_quote($params[1]);
-						
+					
+						}
 					}
 					/** SINGLE PARAMETER AND COLONS : **/
 					else

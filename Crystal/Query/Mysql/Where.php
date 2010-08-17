@@ -40,8 +40,20 @@ class Crystal_Query_Mysql_Where
 				{
 					if(isset($params[1]))
 					{
+						// DISABLE SQL ESCAPING
+						if($params[1] == false)
+						{
+							$this->where .= " WHERE " . $params[0];
+						}
+						else
+						{
+						
 						$this->where .= " WHERE " . Crystal_Helper_Mysql::add_apostrophe($params[0])
 						. " =". Crystal_Helper_Mysql::add_single_quote($params[1]);
+						
+						}
+						
+						
 						
 					}
 					/** SINGLE PARAMETER AND COLONS : **/
@@ -92,6 +104,7 @@ class Crystal_Query_Mysql_Where
 						}
 						else
 						{
+							
 							$this->where .= " WHERE " . Crystal_Helper_Mysql::add_apostrophe($params[0]);
 						}
 					
