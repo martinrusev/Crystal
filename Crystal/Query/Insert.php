@@ -6,29 +6,30 @@
  *
  * @package		Crystal DBAL
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.5
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Insert 
+class Crystal_Query_Insert 
 {
-
-    
-
+ 
     function __construct($method, $params)
     {
     	
+    	$this->query->type = 'insert';
 		
 		/** CHECKS  TABLE **/
 		if(is_string($params[0]))
 		{
-			$table = $params[0];
+			$this->query->sql = 'INSERT INTO ?';
+			$this->query->params[] = $params[0];
+			
 		}
 		else
 		{
-			throw new Crystal_Query_Mysql_Exception("Expecting string for table in insert() function");
+			throw new Crystal_Query_Exception("Expecting string for table in insert() function");
 		}
 		
 		
@@ -39,50 +40,26 @@ class Crystal_Query_Mysql_Insert
 		}
 		else
 		{
-			throw new Crystal_Query_Mysql_Exception("Expecting array for data in insert() function");
+			throw new Crystal_Query_Exception("Expecting array for data in insert() function");
 		}
 		
+		$total_columns = count($params[1]);
 		
+		$elements = str_repeat('?,', $total_columns);
+		// Remove the last comma
+		$elements = substr($elements,'',-1);
 		
-	 	  $columns_temp = array_keys($data);
-		  foreach($columns_temp as $column_value){$columns[] = Crystal_Helper_Mysql::add_apostrophe($column_value);}
-	    
-	    
-		 $values_temp = array_values($data);
-		
-	
-		 foreach($values_temp as $value){$values[] = Crystal_Helper_Mysql::add_single_quote($value);}
-		
-	    
-		
-			
-		
-		    $this->insert = "INSERT INTO " . Crystal_Helper_Mysql::add_apostrophe($table);
-		    $this->insert .= '(' . implode(', ' , $columns) . ')';
-		    $this->insert .= " VALUES ";
-		    $this->insert .= '(' . implode(', ' , $values) . ')';
+		$this->query->sql .= sprintf("(%s)", $elements);
+		$this->query->sql .= sprintf("VALUES(%s)", $elements);
+		$this->query->params[] = $params[1];
     		
 		
 		
+		return $this->query;
 		
       
     }
 
-	public function __toString() 
-	{
-		
-		
-		if(is_string($this->insert))
-		{
-			return $this->insert;
-		}
-		else
-		{
-			echo "Limit must be string";
-			exit;
-		}
-		
-	}
-    
+
     
 }

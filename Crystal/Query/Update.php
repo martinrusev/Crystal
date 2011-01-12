@@ -8,11 +8,11 @@
  * @author		Martin Rusev
  * @link		http://crystal.martinrusev.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.5
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Update 
+class Crystal_Query_Update 
 {
 
     
@@ -27,7 +27,7 @@ class Crystal_Query_Mysql_Update
 		}
 		else
 		{
-			throw new Crystal_Query_Mysql_Exception("Expecting string for table in update() function");
+			throw new Crystal_Query_Exception("Expecting string for table in update() function");
 		}
 		
 		
@@ -38,7 +38,7 @@ class Crystal_Query_Mysql_Update
 		}
 		else
 		{
-			throw new Crystal_Query_Mysql_Exception("Expecting array for data in update() function");
+			throw new Crystal_Query_Exception("Expecting array for data in update() function");
 		}
 		
 		
@@ -63,24 +63,10 @@ class Crystal_Query_Mysql_Update
         }
 		
 	 
+        return $this->query;
       
     }
 
-	public function __toString() 
-	{
-		
-		
-		if(is_string($this->update))
-		{
-			return $this->update;
-		}
-		else
-		{
-			echo "Update must be a string";
-			exit;
-		}
-		
-	}
-    
+	
     
 }

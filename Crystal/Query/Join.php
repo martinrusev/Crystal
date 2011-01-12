@@ -6,64 +6,61 @@
  *
  * @package		Crystal DBAL
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.5
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Join 
+class Crystal_Query_Join 
 {
 
-    
-	
-	/** TODO - MASS DELETE FUNCTION
-	 *  description delete('table1','table2');
-	 *  
-	 * @return string
-	 * @param array $table
-	 */
     function __construct($method, $params)
     {
 		
-		/** TODO - Rewrite the join method with more flexible solution **/
 		switch ($method) 
 		{
-		case 'left_join':
-		$this->join = "LEFT JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
-		break;
-		
-		
-		case 'right_join':
-		$this->join = "RIGHT JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
-		break;
-		
-		
-		case 'outer_join':
-		$this->join = "OUTER JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
-		break;
-		
-		
-		case 'inner_join':
-		$this->join = "INNER JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
-		break;
-		
-		
-		default:
-		$this->join = "JOIN " . Crystal_Helper_Mysql::add_apostrophe($params[0]) . " ON " . $params[1];
-		break;
+			case 'left_join':
+				$this->query->sql = "LEFT JOIN ? ON ?";
+				$this->query->params = $params;
+				$this->query->type = 'left_join';
+			break;
+			
+			
+			case 'right_join':
+				$this->query->sql = "RIGHT JOIN ? ON ?";
+				$this->query->params = $params;
+				$this->query->type = 'right_join';
+			break;
+			
+			
+			case 'outer_join':
+				$this->query->sql = "OUTER JOIN ? ON ?";
+				$this->query->params = $params;
+				$this->query->type = 'outer_join';
+			break;
+			
+			
+			case 'inner_join':
+				$this->query->sql = "INNER JOIN ? ON ?";
+				$this->query->params = $params;
+				$this->query->type = 'inner_join';
+			break;
+			
+			
+			default:
+				$this->query->sql = "JOIN ? ON ?";
+				$this->query->params = $params;
+				$this->query->type = 'join';
+			break;
 		}
 
 	 	
     	
-		
+		return $this->query;
       
     }
 
-    public function __toString() 
-	{
-        return $this->join;
-    }
-    
+
     
 }

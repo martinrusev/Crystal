@@ -6,37 +6,28 @@
  *
  * @package		Crystal DBAL
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.5
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Delete 
+class Crystal_Query_Delete 
 {
 
-    
-	
-	/** TODO - MASS DELETE FUNCTION
-	 *  description delete('table1','table2');
-	 *  
-	 * @return string
-	 * @param array $table
-	 */
+
     function __construct($method, $table)
     {
 		
-    	
-	 $this->delete = "DELETE FROM " . Crystal_Helper_Mysql::add_apostrophe($table[0]);
-    	
+		  $this->query->type = 'delete';
+	      $this->query->sql = "DELETE FROM ?";
+	      $this->query->params = $table[0];     
+
+	      return $this->query;
 		
       
     }
 
-    public function __toString() 
-	{
-        return $this->delete;
-    }
-    
+  
     
 }

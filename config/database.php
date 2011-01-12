@@ -34,7 +34,7 @@
 |	['password'] The password used to connect to the database
 |	['database'] The name of the database you want to connect to
 |	['dbdriver'] The database type
- *               Currently supported: mysql,postgres
+ *               Currently supported: mysqli, pdo_mysql, pdo_pgsql
 |	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
 |	['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
 |	['char_set'] The character set used in communicating with the database

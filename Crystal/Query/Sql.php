@@ -8,30 +8,20 @@
  * @author		Martin Rusev
  * @link		http://crystal.martinrusev.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.5
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Sql 
+class Crystal_Query_Sql 
 {
-
-    
-
     function __construct($method, $sql)
     {
 
-
-	   
-		$this->sql = $sql[0];
+    	$this->query->sql = $sql[0];
+    	$this->query->type = 'sql';
 		
-    
-      
+    	return $this->query;
     }
 
-    public function __toString() 
-	{
-        return $this->sql;
-    }
-    
-    
+
 }

@@ -6,7 +6,7 @@
  *
  * @package		Crystal DBAL
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
  * @version     0.5
  */
@@ -37,20 +37,19 @@ class Crystal_Query_Builder
 		
 		$exceptions = array
 		(
-		'left_join' => 'join',
-		'right_join' => 'join',
-		'outer_join' => 'join',
-		'inner_join' => 'join',
-		'minimum' => 'expression',
-		'maximum' => 'expression',
-		'average' => 'expression',
-		'summary' => 'expression',
-		'or' => 'where',
-		'in' => 'where',
-		'and' => 'where',
-		'like' => 'where',
-		'order_by' => 'orderby',
-		'group_by' => 'groupby'
+			'left_join' => 'join',
+			'right_join' => 'join',
+			'outer_join' => 'join',
+			'inner_join' => 'join',
+			'min' => 'expression',
+			'max' => 'expression',
+			'average' => 'expression',
+			'summary' => 'expression',
+			'or' => 'where',
+			'in' => 'where',
+			'like' => 'where',
+			'order_by' => 'orderby',
+			'group_by' => 'groupby'
 		);
        
 	    $default_method = $constant . ucfirst($name);
@@ -87,7 +86,7 @@ class Crystal_Query_Builder
 			
         	foreach($this->sql as $query => $el)
         	{
-        		print_r($el->query);
+        		print_r($el->query->sql);
         	}
         	
         	
@@ -100,12 +99,13 @@ class Crystal_Query_Builder
 
     public function execute($delete_sql = null)
 	{
+		
 		$connection_object = get_object_vars($this->conn);
 		$this->query = mysql_query($this->sql, $connection_object['conn']->db);		
 
 		if (!$this->query)
 		{
-			throw new Crystal_Query_Mysql_Exception("Mysql Error:" . mysql_error());
+			throw new Crystal_Query_Exception("Mysql Error:" . mysql_error());
 			return;
 		}
 		else

@@ -1,3 +1,3 @@
 <?php
 
-class Crystal_Query_Mysql_Exception extends Crystal_Exception {}
+class Crystal_Query_Exception extends Crystal_Exception {}

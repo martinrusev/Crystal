@@ -6,28 +6,28 @@
  *
  * @package		Crystal DBAL
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.5
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Count
+class Crystal_Query_Count
 {
 
     
 
-    function __construct($table)
+    function __construct($method, $table)
     {
 				
-       $this->count = "SELECT COUNT(*) as total FROM" . Crystal_Helper_Mysql::add_apostrophe($table);
-     	     
+       $this->query->type = 'count';
+       $this->query->sql = "SELECT COUNT(*) as total FROM ?";
+       $this->query->params = $table[0];     
+       
+       
+       
+      return $this->query;
     }
 
-    public function __toString() 
-	{
-        return $this->count;
-    }
-    
     
 }

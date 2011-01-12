@@ -27,12 +27,10 @@ class Crystal_Parser_String
 					
 			
 					$params[$k] = self::_process_string_with_colon($v);
-	
-					
-	
 				}
 				else
 				{
+					
 					$params[$k] = trim($v);
 				}
 							
@@ -43,6 +41,7 @@ class Crystal_Parser_String
 		}
 		else
 		{	
+			
 			/** Single column **/
 			$colon = strpos($string, ':');
 			
@@ -54,7 +53,7 @@ class Crystal_Parser_String
 			}
 			else
 			{
-				return trim($string);
+				return array('string' => trim($string), 'colon' => False);
 			}
 		
 		}

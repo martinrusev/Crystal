@@ -6,16 +6,14 @@
  *
  * @package		Crystal DBAL
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.3
+ * @version     0.5
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Orderby 
+class Crystal_Query_Orderby 
 {
-
-    
 
     function __construct($method=null, $order=null)
     {
@@ -23,105 +21,50 @@ class Crystal_Query_Mysql_Orderby
 
 		if(is_array($order) && !empty($order))
 		{
-				$this->order = " ORDER BY ";
+			
+			
+			$this->query->sql = " ORDER BY ";
+			$this->query->type = 'order_by';
 				
-				/** WORKS FOR ARRAYS WITH NON NUMERIC KEYS array('product_id' => 'ASC') **/
-				if(!isset($order[0]))
-				{
 
-			        end($order);
-			        $last_element = key($order);
-			        reset($order);
-			        
-				    foreach($order as $key => $value)
-				    {
-	
-			            	if($key != $last_element)
-				        	{
-				             $this->order  .= Crystal_Helper_Mysql::add_apostrophe($key) . ' ' 
-							 .  $value . ' ,';
-			                }
-			                else
-			                {
-			                    $this->order  .= Crystal_Helper_Mysql::add_apostrophe($key) . ' '
-								. $value;
-			                }
+			$filtered_params = Crystal_Parser_String::parse($order[0]);
 			
-			         }
-					
-					
-					
-					
-					
-				}
-				else
+			/** WORKS FOR SINGLE ELEMENTS order_by('product_id') **/
+			if(is_string($filtered_params['string']))
+			{
+				
+				$filtered_order = self::_check_order($filtered_params['string']);
+				
+				$this->query->sql .= " ? ? ";
+				$this->query->params = array($filtered_order['column'], $filtered_order['order']);
+									
+			}
+			/** WORKS FOR MULTIPLE ELEMENTS order_by('product_id, -category_id') **/
+			else
+			{
+				
+				
+				end($filtered_params);
+	        	$last_element = key($filtered_params);
+	        	reset($filtered_params);
+				
+				foreach($filtered_params as $key => $value)
 				{
+					$filtered_order = self::_check_order($value);
 					
-					if(!isset($order[1]))
-					{
-						
-						$filtered_params = Crystal_Parser_String::parse($order[0]);
-						
-						/** WORKS FOR SINGLE ELEMENTS order_by('product_id') **/
-						if(is_string($filtered_params))
-						{
-							
-							$filtered_order = self::_check_order($filtered_params);
-							
-												
-							$this->order  .= Crystal_Helper_Mysql::add_apostrophe($filtered_order['column']). ' ' 
-							. $filtered_order['order'];
-							
-						}
-						/** WORKS FOR MULTIPLE ELEMENTS order_by('product_id, -category_id') **/
-						else
-						{
-							
-							end($filtered_params);
-				        	$last_element = key($filtered_params);
-				        	reset($filtered_params);
-							
-							foreach($filtered_params as $key => $value)
-							{
-								$filtered_order = self::_check_order($value);
-								
-								
-								$this->order  .= Crystal_Helper_Mysql::add_apostrophe($filtered_order['column']). ' ' 
-								. $filtered_order['order'];
-								
-								if($key != $last_element)
-								{
-									$this->order .=',';
-								}
-								
-							}
-							
-							
-						}
-						
-						
-						
-					}
-					/** CHECK FOR SECOND PARAMETER 
-					 *  WORKS FOR order_by('product_id', 'ASC')
-					 * @var string
-					 */
-					else
-					{
-						
-						$this->order  .= Crystal_Helper_Mysql::add_apostrophe($order[0]). ' ' 
-							. $order[1];
-						
-						
-					}
+					$this->query->sql .= " ? ? ";
+					$this->query->params[] = array($filtered_order['column'], $filtered_order['order']);
+	
 					
-					
-					
-					
+					if($key != $last_element){  $this->query->sql .=','; }
 					
 				}
-	
-			
+				
+				
+			}
+						
+						
+						
 			}
 	        else
 	        {
@@ -130,7 +73,7 @@ class Crystal_Query_Mysql_Orderby
 	
 	        }
     	
-		
+		return $this->query->sql;
       
     }
     

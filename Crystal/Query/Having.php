@@ -8,34 +8,29 @@
  * @author		Martin Rusev
  * @link		http://crystal.martinrusev.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.5
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Having 
+class Crystal_Query_Having 
 {
 
     
     function __construct($method, $params)
     {
 		
-		
-		
-		$this->having .= " HAVING "; 
-		
-		
 		if(is_array($params))
 		{
 			
 			if(isset($params[1]))
 			{
-				$this->having .= Crystal_Helper_Mysql::add_apostrophe($params[0])
-				. " = "  . Crystal_Helper_Mysql::add_single_quote($params[1]);	
-				
+				$this->query->sql .= " HAVING ? = ?"; 
+				$this->query->params = $params;			
 			}
 			else
 			{
-				$this->having .= $value;
+				$this->query->sql .= " HAVING ?"; 
+				$this->query->params = $params;	
 			}
 			
 			
@@ -50,15 +45,13 @@ class Crystal_Query_Mysql_Having
 		}
 		
 		
-		
+
+		return $this->query;
 		
       
     }
 
-    public function __toString() 
-	{
-        return $this->having;
-    }
-    
+
+        
     
 }
