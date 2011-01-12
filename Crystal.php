@@ -7,7 +7,7 @@
  * @package		Crystal 
  * @author		Martin Rusev
  * @link		http://crystal-project.net
- * @since		Version 0.1
+ * @since		Version 0.5
  * 
  * 
  */
@@ -23,7 +23,7 @@ define('CRYSTAL_CONFIG', CRYSTAL_BASE . CRYSTAL_DS . 'config' . CRYSTAL_DS . 'da
 class Crystal
 {
 	
-	const VERSION = '0.4';
+	const VERSION = '0.5-alpha';
 
     function __construct()
     {
@@ -46,21 +46,12 @@ class Crystal
         
     }
 
-
-    static public function validation_legacy($rules, $data, $db=null)
-    {
-
-        return new Crystal_Validator($rules, $data, $db);
-
-        
-    }
-    
     
     /** Validation class with new syntax - Crystal 0.4 and beyond **/
     static public function validation($rules, $data, $db=null)
     {
     	
-    	return new Crystal_ValidatorNew($rules, $data, $db);
+    	return new Crystal_Validator($rules, $data, $db);
     	
     }
 	

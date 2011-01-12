@@ -1,14 +1,14 @@
 <?php
 /**
- * Crystal DBAL
+ * Crystal 
  *
  * An open source application for database manipulation
  *
- * @package		Crystal DBAL
+ * @package		Crystal	Validation
  * @author		Martin Rusev
- * @link		http://crystal.martinrusev.net
+ * @link		http://crystal-project.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.5
  */
 
 class Crystal_Validator
@@ -46,113 +46,107 @@ class Crystal_Validator
         $this->errors = array();
         $this->passed = TRUE;
 
-
-        /**
-         *  CHECK EVERY RULE IN $rules array and checks the conditions
-         */
-        foreach($rules as $field => $conditions)
-        {	
-		
-			if(array_key_exists($field, $data))
+		foreach($rules as $field => $conditions)
+		{
+			
+			$parse_rules = Crystal_Parser_Array::parse($conditions[0]);
+			
+			
+			/** Multiple rules for field **/
+			if(is_array($parse_rules))
 			{
 				
-				$general_rules_type = array_keys($conditions);
+				/** clear the parsed rule array **/
+				$parsed_rule_params = array();
 				
-			
-				switch ($general_rules_type[0]) 
+				/** Analyze and parse rules array **/	
+				foreach($parse_rules as $rule => $params)
 				{
-				case 'rules':
-				
-				
-				foreach($conditions['rules'] as $rule_type => $params)
-				{
-                    
-				
-					/** 
-					* 
-					*  CHECKS FOR VALIDATION RULE WITHOUT PARAMS 
-					*  
-					*  Example:
-					*  rules = array('email','required);
-					**/
-					if(is_numeric($rule_type))
-					{
-						$rule_type = $params;
-						unset($params);
-						
-						
-					}
-				
-					$method = $this->_validate_method($rule_type);
-                    $method_name = $this->method_prefix . $method;
-            		
 					
-					$assigned_params = $this->_assign_method_params($params);
-					
-                    $validation = new $method_name($data[$field], $assigned_params);
-                
-                    
-                    if($validation->result != TRUE)
-                    {
-                     
-					   $this->errors[$field][] = $this->_assign_error_message($rule_type, $field, $params['message']);
-
-					   $this->passed = FALSE;
-                                    
-                    }
-                                               
-						
-                }
-				break;
-				
-				
-				case 'rule':
-					
-					
-				 	$method = $this->_validate_method($conditions['rule']);
-                    $method_name = $this->method_prefix . $method;
-					
-					$assigned_params = $this->_assign_method_params($conditions['rule']);
-        		
-					$validation = new $method_name($data[$field], $assigned_params);
-					
-					
-					if($validation->result != TRUE)
-                    {
-                      
-					  $this->errors[$field] = $this->_assign_error_message($conditions['rule'], $field, $conditions['message']);
-
-					  $this->passed = FALSE;
-                                    
-                    }
-					
-					
-					
-				break;
-				
-				
-				default:
-				throw new Crystal_Validation_Exception("Non existing rule:" . $general_rules_type[0] .' Valid values:rule, rules');
-				break;
+					$parsed_rule_params[] = Crystal_Parser_String::parse_validation($params);
+							
 				}
-
-
-			
+				
+				/** Validate **/
+				foreach($parsed_rule_params as $key => $new_params)
+				{
+					$this->field_type = 'multiple';
+					$this->_validate($new_params, $field, $data, $db);
+					
+				}
+				
+				
+				
 			}
+			/** Single rule for field **/
+			else
+			{
+				$params = Crystal_Parser_String::parse_validation($parse_rules);
+				$this->field_type = 'single';
+				$this->_validate($params, $field, $data, $db);
+				
+			}
+			
+			
+		} 
 		
-
-            
-        }
-        
-           
-
-      
         
     }
+    
+    /**
+     * 
+     * @param string with validation conditions $params
+     * @param field name $field
+     * @param data for validation $data
+     * @param database instance $db
+     */
+    private function _validate($params, $field, $data, $db)
+    {
+    	$method = $this->_validate_method($params['rule']);
+		$method_name = $this->method_prefix . $method;
+					
+		$assigned_params = $this->_assign_method_params($params);			
+
+		if($method == 'Unique')
+		{
+			/** Adds default field **/
+			if(!isset($assigned_params['field']))
+			{
+				$assigned_params['field'] = $field;
+			}
+						
+			$validation = new $method_name($data[$field], $assigned_params, $db);
+		}
+		else
+		{
+			$validation = new $method_name($data[$field], $assigned_params);
+		}
+			
+					
+		if($validation->result === False)
+		{
+
+			if($this->field_type == 'single')
+			{
+				$this->errors[$field] = $this->_assign_error_message($params['rule'] , $field, $params);
+			}
+			else
+			{
+				$this->errors[$field][] = $this->_assign_error_message($params['rule'] , $field, $params);
+			}
+			
+
+			$this->passed = False;
+                                    
+		}
+				
+				 	
+    	
+    	
+    }
 	
-	private function _assign_method_params($params = null, $rule_type = null)
+	private function _assign_method_params($params = null)
 	{
-		
 		
 		if(is_array($params))
 		{
@@ -164,21 +158,37 @@ class Crystal_Validator
 			}
 			
 			
-			
-			/** CHECK FOR RULE TYPE **/
-			if($params[0] == $rule_type)
+			/** STRIP RULE FROM PARAMS **/
+			if(isset($params['rule']))
 			{
-				return array_slice($params,1);
+				unset($params['rule']);
+			}
+			
+			
+			if(empty($params))
+			{
+				return False;
 			}
 			else
 			{
-				return $params;
+				/** Backwards compability params **/
+				if(isset($params['params']))
+				{
+					return $params['params'];
+				}
+				else
+				{
+					return $params;
+				}
+				
 			}
+			
+
 			
 		}
 		else
 		{
-			return FALSE;
+			return False;
 		}
 		
 	}
@@ -186,23 +196,26 @@ class Crystal_Validator
 
 
 
-    private function _assign_error_message($method, $field, $message = null)
+    private function _assign_error_message($method, $field, $params = null)
     {	
 		
-        if(isset($message) && !empty($message))
+        $parse_params = isset($params['params'])?$params['params']:'';
+    	
+    	if(isset($params['message']) && !empty($params['message']))
         {
         	
-            return $message;
+            return $params['message'];
         }
         else
         {
         	
-           return Crystal_Error_Validation::get_validation_error($method, $field);
+           return Crystal_Error_Validation::get_validation_error($method, $field, $parse_params);
         }
 
         
     }
 
+	
     private function _validate_method($method)
     {
 
@@ -212,25 +225,16 @@ class Crystal_Validator
 
       if(array_key_exists($method, $this->valid_methods))
       {
-	  return $this->valid_methods[$method];
+      	return $this->valid_methods[$method];
       }
       else
       {
-	  throw new Crystal_Validation_Exception("Cannot find requested validation method: " . $method);
+      	throw new Crystal_Validation_Exception("Cannot find requested validation method: " . $method);
       }
 	
         
     }
     
     
-    private function _database_check()
-    {
-    	
-    	
-    }
-
-
-
-
     
 }

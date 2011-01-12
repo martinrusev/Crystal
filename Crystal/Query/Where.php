@@ -8,29 +8,29 @@
  * @author		Martin Rusev
  * @link		http://crystal.martinrusev.net
  * @since		Version 0.1
- * @version     0.1
+ * @version     0.5
  */
 
 // ------------------------------------------------------------------------
-class Crystal_Query_Mysql_Where
+class Crystal_Query_Where
 {
 
-    
 
     function __construct($method, $params = null)
     {
 		
+    	
+    	
 		$first_element = key($params);
 		$last_element = end($params);
-		
-		/** _toString expects string **/
-		$this->where = '';
-		
 		
 		switch ($method) 
 		{
 			case 'where':
 				case 'where':
+					
+					
+				$this->query->type  = 'where';
 				
 				/** WORKS WITH STRING PARAMETER 
 				 * where('client_status',active') 
@@ -38,18 +38,43 @@ class Crystal_Query_Mysql_Where
 				 ***/
 				if($first_element == '0')
 				{
+					
 					if(isset($params[1]))
 					{
+						
+						
 						// DISABLE SQL ESCAPING
 						if($params[1] == false)
 						{
-							$this->where .= " WHERE " . $params[0];
+							$this->query->sql = "WHERE ?";
+							$this->query->params = $params[0];
+				
 						}
 						else
 						{
-						
-						$this->where .= " WHERE " . Crystal_Helper_Mysql::add_apostrophe($params[0])
-						. " =". Crystal_Helper_Mysql::add_single_quote($params[1]);
+							/** THE NEW UNIFIED SYNTAX COMES HERE
+							 *  
+							 *  where('product_id : ?, client_id : ?',1,2)
+								@params 0 is the query, 1 and beyond are the params
+							*/
+							$parsed_columns = Crystal_Parser_String::parse($params[0]);
+							$sliced_params = array_slice($params, 1);
+							
+							
+							$this->query->sql = "WHERE ? = ? ";
+							// REPEAT AND 
+							$total_params = count($sliced_params)-1 ; // substract the WHERE part
+							$this->query->sql .= str_repeat("AND ? = ?", $total_params);
+							
+							
+							foreach($parsed_columns as $key => $value)
+							{
+								
+								$this->query->params[] = array($value['column'], $sliced_params[$key]);
+							}
+							
+							$this->query->sql = "WHERE ? = ?";
+							$this->query->params = $params;
 						
 						}
 						
@@ -60,6 +85,7 @@ class Crystal_Query_Mysql_Where
 					else
 					{
 						$parsed_params = Crystal_Parser_String::parse($params[0]);
+						print_r($parsed_params);
 						
 						if(is_array($parsed_params))
 						{
@@ -137,17 +163,23 @@ class Crystal_Query_Mysql_Where
 			break;
 		
 			case 'and':
+				
+				$this->query->type  = 'and';
+				
+				
 				if($first_element == '0')
 				{
 					if(isset($params[1]))
 					{
-						$this->where .= " AND " . Crystal_Helper_Mysql::add_apostrophe($params[0])
-						. " = "  . Crystal_Helper_Mysql::add_single_quote($params[1]);
+						
+						$this->query->sql = "AND ? = ?";
+						$this->query->params = $params;
 						
 					}
 					else
 					{
-						$this->where .= " AND " . Crystal_Helper_Mysql::add_apostrophe($params[0]);
+						$this->query->sql = "AND ? = ?";
+						$this->query->params = $params[0];
 					}
 						
 				}
@@ -159,14 +191,13 @@ class Crystal_Query_Mysql_Where
 		          		
 			            if($key == $first_element)
 			            {
-			            	
-							$this->where .= " AND " . Crystal_Helper_Mysql::add_apostrophe($key)
-							. " = "  . Crystal_Helper_Mysql::add_single_quote($value);
+			            	$this->query->sql = "AND ? = ?";
+							$this->query->params = array($key, $value);
 			            }
 			            else
 			            {
-							$this->where .= " AND " . Crystal_Helper_Mysql::add_apostrophe($key)
-							 . " = "  . Crystal_Helper_Mysql::add_single_quote($value);
+							$this->query->sql = "AND ? = ?";
+							$this->query->params = array($key, $value);
 			            }
 		
 					}
@@ -181,17 +212,19 @@ class Crystal_Query_Mysql_Where
 			case 'or':				
 				if($first_element == '0')
 				{
-						$this->where .= " OR " . Crystal_Helper_Mysql::add_single_quote($params[0]);
+					$this->query->sql = "OR ? ";
+					$this->query->params = array($params);
+						
 				}
 				else
 				{
 					
 					foreach($params as $key => $value)
 					{
-		           
-					$this->where .= " OR " . Crystal_Helper_Mysql::add_apostrophe($key)
-					. " = "  . Crystal_Helper_Mysql::add_single_quote($value);
-		           
+						
+						$this->query->sql = "OR ? ";
+						$this->query->params = array($key, $value);
+
 					}
 					
 				}
@@ -238,13 +271,10 @@ class Crystal_Query_Mysql_Where
 			break;
 		}
 
+		
+		return $this->query;
       
     }
 
-    public function __toString() 
-	{
-        return $this->where;
-    }
-    
-    
+      
 }
