@@ -22,7 +22,7 @@ So Crystal is build around these three core principles:
 
 I think you've got the idea, now let's write some code with Crystal.
 
-##CRUD /Create, read, update, delete/ operations
+## CRUD /Create, read, update, delete/ operations
 
 Let's assume that you have a website with several sections. The site is written with Framework X and you have company blog in Wordpress. You need to show your latest posts on your home page. How can you do this? If you have Crystal installed on your server this operation will take no more than 5 lines of code. 
 First we add your database configuration in /path/to/Crystal/config/config.php
@@ -58,7 +58,7 @@ We can delete this post by writing:
 
 
 
-##Database manipulation
+## Database manipulation
 
 You've just created a very cool php application and the last thing you must do before showing your work to the world is 
 creating install script. The real problem here is that some guys are using their own servers at home, other people use 
@@ -85,7 +85,7 @@ Now we can create the database and the tables for our application:
 
 And that's all the code you need for your installation script.
 
-##Data validation
+## Data validation
 
 In most cases we validate the data for our application just before we send it to the database.
  And beside that javascript validation is just not enough. That's why Crystal has data validation class.
