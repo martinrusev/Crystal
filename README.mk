@@ -1,4 +1,4 @@
-##Crystal at a glance 
+## Crystal at a glance 
 
 The purpose of this document is to give you quick look over the most important technical specifications and features you will find in Crystal.
  If you need to know more dive in the detailed documentation or read the tutorials.
